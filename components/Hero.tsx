@@ -72,7 +72,7 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                         <span className="text-xs font-bold text-cyan-400 tracking-widest uppercase">System v2.5 Online</span>
                     </div>
 
-                    <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tighter mb-8 leading-[0.9] text-white uppercase">
+                    <h1 className="text-4xl sm:text-6xl lg:text-8xl font-bold tracking-tighter mb-8 leading-[0.9] text-white uppercase">
                         Trip planning, <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-orange-400 animate-pulse-slow">Reimagined.</span>
                     </h1>

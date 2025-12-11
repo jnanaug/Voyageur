@@ -264,7 +264,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
             ) : (
                 // --- RESULTS STATE ---
                 <div
-                    className={`relative w-full pb-32 min-h-screen transition-all duration-700 ease-out will-change-[padding] ${isScrolled ? 'pt-32' : 'pt-48'}`}
+                    className={`relative w-full pb-32 min-h-screen transition-all duration-700 ease-out will-change-[padding] ${isScrolled ? 'pt-24 md:pt-32' : 'pt-32 md:pt-48'}`}
                 >
 
                     {/* Background Image (Fixed, Grayscale) */}
@@ -304,8 +304,8 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                         key={tab.id}
                                         onClick={() => setActiveTab(tab.id as Tab)}
                                         className={`flex-1 lg:flex-none flex items-center justify-center gap-2 px-6 md:px-8 py-3 text-sm font-bold uppercase transition-all whitespace-nowrap tracking-wider ${activeTab === tab.id
-                                                ? 'bg-white text-black'
-                                                : 'text-zinc-500 hover:text-white hover:bg-white/5'
+                                            ? 'bg-white text-black'
+                                            : 'text-zinc-500 hover:text-white hover:bg-white/5'
                                             }`}
                                     >
                                         <tab.icon className={`w-4 h-4 ${activeTab === tab.id ? 'text-black' : tab.color}`} />
@@ -327,8 +327,8 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                                 key={idx}
                                                 onClick={() => setSelectedTravelIndex(idx)}
                                                 className={`cursor-pointer border p-6 md:p-8 transition-all group relative overflow-hidden flex flex-col md:flex-row gap-8 items-start md:items-center ${selectedTravelIndex === idx
-                                                        ? 'bg-cyan-900/10 border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.1)]'
-                                                        : 'bg-black border-white/10 hover:border-cyan-400/50'
+                                                    ? 'bg-cyan-900/10 border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.1)]'
+                                                    : 'bg-black border-white/10 hover:border-cyan-400/50'
                                                     }`}
                                             >
                                                 <div className="flex flex-col items-center justify-center gap-3 min-w-[80px]">
@@ -396,8 +396,8 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                                 key={idx}
                                                 onClick={() => setSelectedHotelIndex(idx)}
                                                 className={`cursor-pointer group transition-all border relative bg-black ${selectedHotelIndex === idx
-                                                        ? 'border-orange-400 ring-1 ring-orange-400'
-                                                        : 'border-white/10 hover:border-orange-400/40'
+                                                    ? 'border-orange-400 ring-1 ring-orange-400'
+                                                    : 'border-white/10 hover:border-orange-400/40'
                                                     }`}
                                             >
                                                 <div className="h-64 relative overflow-hidden">
@@ -469,8 +469,8 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                                         setExpandedNode(null);
                                                     }}
                                                     className={`snap-center flex-shrink-0 px-6 py-3 border border-white/10 transition-all flex flex-col items-center min-w-[100px] ${activeDay === idx
-                                                            ? 'bg-white text-black border-white'
-                                                            : 'bg-black text-zinc-500 hover:bg-white/5'
+                                                        ? 'bg-white text-black border-white'
+                                                        : 'bg-black text-zinc-500 hover:bg-white/5'
                                                         }`}
                                                 >
                                                     <span className="text-[10px] font-bold uppercase tracking-wider mb-0.5">Day {idx + 1}</span>
@@ -536,8 +536,8 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                                                     handleNodeClick(idx);
                                                                 }}
                                                                 className={`relative w-20 h-20 border flex items-center justify-center transition-all duration-300 z-20 ${isExpanded
-                                                                        ? 'bg-white border-white text-black scale-110 shadow-[0_0_30px_rgba(255,255,255,0.3)]'
-                                                                        : 'bg-black border-white/20 text-white hover:border-cyan-400 hover:text-cyan-400 hover:scale-110'
+                                                                    ? 'bg-white border-white text-black scale-110 shadow-[0_0_30px_rgba(255,255,255,0.3)]'
+                                                                    : 'bg-black border-white/20 text-white hover:border-cyan-400 hover:text-cyan-400 hover:scale-110'
                                                                     }`}
                                                             >
                                                                 {idx === 0 ? <Camera className="w-8 h-8" /> :
@@ -639,10 +639,10 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                         onClick={handleBookItinerary}
                                         disabled={bookingStatus !== 'idle'}
                                         className={`flex-1 md:flex-none md:w-auto px-8 py-4 font-bold text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${bookingStatus === 'idle'
-                                                ? 'bg-gradient-to-r from-cyan-400 to-emerald-400 text-black hover:scale-105'
-                                                : bookingStatus === 'processing'
-                                                    ? 'bg-white text-black'
-                                                    : 'bg-emerald-500 text-black'
+                                            ? 'bg-gradient-to-r from-cyan-400 to-emerald-400 text-black hover:scale-105'
+                                            : bookingStatus === 'processing'
+                                                ? 'bg-white text-black'
+                                                : 'bg-emerald-500 text-black'
                                             }`}
                                     >
                                         {bookingStatus === 'idle' && <><Ticket className="w-5 h-5" /> Book Itinerary</>}

@@ -187,16 +187,16 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
     const visitedCityNames = Array.from(new Set((stats?.recentTrips || []).map((t: any) => t?.destination).filter(Boolean)));
 
     return (
-        <div className="min-h-screen pt-32 pb-20 px-6 max-w-[1400px] mx-auto animate-fade-in-up bg-black">
+        <div className="min-h-screen pt-24 md:pt-32 pb-20 px-4 md:px-6 max-w-[1400px] mx-auto animate-fade-in-up bg-black">
 
             {/* HEADER SECTION */}
-            <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-8">
+            <div className="flex flex-col md:flex-row items-end justify-between mb-8 md:mb-12 gap-8">
                 <div className="w-full md:w-auto">
                     <div className="flex items-center gap-2 mb-3">
                         <div className="w-2 h-2 bg-cyan-400 animate-pulse" />
                         <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest border border-cyan-400/20 px-2 py-0.5 bg-cyan-400/10">System Online</span>
                     </div>
-                    <h1 className="text-5xl font-bold text-white mb-2 tracking-tight uppercase">{firstName}'s HQ</h1>
+                    <h1 className="text-3xl md:text-5xl font-bold text-white mb-2 tracking-tight uppercase">{firstName}'s HQ</h1>
 
                     <div className="relative flex items-center bg-black p-1 border border-white/10 w-fit mt-6 overflow-hidden">
                         {/* Sliding Indicator */}

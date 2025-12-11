@@ -237,7 +237,7 @@ const Auth: React.FC<AuthProps> = ({ setView, setUser, initialError }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center pt-24 pb-12 px-6 relative overflow-hidden bg-black">
+    <div className="min-h-screen flex items-center justify-center pt-20 md:pt-24 pb-12 px-4 md:px-6 relative overflow-hidden bg-black">
       <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
 
       <div className="w-full max-w-md relative z-10">

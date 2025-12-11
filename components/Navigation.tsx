@@ -267,78 +267,64 @@ const Navigation: React.FC<NavigationProps> = ({ currentView, setView, isLoggedI
                     </div>
 
                     {/* Mobile Menu Content */}
-                    <div className={`w-full flex flex-col z-10 px-0 pb-0 md:hidden bg-black border-t border-white/10 transition-all duration-300 overflow-y-auto ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-                        {navItems.map((item, idx) => (
-                            <button
-                                key={item.label}
-                                onClick={() => {
-                                    setView(item.view);
-                                    setMobileMenuOpen(false);
-                                }}
-                                className={`w-full text-left py-5 px-6 border-b border-white/10 flex items-center justify-between text-sm font-bold uppercase tracking-widest pointer-events-auto ${currentView === item.view
-                                    ? 'text-cyan-400 bg-white/5 border-l-4 border-l-cyan-400'
-                                    : 'text-zinc-500 hover:text-white hover:bg-white/5 transition-all'
-                                    }`}
-                            >
-                                <span className="flex items-center gap-3">
-                                    {item.icon} {item.label}
-                                </span>
-                                <ChevronRight className={`w-4 h-4 ${currentView === item.view ? 'text-cyan-400' : 'text-zinc-700'}`} />
-                            </button>
-                        ))}
-
-                        {isLoggedIn && (
-                            <>
-                                <button onClick={() => { setView(AppView.COMMUNITY); setMobileMenuOpen(false); }} className="w-full text-left py-4 px-6 border-b border-white/10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-white pointer-events-auto">
-                                    <Users className="w-4 h-4" /> Community
-                                </button>
-                                <button onClick={() => { setView(AppView.MARKETPLACE); setMobileMenuOpen(false); }} className="w-full text-left py-4 px-6 border-b border-white/10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-white pointer-events-auto">
-                                    <ShoppingBag className="w-4 h-4" /> Marketplace
-                                </button>
-                                <button onClick={() => { setView(AppView.REWARDS); setMobileMenuOpen(false); }} className="w-full text-left py-4 px-6 border-b border-white/10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-white pointer-events-auto">
-                                    <Award className="w-4 h-4" /> Rewards
-                                </button>
-                                <button onClick={() => { setView(AppView.ACHIEVEMENTS); setMobileMenuOpen(false); }} className="w-full text-left py-4 px-6 border-b border-white/10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-white pointer-events-auto">
-                                    <Medal className="w-4 h-4" /> Achievements
-                                </button>
-                                <button onClick={() => { setView(AppView.WALLET); setMobileMenuOpen(false); }} className="w-full text-left py-4 px-6 border-b border-white/10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-white pointer-events-auto">
-                                    <CreditCard className="w-4 h-4" /> Wallet
-                                </button>
-                                <button onClick={() => { setView(AppView.SUSTAINABILITY); setMobileMenuOpen(false); }} className="w-full text-left py-4 px-6 border-b border-white/10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-white pointer-events-auto">
-                                    <Leaf className="w-4 h-4" /> Sustainability
-                                </button>
-                                <button onClick={() => { setView(AppView.INTEGRATIONS); setMobileMenuOpen(false); }} className="w-full text-left py-4 px-6 border-b border-white/10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-white pointer-events-auto">
-                                    <Link className="w-4 h-4" /> Integrations
-                                </button>
-                                <button onClick={() => { setView(AppView.REFERRALS); setMobileMenuOpen(false); }} className="w-full text-left py-4 px-6 border-b border-white/10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-white pointer-events-auto">
-                                    <Share2 className="w-4 h-4" /> Referrals
-                                </button>
-                                <button onClick={() => { setView(AppView.SUPPORT); setMobileMenuOpen(false); }} className="w-full text-left py-4 px-6 border-b border-white/10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-white pointer-events-auto">
-                                    <HelpCircle className="w-4 h-4" /> Support
-                                </button>
-                            </>
-                        )}
-
-                        <div className="p-6">
-                            {!isLoggedIn ? (
+                    <div className={`w-full flex flex-col z-10 px-0 pb-0 md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10 transition-all duration-500 ease-[cubic-bezier(0.32,0.725,0,1)] overflow-y-auto max-h-[85vh] ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
+                        <div className="flex flex-col p-4 gap-2">
+                            {navItems.map((item, idx) => (
                                 <button
+                                    key={item.label}
                                     onClick={() => {
-                                        setView(AppView.AUTH);
+                                        setView(item.view);
                                         setMobileMenuOpen(false);
                                     }}
-                                    className="w-full bg-white text-black py-4 font-bold uppercase tracking-widest text-xs pointer-events-auto hover:bg-cyan-400 transition-colors border border-white"
+                                    style={{ transitionDelay: `${idx * 50}ms` }}
+                                    className={`w-full text-left py-4 px-6 rounded-lg flex items-center justify-between text-lg font-bold uppercase tracking-widest pointer-events-auto transition-all duration-500 transform ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'} ${currentView === item.view
+                                        ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)]'
+                                        : 'text-zinc-500 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10'
+                                        }`}
                                 >
-                                    Sign In / Register
+                                    <span className="flex items-center gap-4">
+                                        {item.icon} {item.label}
+                                    </span>
+                                    <ChevronRight className={`w-5 h-5 ${currentView === item.view ? 'text-black' : 'text-zinc-700'}`} />
                                 </button>
-                            ) : (
-                                <div className="space-y-3">
+                            ))}
+
+                            <div className="h-px bg-white/10 my-4" />
+
+                            {isLoggedIn ? (
+                                <>
+                                    <div className="grid grid-cols-2 gap-2">
+                                        {[
+                                            { label: 'Community', view: AppView.COMMUNITY, icon: Users },
+                                            { label: 'Marketplace', view: AppView.MARKETPLACE, icon: ShoppingBag },
+                                            { label: 'Rewards', view: AppView.REWARDS, icon: Award },
+                                            { label: 'Achievements', view: AppView.ACHIEVEMENTS, icon: Medal },
+                                            { label: 'Wallet', view: AppView.WALLET, icon: CreditCard },
+                                            { label: 'Sustainability', view: AppView.SUSTAINABILITY, icon: Leaf },
+                                            { label: 'Integrations', view: AppView.INTEGRATIONS, icon: Link },
+                                            { label: 'Support', view: AppView.SUPPORT, icon: HelpCircle },
+                                        ].map((item, idx) => (
+                                            <button
+                                                key={item.label}
+                                                onClick={() => { setView(item.view); setMobileMenuOpen(false); }}
+                                                style={{ transitionDelay: `${(idx + 3) * 50}ms` }}
+                                                className={`text-left py-3 px-4 rounded-lg border border-white/5 hover:border-white/20 flex flex-col gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-white pointer-events-auto transition-all duration-500 transform ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'} hover:bg-white/5 bg-black/50`}
+                                            >
+                                                <item.icon className="w-5 h-5 text-zinc-500 mb-1" />
+                                                {item.label}
+                                            </button>
+                                        ))}
+                                    </div>
+
+                                    <div className="h-px bg-white/10 my-4" />
+
                                     <button
                                         onClick={() => {
                                             setIsLoggedIn(false);
                                             setView(AppView.LANDING);
                                             setMobileMenuOpen(false);
                                         }}
-                                        className="w-full border border-white/20 text-white py-4 font-bold uppercase tracking-widest text-xs pointer-events-auto hover:bg-white hover:text-black transition-colors"
+                                        className="w-full border border-white/20 text-white py-4 rounded-lg font-bold uppercase tracking-widest text-xs pointer-events-auto hover:bg-white hover:text-black transition-colors"
                                     >
                                         Sign Out
                                     </button>
@@ -347,48 +333,60 @@ const Navigation: React.FC<NavigationProps> = ({ currentView, setView, isLoggedI
                                             setShowDeleteModal(true);
                                             setMobileMenuOpen(false);
                                         }}
-                                        className="w-full border border-red-500/20 text-red-500 py-4 font-bold uppercase tracking-widest text-xs pointer-events-auto hover:bg-red-500 hover:text-white transition-colors"
+                                        className="w-full text-red-500 py-3 font-bold uppercase tracking-widest text-[10px] pointer-events-auto hover:text-red-400 transition-colors"
                                     >
                                         Delete Account
                                     </button>
-                                </div>
+                                </>
+                            ) : (
+                                <button
+                                    onClick={() => {
+                                        setView(AppView.AUTH);
+                                        setMobileMenuOpen(false);
+                                    }}
+                                    className="w-full bg-white text-black py-4 rounded-lg font-bold uppercase tracking-widest text-sm pointer-events-auto hover:bg-cyan-400 transition-colors shadow-lg shadow-white/10"
+                                >
+                                    Sign In / Register
+                                </button>
                             )}
                         </div>
                     </div>
                 </div>
-            </nav>
+            </nav >
 
             {/* DELETE CONFIRMATION MODAL - SHARP */}
-            {showDeleteModal && (
-                <div className="fixed inset-0 z-[1200] flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-black/90 animate-fade-in-up" onClick={() => setShowDeleteModal(false)} />
-                    <div className="relative bg-black border border-red-500 w-full max-w-md p-8 shadow-[0_0_50px_rgba(220,38,38,0.2)]">
-                        <div className="w-12 h-12 bg-red-500 flex items-center justify-center mb-6">
-                            <AlertTriangle className="w-6 h-6 text-black" />
-                        </div>
-                        <h3 className="text-xl font-bold text-white mb-2 uppercase tracking-wide">Delete Account?</h3>
-                        <p className="text-zinc-400 mb-8 text-sm font-mono">
-                            This action cannot be undone. All data will be permanently erased.
-                        </p>
-                        <div className="flex gap-4">
-                            <button
-                                onClick={() => setShowDeleteModal(false)}
-                                className="flex-1 py-3 border border-white/20 hover:bg-white hover:text-black text-white text-xs font-bold uppercase tracking-wider transition-colors"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={handleDeleteAccount}
-                                disabled={isDeleting}
-                                className="flex-1 py-3 bg-red-600 hover:bg-red-500 text-white text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
-                            >
-                                {isDeleting ? <Loader2 className="w-3 h-3 animate-spin" /> : null}
-                                {isDeleting ? 'Deleting...' : 'Delete Forever'}
-                            </button>
+            {
+                showDeleteModal && (
+                    <div className="fixed inset-0 z-[1200] flex items-center justify-center p-4">
+                        <div className="absolute inset-0 bg-black/90 animate-fade-in-up" onClick={() => setShowDeleteModal(false)} />
+                        <div className="relative bg-black border border-red-500 w-full max-w-md p-8 shadow-[0_0_50px_rgba(220,38,38,0.2)]">
+                            <div className="w-12 h-12 bg-red-500 flex items-center justify-center mb-6">
+                                <AlertTriangle className="w-6 h-6 text-black" />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-2 uppercase tracking-wide">Delete Account?</h3>
+                            <p className="text-zinc-400 mb-8 text-sm font-mono">
+                                This action cannot be undone. All data will be permanently erased.
+                            </p>
+                            <div className="flex gap-4">
+                                <button
+                                    onClick={() => setShowDeleteModal(false)}
+                                    className="flex-1 py-3 border border-white/20 hover:bg-white hover:text-black text-white text-xs font-bold uppercase tracking-wider transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleDeleteAccount}
+                                    disabled={isDeleting}
+                                    className="flex-1 py-3 bg-red-600 hover:bg-red-500 text-white text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                                >
+                                    {isDeleting ? <Loader2 className="w-3 h-3 animate-spin" /> : null}
+                                    {isDeleting ? 'Deleting...' : 'Delete Forever'}
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )
+            }
         </>
     );
 };
