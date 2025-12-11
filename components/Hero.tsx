@@ -62,29 +62,29 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
             <div className="relative z-10 w-full max-w-[1400px] mx-auto pt-32 lg:pt-48 pb-20 px-6 grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
                 {/* LEFT COLUMN: Text Content */}
-                <div className={`flex flex-col items-start text-left z-20 transition-all duration-1000 delay-500 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                <div className={`flex flex-col items-center md:items-start text-center md:text-left z-20 transition-all duration-1000 delay-500 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
 
-                    <div className="inline-flex items-center gap-3 px-4 py-1.5 border border-cyan-500/30 bg-cyan-950/10 mb-8 backdrop-blur-md">
+                    <div className="inline-flex items-center gap-3 px-4 py-1.5 border border-cyan-500/30 bg-cyan-950/10 mb-8 backdrop-blur-md rounded-full">
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full bg-cyan-400 opacity-75"></span>
-                            <span className="relative inline-flex h-2 w-2 bg-cyan-400"></span>
+                            <span className="relative inline-flex h-2 w-2 bg-cyan-400 rounded-full"></span>
                         </span>
-                        <span className="text-xs font-bold text-cyan-400 tracking-widest uppercase">System v2.5 Online</span>
+                        <span className="text-[10px] sm:text-xs font-bold text-cyan-400 tracking-widest uppercase">System v2.5 Online</span>
                     </div>
 
-                    <h1 className="text-4xl sm:text-6xl lg:text-8xl font-bold tracking-tighter mb-8 leading-[0.9] text-white uppercase">
+                    <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tighter mb-6 md:mb-8 leading-[0.9] text-white uppercase">
                         Trip planning, <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-orange-400 animate-pulse-slow">Reimagined.</span>
                     </h1>
 
-                    <p className="text-base sm:text-lg text-zinc-400 max-w-lg mb-10 leading-relaxed border-l-2 border-cyan-500 pl-6 font-mono">
+                    <p className="text-base sm:text-lg text-zinc-400 max-w-lg mb-8 md:mb-10 leading-relaxed md:border-l-2 md:border-cyan-500 md:pl-6 font-mono">
                         Your personal AI travel architect. Precision itineraries. Human verification. Automated logistics.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto px-4 sm:px-0">
                         <button
                             onClick={() => setView(AppView.PLANNER)}
-                            className="group relative w-full sm:w-auto px-8 py-4 bg-cyan-400 text-black font-bold text-sm uppercase tracking-widest overflow-hidden transition-all hover:bg-white hover:text-black"
+                            className="group relative w-full sm:w-auto px-8 py-4 bg-cyan-400 text-black font-bold text-sm uppercase tracking-widest overflow-hidden transition-all hover:bg-white hover:text-black clip-path-slant"
                         >
                             <span className="relative flex items-center justify-center gap-3">
                                 Create Itinerary
@@ -100,9 +100,9 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                         </button>
                     </div>
 
-                    <div className="mt-16 flex items-center gap-4 text-xs font-mono text-zinc-500 uppercase tracking-wider">
+                    <div className="mt-12 md:mt-16 flex items-center gap-4 text-xs font-mono text-zinc-500 uppercase tracking-wider justify-center md:justify-start">
                         <div className="flex -space-x-4">
-                            {[1, 2, 3].map(i => <div key={i} className={`w-8 h-8 border border-black flex items-center justify-center bg-zinc-900 text-white font-bold text-[10px]`} >{i}</div>)}
+                            {[1, 2, 3].map(i => <div key={i} className={`w-8 h-8 border border-black flex items-center justify-center bg-zinc-900 text-white font-bold text-[10px] rounded-full`} >{i}</div>)}
                         </div>
                         <p className="text-cyan-500/80">10,000+ Operations Executed</p>
                     </div>
@@ -360,50 +360,50 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
             {/* NEW: Ecosystem Access Section */}
             <div className="relative z-20 w-full max-w-[1400px] mx-auto px-6 pb-20">
-                <h3 className="text-2xl font-bold text-white mb-8 pl-4 border-l-4 border-emerald-400 flex items-center gap-4 uppercase tracking-wider">
+                <h3 className="text-2xl font-bold text-white mb-8 md:pl-4 md:border-l-4 md:border-emerald-400 flex items-center justify-center md:justify-start gap-4 uppercase tracking-wider text-center md:text-left">
                     Extended Ecosystem
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <button onClick={() => setView(AppView.COMMUNITY)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-8 text-left hover:border-cyan-400/50 transition-all flex flex-col justify-between h-aut">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    <button onClick={() => setView(AppView.COMMUNITY)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-cyan-400/50 transition-all flex flex-col justify-between h-full min-h-[180px]">
                         <div className="flex items-center justify-between mb-8">
                             <Users className="w-8 h-8 text-zinc-500 group-hover:text-cyan-400 transition-colors" />
                             <ArrowRight className="w-5 h-5 text-zinc-700 group-hover:text-cyan-400 transition-colors" />
                         </div>
                         <div>
-                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-3">Community</h4>
+                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Community</h4>
                             <p className="text-sm text-zinc-400 font-mono leading-relaxed">Global itinerary network.</p>
                         </div>
                     </button>
 
-                    <button onClick={() => setView(AppView.MARKETPLACE)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-8 text-left hover:border-orange-400/50 transition-all flex flex-col justify-between h-auto">
+                    <button onClick={() => setView(AppView.MARKETPLACE)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-orange-400/50 transition-all flex flex-col justify-between h-full min-h-[180px]">
                         <div className="flex items-center justify-between mb-8">
                             <ShoppingBag className="w-8 h-8 text-zinc-500 group-hover:text-orange-400 transition-colors" />
                             <ArrowRight className="w-5 h-5 text-zinc-700 group-hover:text-orange-400 transition-colors" />
                         </div>
                         <div>
-                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-3">Marketplace</h4>
+                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Marketplace</h4>
                             <p className="text-sm text-zinc-400 font-mono leading-relaxed">Gear & Essentials.</p>
                         </div>
                     </button>
 
-                    <button onClick={() => setView(AppView.SUSTAINABILITY)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-8 text-left hover:border-emerald-400/50 transition-all flex flex-col justify-between h-auto">
+                    <button onClick={() => setView(AppView.SUSTAINABILITY)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-emerald-400/50 transition-all flex flex-col justify-between h-full min-h-[180px]">
                         <div className="flex items-center justify-between mb-8">
                             <Leaf className="w-8 h-8 text-zinc-500 group-hover:text-emerald-400 transition-colors" />
                             <ArrowRight className="w-5 h-5 text-zinc-700 group-hover:text-emerald-400 transition-colors" />
                         </div>
                         <div>
-                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-3">Eco-Track</h4>
+                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Eco-Track</h4>
                             <p className="text-sm text-zinc-400 font-mono leading-relaxed">Carbon impact analytics.</p>
                         </div>
                     </button>
 
-                    <button onClick={() => setView(AppView.REWARDS)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-8 text-left hover:border-purple-400/50 transition-all flex flex-col justify-between h-auto">
+                    <button onClick={() => setView(AppView.REWARDS)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-purple-400/50 transition-all flex flex-col justify-between h-full min-h-[180px]">
                         <div className="flex items-center justify-between mb-8">
                             <Award className="w-8 h-8 text-zinc-500 group-hover:text-purple-400 transition-colors" />
                             <ArrowRight className="w-5 h-5 text-zinc-700 group-hover:text-purple-400 transition-colors" />
                         </div>
                         <div>
-                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-3">Rewards</h4>
+                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Rewards</h4>
                             <p className="text-sm text-zinc-400 font-mono leading-relaxed">Voyager Points.</p>
                         </div>
                     </button>
