@@ -9,7 +9,8 @@ import { supabase } from './supabaseClient';
 // --- SHARED UTILITIES ---
 
 // --- CONFIG ---
-const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:3001/api';
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:3001/api';
+const API_URL = BASE_URL.endsWith('/api') ? BASE_URL : `${BASE_URL}/api`;
 
 const sanitizeInput = (input: string): string => {
   const div = document.createElement('div');
