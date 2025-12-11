@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <script>
+    /* Robust Trusted Types shim — MUST be the very first script in <head> */
+    (function () {
+      // If browser doesn't support Trusted Types, nothing to do
+      if (!window.trustedTypes) {
+        console.debug('Trusted Types not supported — shim skipped.');
+        return;
+      }
+
+      // Helper to create policy safely (no-op if already exists)
+      function ensurePolicy(name) {
+        try {
+          const names = window.trustedTypes.getPolicyNames && window.trustedTypes.getPolicyNames();
+          if (names && names.includes(name)) return window.trustedTypes.getPolicy(name);
+          return window.trustedTypes.createPolicy(name, {
+            createScriptURL: (url) => {
+              if (typeof url !== 'string') throw new Error('Not a string URL');
+              // allow blob: and data: URLs
+              if (url.startsWith('blob:') || url.startsWith('data:')) return url;
+              // validate origins
+              const u = new URL(url, location.href);
+              const allowed = new Set([
+                location.origin,
+                'https://accounts.google.com',
+                'https://apis.google.com',
+                'https://cdn.tailwindcss.com',
+                'https://aistudiocdn.com',
+                'https://esm.sh',
+                'https://ufnwmjrquwyzpbozznjd.supabase.co',
+                'https://voyageur-1.onrender.com'
+              ]);
+              if (!allowed.has(u.origin)) throw new Error('Blocked origin: ' + u.origin);
+              return url;
+            }
+          });
+        } catch (e) {
+          console.warn('Could not create/get policy', name, e);
+          return null;
+        }
+      }
+
+      // create both 'default' and 'trusted_policy' to satisfy different expectations
+      const policyDefault = ensurePolicy('default');
+      const policyTrusted = ensurePolicy('trusted_policy');
+      const policy = policyDefault || policyTrusted;
+
+      if (!policy) {
+        console.warn('No Trusted Types policy available after creation attempts.');
+      } else {
+        console.debug('Trusted Types policy ready (default/trusted_policy).');
+      }
+
+      // Convert string -> TrustedScriptURL using the available policy
+      function toTrustedScriptURL(val) {
+        if (!policy) return val;
+        if (typeof val !== 'string') return val;
+        try {
+          return policy.createScriptURL(val);
+        } catch (err) {
+          // If conversion fails, log and rethrow so error is visible
+          console.warn('policy.createScriptURL rejected', val, err);
+          throw err;
+        }
+      }
+
+      // Patch HTMLScriptElement.prototype.src setter
+      try {
+        const desc = Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype, 'src');
+        if (desc && desc.set) {
+          Object.defineProperty(HTMLScriptElement.prototype, 'src', {
+            configurable: true,
+            enumerable: desc.enumerable,
+            get: desc.get,
+            set: function (v) {
+              try {
+                const newVal = (typeof v === 'string') ? toTrustedScriptURL(v) : v;
+                return desc.set.call(this, newVal);
+              } catch (e) {
+                console.error('Failed to set script.src via shim:', e);
+                throw e;
+              }
+            }
+          });
+          console.debug('Patched HTMLScriptElement.prototype.src');
+        }
+      } catch (e) {
+        console.warn('Failed to patch script.src setter:', e);
+      }
+
+      // Patch setAttribute for script src
+      try {
+        const origSet = Element.prototype.setAttribute;
+        Element.prototype.setAttribute = function (name, value) {
+          if (this.tagName === 'SCRIPT' && String(name).toLowerCase() === 'src' && typeof value === 'string') {
+            try {
+              return origSet.call(this, name, toTrustedScriptURL(value));
+            } catch (e) {
+              console.warn('setAttribute src conversion failed, falling back', e);
+              return origSet.call(this, name, value);
+            }
+          }
+          return origSet.call(this, name, value);
+        };
+        console.debug('Patched Element.prototype.setAttribute for script src');
+      } catch (e) {
+        console.warn('Failed to patch setAttribute:', e);
+      }
+
+      // Patch appendChild as extra safety (tries to convert attribute if present)
+      try {
+        const origAppend = Node.prototype.appendChild;
+        Node.prototype.appendChild = function (node) {
+          try {
+            if (node && node.tagName === 'SCRIPT') {
+              const src = node.getAttribute && node.getAttribute('src');
+              if (typeof src === 'string') {
+                try { node.setAttribute('src', toTrustedScriptURL(src)); } catch (_) { /* ignore */ }
+              }
+            }
+          } catch (_) { }
+          return origAppend.call(this, node);
+        };
+        console.debug('Patched Node.prototype.appendChild');
+      } catch (e) {
+        console.warn('Failed to patch appendChild:', e);
+      }
+
+      console.debug('Robust Trusted Types shim active.');
+    })();
+  </script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voyageur | Precision Travel</title>
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self' https://ufnwmjrquwyzpbozznjd.supabase.co; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https://cdn.tailwindcss.com https://aistudiocdn.com https://esm.sh https://accounts.google.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://ufnwmjrquwyzpbozznjd.supabase.co https://identitytoolkit.googleapis.com https://securetoken.googleapis.com ws: wss: ws://localhost:3000 http://localhost:3001 http://127.0.0.1:3001 https://accounts.google.com https://www.googleapis.com https://generativelanguage.googleapis.com https://voyageur-1.onrender.com https://www.google-analytics.com; frame-src 'self' https://accounts.google.com; img-src 'self' data: https://lh3.googleusercontent.com https://i.pravatar.cc https://images.unsplash.com https://upload.wikimedia.org https://www.google-analytics.com;">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            background: '#000000', // Pure black
+            surface: '#0a0a0a', // Almost black
+            primary: '#ffffff', // White
+            secondary: '#a1a1aa', // Zinc 400
+            glass: 'rgba(255, 255, 255, 0.05)',
+            // Modern Palette
+            cyan: {
+              400: '#22d3ee',
+              500: '#06b6d4',
+            },
+            orange: {
+              400: '#fb923c',
+              500: '#f97316',
+            },
+            emerald: {
+              400: '#34d399',
+              500: '#10b981',
+            }
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'monospace'],
+          },
+          backgroundImage: {
+            'grid-pattern': "linear-gradient(to right, #27272a 1px, transparent 1px), linear-gradient(to bottom, #27272a 1px, transparent 1px)",
+          },
+          animation: {
+            'beam': 'beam 8s ease-in-out infinite',
+            'shimmer': 'shimmer 2s linear infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'float-slow': 'float 10s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+            'glitch': 'glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite',
+          },
+          keyframes: {
+            beam: {
+              '0%, 100%': { transform: 'translateY(-100%)', opacity: 0 },
+              '50%': { opacity: 0.5 },
+              '100%': { transform: 'translateY(100%)', opacity: 0 },
+            },
+            shimmer: {
+              '0%': { transform: 'translateX(-100%)' },
+              '100%': { transform: 'translateX(100%)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            fadeInUp: {
+              '0%': { opacity: 0, transform: 'translateY(20px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' },
+            },
+            glitch: {
+              "0%": { transform: "translate(0)" },
+              "20%": { transform: "translate(-2px, 2px)" },
+              "40%": { transform: "translate(-2px, -2px)" },
+              "60%": { transform: "translate(2px, 2px)" },
+              "80%": { transform: "translate(2px, -2px)" },
+              "100%": { transform: "translate(0)" },
+            },
+            wave: {
+              '0%, 100%': { height: '10%' },
+              '50%': { height: '100%' },
+            }
+          }
+        },
+      },
+    }
+  </script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    html {
+      overflow-y: scroll;
+      /* Forces scrollbar to exist 100% of the time to prevent layout jumping */
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: #000000;
+      color: #f8fafc;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Force Sharp Edges Globally */
+    * {
+      border-radius: 0px !important;
+    }
+
+    /* Spotlight Effect on Cards - Monochrome with Cyan hint */
+    .spotlight-card {
+      position: relative;
+      overflow: hidden;
+      background: #050505;
+    }
+
+    .spotlight-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
+          rgba(34, 211, 238, 0.08),
+          transparent 40%);
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+    }
+
+    .spotlight-card:hover::before {
+      opacity: 1;
+    }
+
+    .glass-card {
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* 3D Perspective Container */
+    .perspective-container {
+      perspective: 1200px;
+    }
+
+    .rotate-3d {
+      transform-style: preserve-3d;
+    }
+
+    .grid-bg {
+      background-size: 40px 40px;
+      mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Clean Scrollbar - Monochrome */
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+    }
+
+    ::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+
+    .will-change-transform {
+      will-change: transform;
+    }
+
+    .will-change-scroll {
+      will-change: scroll-position;
+    }
+
+    /* GLOBAL BUTTON FIXES */
+    button {
+      /* Fix text clipping for Space Grotesk */
+      line-height: normal !important;
+      /* Ensure text is centered */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      /* Slight visual adjustment for this specific font */
+      padding-bottom: 2px;
+    }
+
+    /* Optional: Global subtle glow for all primary buttons if they have bg-cyan-400 */
+    .bg-cyan-400:hover {
+      box-shadow: 0 0 25px rgba(34, 211, 238, 0.5);
+      transform: translateY(-1px);
+    }
+  </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.39.3"
+  }
+}
+</script>
+
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>
