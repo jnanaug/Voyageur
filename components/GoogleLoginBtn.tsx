@@ -148,7 +148,7 @@ const GoogleLoginBtn: React.FC<GoogleLoginBtnProps> = ({ onSuccess, onError, set
                         shape="rectangular"
                         size="large"
                         width="1000"
-                        logo_alignment="center"
+                        logo_alignment="left"
                         text={isSignup ? "signup_with" : "signin_with"}
                     />
                 </GoogleOAuthProvider>
