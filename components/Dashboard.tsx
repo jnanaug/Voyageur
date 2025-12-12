@@ -157,7 +157,11 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
         }
     });
 
-    const [isLoading, setIsLoading] = useState(() => !stats); // Only load if no stats
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        if (stats) setIsLoading(false);
+    }, [stats]);
 
 
     const [prompts, setPrompts] = useState<any[]>([]);
