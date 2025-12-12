@@ -258,7 +258,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                             <span className="text-xs font-mono text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2 py-1">+12%</span>
                         </div>
                         <div className="text-4xl font-bold text-white mb-1 tracking-tight">
-                            {isLoading ? <Skeleton className="h-10 w-32" /> : `$${(stats?.totalSpend || 0).toLocaleString()}`}
+                            {isLoading || !stats ? <Skeleton className="h-10 w-32" /> : `$${(stats.totalSpend || 0).toLocaleString()}`}
                         </div>
                         <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold">Lifetime Spend</div>
                         <div className="absolute bottom-0 left-0 w-full h-1 bg-zinc-900">
@@ -276,7 +276,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                             <span className="text-[10px] font-bold text-orange-400 bg-orange-400/10 border border-orange-400/20 px-2 py-1 uppercase tracking-wider">Member</span>
                         </div>
                         <div className="text-4xl font-bold text-white mb-1 tracking-tight">
-                            {isLoading ? <Skeleton className="h-10 w-16" /> : ((stats?.tripCount || 0) * 150)}
+                            {isLoading || !stats ? <Skeleton className="h-10 w-16" /> : ((stats.tripCount || 0) * 150)}
                         </div>
                         <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold relative z-10">Voyager Points</div>
                     </div>
@@ -291,7 +291,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                             <span className="text-xs font-bold text-zinc-400 bg-white/5 px-2 py-1 border border-white/10">Neutral</span>
                         </div>
                         <div className="text-4xl font-bold text-white mb-1 tracking-tight">
-                            {isLoading ? <Skeleton className="h-10 w-24" /> : `${(stats?.tripCount || 0) * 0.5}t`}
+                            {isLoading || !stats ? <Skeleton className="h-10 w-24" /> : `${(stats.tripCount || 0) * 0.5}t`}
                         </div>
                         <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold">Carbon Offset</div>
                     </div>

@@ -9,7 +9,7 @@ const Referral: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen pt-36 pb-20 px-6 max-w-3xl mx-auto">
+        <div className="min-h-screen pt-48 pb-20 px-6 max-w-3xl mx-auto">
             <div className="bg-black/50 backdrop-blur-md border border-white/10 p-12 text-center relative overflow-hidden mb-12 shadow-[0_0_50px_rgba(34,211,238,0.1)] rounded-2xl">
                 <div className="absolute top-0 right-0 p-40 bg-cyan-500/10 blur-[100px]" />
 
