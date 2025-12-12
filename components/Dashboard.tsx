@@ -149,6 +149,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
     // This forces the UI to render Skeletons immediately.
     // It will ONLY render data once 'stats' is populated.
     const [stats, setStats] = useState<any | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const [prompts, setPrompts] = useState<any[]>([]);
 
