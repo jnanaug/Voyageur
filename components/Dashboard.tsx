@@ -141,7 +141,11 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
     const tabsRef = useRef<{ [key: string]: HTMLButtonElement | null }>({});
 
-    const [stats, setStats] = useState({ totalSpend: 0, tripCount: 0, citiesVisited: 0, recentTrips: [] as any[] });
+    // STRICT INITIALIZATION: Start as NULL. 
+    // This forces the UI to render Skeletons immediately.
+    // It will ONLY render data once 'stats' is populated.
+    const [stats, setStats] = useState<any | null>(null);
+
     const [prompts, setPrompts] = useState<any[]>([]);
 
 
@@ -172,12 +176,21 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
             const loadData = async () => {
                 setIsLoading(true); // Start loading
                 try {
-                    // Artificial delay for smoother transition (optional, remove in prod if desired, keeps skeleton visible for 500ms)
-                    await new Promise(r => setTimeout(r, 600));
+                    // Artificial delay to prevent near-instant flickering on fast networks
+                    // This keeps the premium "Skeleton" look for at least 800ms
+                    if (!stats) await new Promise(r => setTimeout(r, 800));
 
                     const s = await dbService.getStats(user.id);
-                    if (s) setStats(s);
+                    if (s) {
+                        setStats(s);
+                    } else {
+                        // Fallback if no data found (avoids infinite loading)
+                        setStats({ totalSpend: 0, tripCount: 0, citiesVisited: 0, recentTrips: [] });
+                    }
+
                     const p = await dbService.getPrompts(user.id);
+                    if (p) setPrompts(p);
+                } catch (e) {
                     if (p) setPrompts(p);
                 } catch (e) {
                     console.error("Dashboard data load failed", e);
@@ -258,7 +271,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                             <span className="text-xs font-mono text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2 py-1">+12%</span>
                         </div>
                         <div className="text-4xl font-bold text-white mb-1 tracking-tight">
-                            {isLoading || !stats ? <Skeleton className="h-10 w-32" /> : `$${(stats.totalSpend || 0).toLocaleString()}`}
+                            {!stats ? <Skeleton className="h-10 w-32" /> : `$${(stats.totalSpend || 0).toLocaleString()}`}
                         </div>
                         <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold">Lifetime Spend</div>
                         <div className="absolute bottom-0 left-0 w-full h-1 bg-zinc-900">
@@ -276,7 +289,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                             <span className="text-[10px] font-bold text-orange-400 bg-orange-400/10 border border-orange-400/20 px-2 py-1 uppercase tracking-wider">Member</span>
                         </div>
                         <div className="text-4xl font-bold text-white mb-1 tracking-tight">
-                            {isLoading || !stats ? <Skeleton className="h-10 w-16" /> : ((stats.tripCount || 0) * 150)}
+                            {!stats ? <Skeleton className="h-10 w-16" /> : ((stats.tripCount || 0) * 150)}
                         </div>
                         <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold relative z-10">Voyager Points</div>
                     </div>
@@ -291,7 +304,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                             <span className="text-xs font-bold text-zinc-400 bg-white/5 px-2 py-1 border border-white/10">Neutral</span>
                         </div>
                         <div className="text-4xl font-bold text-white mb-1 tracking-tight">
-                            {isLoading || !stats ? <Skeleton className="h-10 w-24" /> : `${(stats.tripCount || 0) * 0.5}t`}
+                            {!stats ? <Skeleton className="h-10 w-24" /> : `${(stats.tripCount || 0) * 0.5}t`}
                         </div>
                         <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold">Carbon Offset</div>
                     </div>
