@@ -57,6 +57,10 @@ const SettingRow = ({ label, desc, children }: { label: string, desc: string, ch
 );
 
 
+const Skeleton = ({ className }: { className?: string }) => (
+    <div className={`animate-pulse bg-white/10 rounded ${className}`} />
+);
+
 // --- MOCK DATA FOR MAP ---
 const CITY_COORDINATES: Record<string, { lat: number, lon: number }> = {
     "Paris": { lat: 48.8566, lon: 2.3522 },
