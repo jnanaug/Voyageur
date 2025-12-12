@@ -5,29 +5,29 @@ import { MessageSquare, Mail, Search, ChevronDown, Phone } from 'lucide-react';
 const Support: React.FC = () => {
     return (
         <div className="min-h-screen pt-32 pb-20 px-6 max-w-4xl mx-auto">
-             <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold text-white mb-6 uppercase tracking-tight">Mission Control</h2>
+            <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold text-white mb-6 uppercase tracking-tight font-sans">Mission Control</h2>
                 <div className="relative max-w-lg mx-auto">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
-                    <input type="text" placeholder="Search knowledge base..." className="w-full bg-black border border-white/20 pl-12 pr-4 py-4 text-white focus:outline-none focus:border-cyan-400 transition-colors font-mono text-sm" />
+                    <input type="text" placeholder="Search knowledge base..." className="w-full bg-black/50 backdrop-blur-md border border-white/20 pl-12 pr-4 py-4 text-white focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all font-sans text-sm rounded-lg" />
                 </div>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 mb-16">
-                <div className="bg-black border border-white/10 p-6 hover:border-cyan-400/50 transition-colors text-center group cursor-pointer">
-                    <MessageSquare className="w-8 h-8 text-cyan-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                    <h3 className="text-lg font-bold text-white uppercase mb-2">Live Chat</h3>
-                    <p className="text-zinc-500 text-sm">24/7 Agent Support</p>
+                <div className="bg-black/50 backdrop-blur-md border border-white/10 p-6 hover:border-cyan-400/50 transition-all text-center group cursor-pointer hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] rounded-xl">
+                    <MessageSquare className="w-8 h-8 text-cyan-400 mx-auto mb-4 group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
+                    <h3 className="text-lg font-bold text-white uppercase mb-2 font-sans">Live Chat</h3>
+                    <p className="text-zinc-500 text-sm font-sans">24/7 Agent Support</p>
                 </div>
-                <div className="bg-black border border-white/10 p-6 hover:border-cyan-400/50 transition-colors text-center group cursor-pointer">
-                    <Mail className="w-8 h-8 text-cyan-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                    <h3 className="text-lg font-bold text-white uppercase mb-2">Email Ticket</h3>
-                    <p className="text-zinc-500 text-sm">Response in 2h</p>
+                <div className="bg-black/50 backdrop-blur-md border border-white/10 p-6 hover:border-cyan-400/50 transition-all text-center group cursor-pointer hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] rounded-xl">
+                    <Mail className="w-8 h-8 text-cyan-400 mx-auto mb-4 group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
+                    <h3 className="text-lg font-bold text-white uppercase mb-2 font-sans">Email Ticket</h3>
+                    <p className="text-zinc-500 text-sm font-sans">Response in 2h</p>
                 </div>
-                <div className="bg-black border border-white/10 p-6 hover:border-cyan-400/50 transition-colors text-center group cursor-pointer">
-                    <Phone className="w-8 h-8 text-cyan-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                    <h3 className="text-lg font-bold text-white uppercase mb-2">Emergency</h3>
-                    <p className="text-zinc-500 text-sm">Priority Line</p>
+                <div className="bg-black/50 backdrop-blur-md border border-white/10 p-6 hover:border-cyan-400/50 transition-all text-center group cursor-pointer hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] rounded-xl">
+                    <Phone className="w-8 h-8 text-cyan-400 mx-auto mb-4 group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
+                    <h3 className="text-lg font-bold text-white uppercase mb-2 font-sans">Emergency</h3>
+                    <p className="text-zinc-500 text-sm font-sans">Priority Line</p>
                 </div>
             </div>
 
@@ -45,12 +45,12 @@ const Support: React.FC = () => {
 };
 
 const FAQItem = ({ q, a }: { q: string, a: string }) => (
-    <div className="border border-white/10 bg-black p-6 cursor-pointer hover:bg-white/5 transition-colors group">
+    <div className="border border-white/10 bg-black/50 backdrop-blur-sm p-6 cursor-pointer hover:bg-white/5 transition-all group hover:border-white/30 rounded-lg">
         <div className="flex justify-between items-center mb-2">
-            <h4 className="font-bold text-white text-sm uppercase tracking-wide group-hover:text-cyan-400 transition-colors">{q}</h4>
+            <h4 className="font-bold text-white text-sm uppercase tracking-wide group-hover:text-cyan-400 transition-colors font-sans">{q}</h4>
             <ChevronDown className="w-4 h-4 text-zinc-500" />
         </div>
-        <p className="text-zinc-400 text-sm leading-relaxed">{a}</p>
+        <p className="text-zinc-400 text-sm leading-relaxed font-sans">{a}</p>
     </div>
 );
 

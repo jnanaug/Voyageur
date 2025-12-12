@@ -38,8 +38,8 @@ const Blog: React.FC = () => {
         <div className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto">
             <div className="mb-16 border-b border-white/10 pb-8 flex flex-col md:flex-row justify-between items-end gap-6">
                 <div>
-                    <h2 className="text-5xl font-bold text-white mb-4 uppercase tracking-tighter">Transmission Log</h2>
-                    <p className="text-zinc-400 font-mono">Intel and guides from the Voyageur network.</p>
+                    <h2 className="text-5xl font-bold text-white mb-4 uppercase tracking-tight font-sans">Transmission Log</h2>
+                    <p className="text-zinc-400 font-sans">Intel and guides from the Voyageur network.</p>
                 </div>
                 <div className="flex gap-2">
                     {['All', 'Itineraries', 'Tech', 'Dining'].map(cat => (
@@ -52,10 +52,10 @@ const Blog: React.FC = () => {
 
             <div className="grid md:grid-cols-2 gap-8">
                 {posts.map((post, idx) => (
-                    <div key={idx} className="group cursor-pointer border border-white/10 bg-black hover:border-cyan-400/50 transition-all">
+                    <div key={idx} className="group cursor-pointer border border-white/10 bg-black/50 backdrop-blur-md hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.1)] transition-all duration-500">
                         <div className="h-64 overflow-hidden relative">
                             <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                            <div className="absolute top-4 left-4 bg-black/80 px-3 py-1 text-xs font-bold text-cyan-400 uppercase tracking-wider border border-white/10">
+                            <div className="absolute top-4 left-4 bg-black/80 backdrop-blur px-3 py-1 text-[10px] font-bold text-cyan-400 uppercase tracking-wider border border-white/10">
                                 {post.category}
                             </div>
                         </div>
@@ -63,10 +63,10 @@ const Blog: React.FC = () => {
                             <div className="flex items-center gap-2 text-zinc-500 text-xs font-mono mb-3">
                                 <Clock className="w-3 h-3" /> {post.time}
                             </div>
-                            <h3 className="text-2xl font-bold text-white mb-4 uppercase leading-tight group-hover:text-cyan-400 transition-colors">{post.title}</h3>
-                            <p className="text-zinc-400 mb-6 leading-relaxed line-clamp-2">{post.excerpt}</p>
-                            <div className="flex items-center gap-2 text-white text-xs font-bold uppercase tracking-widest group-hover:gap-4 transition-all">
-                                Read Article <ArrowRight className="w-4 h-4 text-cyan-400" />
+                            <h3 className="text-2xl font-bold text-white mb-4 uppercase leading-tight group-hover:text-cyan-400 transition-colors font-sans tracking-tight">{post.title}</h3>
+                            <p className="text-zinc-400 mb-6 leading-relaxed line-clamp-2 font-sans">{post.excerpt}</p>
+                            <div className="flex items-center gap-2 text-white text-xs font-bold uppercase tracking-widest group-hover:gap-4 transition-all group-hover:text-cyan-400">
+                                Read Article <ArrowRight className="w-4 h-4" />
                             </div>
                         </div>
                     </div>
