@@ -1,6 +1,6 @@
-
 import React, { useEffect, useState, useRef, MouseEvent, useMemo } from 'react';
-import { ArrowRight, ShieldCheck, Sparkles, Map, Coffee, Plane, Play, Zap, Bell, Menu, Music, Home, CreditCard, MoreHorizontal, Calendar, Search, Cloud, Users, ShoppingBag, Leaf, Award } from 'lucide-react';
+import { ArrowRight, Sparkles, Globe, ShieldCheck, Zap, ChevronRight, Play, Map, Cloud, CreditCard, Calendar, Music, Home, Menu, Search, Users, ShoppingBag, Leaf, Award, Coffee, Plane } from 'lucide-react';
+import { ScrollReveal } from './ScrollReveal';
 import { AppView } from '../types';
 
 interface HeroProps {
@@ -34,13 +34,13 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
             const x = (e.clientX - left - width / 2) / (width / 2);
             const y = (e.clientY - top - height / 2) / (height / 2);
 
-            dashboardRef.current.style.transform = `translate3d(0,0,0) rotateX(${5 - y * 2}deg) rotateY(${-5 + x * 2}deg)`;
+            dashboardRef.current.style.transform = `translate3d(0, 0, 0) rotateX(${5 - y * 2}deg) rotateY(${- 5 + x * 2}deg)`;
         });
     };
 
     const handleMouseLeave = () => {
         if (!dashboardRef.current) return;
-        dashboardRef.current.style.transform = `translate3d(0,0,0) rotateX(5deg) rotateY(-5deg)`;
+        dashboardRef.current.style.transform = `translate3d(0, 0, 0) rotateX(5deg) rotateY(-5deg)`;
     };
 
     return (
@@ -55,14 +55,14 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
             {/* Background Grid */}
             <div className="absolute inset-0 pointer-events-none z-0">
-                <div className={`absolute inset-0 bg-grid-pattern opacity-[0.2] grid-bg transition-transform duration-[3s] ease-out ${loaded ? 'scale-100' : 'scale-110'}`} />
+                <div className={`absolute inset - 0 bg - grid - pattern opacity - [0.2] grid - bg transition - transform duration - [3s] ease - out ${loaded ? 'scale-100' : 'scale-110'} `} />
             </div>
 
             {/* Main Grid Content */}
             <div className="relative z-10 w-full max-w-[1400px] mx-auto pt-32 lg:pt-48 pb-20 px-6 grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
                 {/* LEFT COLUMN: Text Content */}
-                <div className={`flex flex-col items-center md:items-start text-center md:text-left z-20 transition-all duration-1000 delay-500 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                <div className={`flex flex - col items - center md: items - start text - center md: text - left z - 20 transition - all duration - 1000 delay - 500 ease - out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} `}>
 
                     <div className="inline-flex items-center gap-3 px-4 py-1.5 border border-cyan-500/30 bg-cyan-950/10 mb-8 backdrop-blur-md rounded-full">
                         <span className="relative flex h-2 w-2">
@@ -102,7 +102,7 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
                     <div className="mt-12 md:mt-16 flex items-center gap-4 text-xs font-mono text-zinc-500 uppercase tracking-wider justify-center md:justify-start">
                         <div className="flex -space-x-4">
-                            {[1, 2, 3].map(i => <div key={i} className={`w-8 h-8 border border-black flex items-center justify-center bg-zinc-900 text-white font-bold text-[10px] rounded-full`} >{i}</div>)}
+                            {[1, 2, 3].map(i => <div key={i} className={`w - 8 h - 8 border border - black flex items - center justify - center bg - zinc - 900 text - white font - bold text - [10px] rounded - full`} >{i}</div>)}
                         </div>
                         <p className="text-cyan-500/80">10,000+ Operations Executed</p>
                     </div>
@@ -110,12 +110,12 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
                 {/* RIGHT COLUMN: Sharp Dashboard */}
                 <div
-                    className={`w-full lg:h-[650px] h-auto perspective-container transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] ${loaded ? 'scale-100 opacity-100 blur-0' : 'scale-125 opacity-0 blur-lg'}`}
+                    className={`w - full lg: h - [650px] h - auto perspective - container transition - all duration - [1.5s] ease - [cubic - bezier(0.25, 1, 0.5, 1)] ${loaded ? 'scale-100 opacity-100 blur-0' : 'scale-125 opacity-0 blur-lg'} `}
                     ref={containerRef}
                 >
                     <div
                         ref={dashboardRef}
-                        className="md:rotate-3d relative w-full h-full bg-[#050505] border border-white/10 shadow-[0_0_100px_rgba(34,211,238,0.05)] overflow-hidden transition-transform duration-100 ease-out will-change-transform animate-float-slow md:animate-none"
+                        className="md:rotate-3d relative w-full h-full bg-[#050505] border border-white/10 shadow-[0_0_100px_rgba(34,211,238,0.05)] overflow-hidden transition-transform duration-100 ease-out will-change-transform animate-rotate-3d-continuous md:animate-none"
                         style={{
                             transform: typeof window !== 'undefined' && window.innerWidth > 768 ? 'translate3d(0,0,0) rotateX(5deg) rotateY(-5deg)' : undefined,
                         }}
@@ -185,7 +185,7 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                                 <div className="text-3xl font-bold text-white tracking-tight">$2,405.00</div>
                                 <div className="h-8 flex items-end gap-1">
                                     {[40, 70, 45, 90, 60, 75, 50].map((h, i) => (
-                                        <div key={i} className="flex-1 bg-emerald-900/30 border-t border-emerald-500/50" style={{ height: `${h}%` }}>
+                                        <div key={i} className="flex-1 bg-emerald-900/30 border-t border-emerald-500/50" style={{ height: `${h}% ` }}>
                                         </div>
                                     ))}
                                 </div>
@@ -252,152 +252,174 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
             {/* FEATURE BENTO GRID */}
             <div className="relative z-20 w-full max-w-[1400px] mx-auto px-6 pb-12 mt-24">
-                <h3 className="text-2xl font-bold text-white mb-8 flex items-center justify-center gap-4 uppercase tracking-wider text-center">
-                    System Capabilities
-                </h3>
+                <ScrollReveal>
+                    <h3 className="text-2xl font-bold text-white mb-8 flex items-center justify-center gap-4 uppercase tracking-wider text-center">
+                        System Capabilities
+                    </h3>
+                </ScrollReveal>
 
                 <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-6 items-stretch">
 
                     {/* ITEM 1: AI (Large) */}
-                    <SpotlightCard className="md:col-span-6 lg:col-span-8 min-h-[340px] border-white/10 hover:border-cyan-400/50">
-                        <div className="relative h-full flex flex-col p-8 bg-black">
-                            <div className="w-12 h-12 bg-cyan-400 text-black flex items-center justify-center mb-6 shrink-0">
-                                <Sparkles className="w-6 h-6" />
+                    <ScrollReveal className="md:col-span-6 lg:col-span-8 h-full" width="100%" delay={0.1}>
+                        <SpotlightCard className="h-full min-h-[340px] border-white/10 hover:border-cyan-400/50">
+                            <div className="relative h-full flex flex-col p-8 bg-black">
+                                <div className="w-12 h-12 bg-cyan-400 text-black flex items-center justify-center mb-6 shrink-0">
+                                    <Sparkles className="w-6 h-6" />
+                                </div>
+                                <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-tight shrink-0">Generative Core</h3>
+                                <p className="text-zinc-400 max-w-lg text-sm font-mono leading-relaxed mb-auto">
+                                    Mathematical trip construction. Our engine processes millions of data points to build your perfect itinerary.
+                                </p>
+                                <div className="flex gap-3 mt-8 pt-4 border-t border-white/5 shrink-0">
+                                    <span className="px-3 py-1 bg-cyan-900/20 border border-cyan-400/30 text-cyan-400 text-xs font-bold font-mono uppercase">Gemini 2.5</span>
+                                    <span className="px-3 py-1 bg-cyan-900/20 border border-cyan-400/30 text-cyan-400 text-xs font-bold font-mono uppercase">Pro Vision</span>
+                                </div>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-tight shrink-0">Generative Core</h3>
-                            <p className="text-zinc-400 max-w-lg text-sm font-mono leading-relaxed mb-auto">
-                                Mathematical trip construction. Our engine processes millions of data points to build your perfect itinerary.
-                            </p>
-                            <div className="flex gap-3 mt-8 pt-4 border-t border-white/5 shrink-0">
-                                <span className="px-3 py-1 bg-cyan-900/20 border border-cyan-400/30 text-cyan-400 text-xs font-bold font-mono uppercase">Gemini 2.5</span>
-                                <span className="px-3 py-1 bg-cyan-900/20 border border-cyan-400/30 text-cyan-400 text-xs font-bold font-mono uppercase">Pro Vision</span>
-                            </div>
-                        </div>
-                    </SpotlightCard>
+                        </SpotlightCard>
+                    </ScrollReveal>
 
                     {/* ITEM 2: Verified */}
-                    <SpotlightCard className="md:col-span-6 lg:col-span-4 min-h-[340px] border-white/10 hover:border-orange-400/50">
-                        <div className="relative h-full flex flex-col p-8 bg-black">
-                            <div className="w-12 h-12 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6 shrink-0">
-                                <ShieldCheck className="w-6 h-6" />
-                            </div>
-                            <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-tight shrink-0">Human Verified</h3>
-                            <p className="text-zinc-400 text-sm font-mono leading-relaxed mb-auto">
-                                Every booking link double-checked by experts. Zero hallucinations.
-                            </p>
-                            <div className="mt-8 pt-4 border-t border-white/5 relative bg-black p-4 border border-white/10 flex items-center gap-4 shrink-0">
-                                <div className="flex -space-x-3 grayscale">
-                                    <img src="https://i.pravatar.cc/100?img=33" alt="Agent" className="w-10 h-10 border-2 border-black" />
-                                    <img src="https://i.pravatar.cc/100?img=47" alt="Agent" className="w-10 h-10 border-2 border-black" />
+                    <ScrollReveal className="md:col-span-6 lg:col-span-4 h-full" width="100%" delay={0.2}>
+                        <SpotlightCard className="h-full min-h-[340px] border-white/10 hover:border-orange-400/50">
+                            <div className="relative h-full flex flex-col p-8 bg-black">
+                                <div className="w-12 h-12 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6 shrink-0">
+                                    <ShieldCheck className="w-6 h-6" />
                                 </div>
-                                <div className="flex flex-col">
-                                    <span className="text-xs text-white font-bold uppercase">Agent Review</span>
-                                    <span className="text-[10px] text-orange-400 font-mono uppercase tracking-wider animate-pulse">In Progress...</span>
-                                </div>
-                            </div>
-                        </div>
-                    </SpotlightCard>
-
-                    {/* ITEM 3: Dining */}
-                    <SpotlightCard className="md:col-span-6 lg:col-span-4 min-h-[280px] hover:border-white/50" onClick={() => setView(AppView.DINING)}>
-                        <div className="relative p-8 h-full flex flex-col group bg-black overflow-hidden">
-                            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-40 grayscale group-hover:scale-105 transition-transform duration-700" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-
-                            <div className="relative z-10 h-full flex flex-col">
-                                <div className="w-12 h-12 bg-white text-black flex items-center justify-center mb-6 shrink-0">
-                                    <Coffee className="w-6 h-6" />
-                                </div>
-                                <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight shrink-0">Dining Access</h4>
-                                <p className="text-sm text-zinc-300 font-mono mb-auto">Exclusive reservations.</p>
-                            </div>
-                        </div>
-                    </SpotlightCard>
-
-                    {/* ITEM 4: Logistics */}
-                    <SpotlightCard className="md:col-span-6 lg:col-span-4 min-h-[280px] border-white/10 hover:border-emerald-400/50">
-                        <div className="relative p-8 h-full flex flex-col bg-black">
-                            <div className="relative z-10 h-full flex flex-col">
-                                <div className="w-12 h-12 bg-emerald-400/10 border border-emerald-400/50 text-emerald-400 flex items-center justify-center mb-6 shrink-0">
-                                    <Plane className="w-6 h-6" />
-                                </div>
-                                <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight shrink-0">Logistics Radar</h4>
-                                <p className="text-sm text-zinc-400 font-mono mb-auto">Seamless transfers & tickets.</p>
-                                <div className="h-1 w-full bg-emerald-900/30 overflow-hidden mt-6 shrink-0">
-                                    <div className="h-full bg-emerald-400 w-2/3" />
-                                </div>
-                            </div>
-                        </div>
-                    </SpotlightCard>
-
-                    {/* ITEM 5: Real-time */}
-                    <SpotlightCard className="md:col-span-12 lg:col-span-4 min-h-[280px] border-white/10 hover:border-cyan-400/50">
-                        <div className="p-8 h-full flex flex-col relative bg-black">
-                            <div className="flex flex-col h-full relative z-10">
-                                <div className="w-12 h-12 bg-cyan-400/10 border border-cyan-400/50 text-cyan-400 flex items-center justify-center mb-6 shrink-0">
-                                    <Zap className="w-6 h-6" />
-                                </div>
-                                <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight shrink-0">Real-time Sync</h4>
-                                <p className="text-sm text-zinc-400 mb-auto font-mono">Flight delayed? We auto-adjust.</p>
-
-                                <div className="mt-6 relative h-12 w-full bg-black border border-white/10 overflow-hidden flex items-center shrink-0">
-                                    <div className="flex items-center gap-8 animate-[shimmer_10s_linear_infinite] whitespace-nowrap px-4">
-                                        <span className="text-[10px] font-mono text-zinc-500">BA249 <span className="text-orange-400">DELAYED</span></span>
-                                        <span className="text-[10px] font-mono text-zinc-500">UBER <span className="text-emerald-400">ARRIVED</span></span>
+                                <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-tight shrink-0">Human Verified</h3>
+                                <p className="text-zinc-400 text-sm font-mono leading-relaxed mb-auto">
+                                    Every booking link double-checked by experts. Zero hallucinations.
+                                </p>
+                                <div className="mt-8 pt-4 border-t border-white/5 relative bg-black p-4 border border-white/10 flex items-center gap-4 shrink-0">
+                                    <div className="flex -space-x-3 grayscale">
+                                        <img src="https://i.pravatar.cc/100?img=33" alt="Agent" className="w-10 h-10 border-2 border-black" />
+                                        <img src="https://i.pravatar.cc/100?img=47" alt="Agent" className="w-10 h-10 border-2 border-black" />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-xs text-white font-bold uppercase">Agent Review</span>
+                                        <span className="text-[10px] text-orange-400 font-mono uppercase tracking-wider animate-pulse">In Progress...</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </SpotlightCard>
+                        </SpotlightCard>
+                    </ScrollReveal>
+
+                    {/* ITEM 3: Dining */}
+                    <ScrollReveal className="md:col-span-6 lg:col-span-4 h-full" width="100%" delay={0.3}>
+                        <SpotlightCard className="h-full min-h-[280px] hover:border-white/50" onClick={() => setView(AppView.DINING)}>
+                            <div className="relative p-8 h-full flex flex-col group bg-black overflow-hidden">
+                                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-40 grayscale group-hover:scale-105 transition-transform duration-700" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+
+                                <div className="relative z-10 h-full flex flex-col">
+                                    <div className="w-12 h-12 bg-white text-black flex items-center justify-center mb-6 shrink-0">
+                                        <Coffee className="w-6 h-6" />
+                                    </div>
+                                    <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight shrink-0">Dining Access</h4>
+                                    <p className="text-sm text-zinc-300 font-mono mb-auto">Exclusive reservations.</p>
+                                </div>
+                            </div>
+                        </SpotlightCard>
+                    </ScrollReveal>
+
+                    {/* ITEM 4: Logistics */}
+                    <ScrollReveal className="md:col-span-6 lg:col-span-4 h-full" width="100%" delay={0.4}>
+                        <SpotlightCard className="h-full min-h-[280px] border-white/10 hover:border-emerald-400/50">
+                            <div className="relative p-8 h-full flex flex-col bg-black">
+                                <div className="relative z-10 h-full flex flex-col">
+                                    <div className="w-12 h-12 bg-emerald-400/10 border border-emerald-400/50 text-emerald-400 flex items-center justify-center mb-6 shrink-0">
+                                        <Plane className="w-6 h-6" />
+                                    </div>
+                                    <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight shrink-0">Logistics Radar</h4>
+                                    <p className="text-sm text-zinc-400 font-mono mb-auto">Seamless transfers & tickets.</p>
+                                    <div className="h-1 w-full bg-emerald-900/30 overflow-hidden mt-6 shrink-0">
+                                        <div className="h-full bg-emerald-400 w-2/3" />
+                                    </div>
+                                </div>
+                            </div>
+                        </SpotlightCard>
+                    </ScrollReveal>
+
+                    {/* ITEM 5: Real-time */}
+                    <ScrollReveal className="md:col-span-12 lg:col-span-4 h-full" width="100%" delay={0.5}>
+                        <SpotlightCard className="h-full min-h-[280px] border-white/10 hover:border-cyan-400/50">
+                            <div className="p-8 h-full flex flex-col relative bg-black">
+                                <div className="flex flex-col h-full relative z-10">
+                                    <div className="w-12 h-12 bg-cyan-400/10 border border-cyan-400/50 text-cyan-400 flex items-center justify-center mb-6 shrink-0">
+                                        <Zap className="w-6 h-6" />
+                                    </div>
+                                    <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight shrink-0">Real-time Sync</h4>
+                                    <p className="text-sm text-zinc-400 mb-auto font-mono">Flight delayed? We auto-adjust.</p>
+
+                                    <div className="mt-6 relative h-12 w-full bg-black border border-white/10 overflow-hidden flex items-center shrink-0">
+                                        <div className="flex items-center gap-8 animate-[shimmer_10s_linear_infinite] whitespace-nowrap px-4">
+                                            <span className="text-[10px] font-mono text-zinc-500">BA249 <span className="text-orange-400">DELAYED</span></span>
+                                            <span className="text-[10px] font-mono text-zinc-500">UBER <span className="text-emerald-400">ARRIVED</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </SpotlightCard>
+                    </ScrollReveal>
 
                 </div>
             </div>
 
             {/* NEW: Ecosystem Access Section */}
             <div className="relative z-20 w-full max-w-[1400px] mx-auto px-6 pb-20">
-                <h3 className="text-2xl font-bold text-white mb-8 flex items-center justify-center gap-4 uppercase tracking-wider text-center">
-                    Extended Ecosystem
-                </h3>
+                <ScrollReveal>
+                    <h3 className="text-2xl font-bold text-white mb-8 flex items-center justify-center gap-4 uppercase tracking-wider text-center">
+                        Extended Ecosystem
+                    </h3>
+                </ScrollReveal>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                     {/* Community - CENTERED */}
-                    <button onClick={() => setView(AppView.COMMUNITY)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 hover:border-cyan-400/50 transition-all flex flex-col items-center justify-center text-center h-full min-h-[220px]">
-                        <div className="w-12 h-12 bg-cyan-400/10 border border-cyan-400/50 text-cyan-400 flex items-center justify-center mb-6 rounded-full group-hover:scale-110 transition-transform">
-                            <Users className="w-6 h-6" />
-                        </div>
-                        <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Community</h4>
-                        <p className="text-sm text-zinc-400 font-mono leading-relaxed mb-4">Global itinerary network.</p>
-                        <div className="w-8 h-1 bg-cyan-400/20 rounded-full group-hover:w-16 group-hover:bg-cyan-400 transition-all"></div>
-                    </button>
+                    <ScrollReveal className="h-full" width="100%" delay={0.1}>
+                        <button onClick={() => setView(AppView.COMMUNITY)} className="w-full group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 hover:border-cyan-400/50 transition-all flex flex-col items-center justify-center text-center h-full min-h-[220px]">
+                            <div className="w-12 h-12 bg-cyan-400/10 border border-cyan-400/50 text-cyan-400 flex items-center justify-center mb-6 rounded-full group-hover:scale-110 transition-transform">
+                                <Users className="w-6 h-6" />
+                            </div>
+                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Community</h4>
+                            <p className="text-sm text-zinc-400 font-mono leading-relaxed mb-4">Global itinerary network.</p>
+                            <div className="w-8 h-1 bg-cyan-400/20 rounded-full group-hover:w-16 group-hover:bg-cyan-400 transition-all"></div>
+                        </button>
+                    </ScrollReveal>
 
                     {/* Marketplace - CENTERED */}
-                    <button onClick={() => setView(AppView.MARKETPLACE)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 hover:border-orange-400/50 transition-all flex flex-col items-center justify-center text-center h-full min-h-[220px]">
-                        <div className="w-12 h-12 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6 rounded-full group-hover:scale-110 transition-transform">
-                            <ShoppingBag className="w-6 h-6" />
-                        </div>
-                        <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Marketplace</h4>
-                        <p className="text-sm text-zinc-400 font-mono leading-relaxed mb-4">Gear & Essentials.</p>
-                        <div className="w-8 h-1 bg-orange-400/20 rounded-full group-hover:w-16 group-hover:bg-orange-400 transition-all"></div>
-                    </button>
+                    <ScrollReveal className="h-full" width="100%" delay={0.2}>
+                        <button onClick={() => setView(AppView.MARKETPLACE)} className="w-full group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 hover:border-orange-400/50 transition-all flex flex-col items-center justify-center text-center h-full min-h-[220px]">
+                            <div className="w-12 h-12 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6 rounded-full group-hover:scale-110 transition-transform">
+                                <ShoppingBag className="w-6 h-6" />
+                            </div>
+                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Marketplace</h4>
+                            <p className="text-sm text-zinc-400 font-mono leading-relaxed mb-4">Gear & Essentials.</p>
+                            <div className="w-8 h-1 bg-orange-400/20 rounded-full group-hover:w-16 group-hover:bg-orange-400 transition-all"></div>
+                        </button>
+                    </ScrollReveal>
 
                     {/* Eco-Track - CENTERED */}
-                    <button onClick={() => setView(AppView.SUSTAINABILITY)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 hover:border-emerald-400/50 transition-all flex flex-col items-center justify-center text-center h-full min-h-[220px]">
-                        <div className="w-12 h-12 bg-emerald-400/10 border border-emerald-400/50 text-emerald-400 flex items-center justify-center mb-6 rounded-full group-hover:scale-110 transition-transform">
-                            <Leaf className="w-6 h-6" />
-                        </div>
-                        <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Eco-Track</h4>
-                        <p className="text-sm text-zinc-400 font-mono leading-relaxed mb-4">Carbon impact analytics.</p>
-                        <div className="w-8 h-1 bg-emerald-400/20 rounded-full group-hover:w-16 group-hover:bg-emerald-400 transition-all"></div>
-                    </button>
+                    <ScrollReveal className="h-full" width="100%" delay={0.3}>
+                        <button onClick={() => setView(AppView.SUSTAINABILITY)} className="w-full group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 hover:border-emerald-400/50 transition-all flex flex-col items-center justify-center text-center h-full min-h-[220px]">
+                            <div className="w-12 h-12 bg-emerald-400/10 border border-emerald-400/50 text-emerald-400 flex items-center justify-center mb-6 rounded-full group-hover:scale-110 transition-transform">
+                                <Leaf className="w-6 h-6" />
+                            </div>
+                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Eco-Track</h4>
+                            <p className="text-sm text-zinc-400 font-mono leading-relaxed mb-4">Carbon impact analytics.</p>
+                            <div className="w-8 h-1 bg-emerald-400/20 rounded-full group-hover:w-16 group-hover:bg-emerald-400 transition-all"></div>
+                        </button>
+                    </ScrollReveal>
 
                     {/* Rewards - CENTERED */}
-                    <button onClick={() => setView(AppView.REWARDS)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 hover:border-purple-400/50 transition-all flex flex-col items-center justify-center text-center h-full min-h-[220px]">
-                        <div className="w-12 h-12 bg-purple-400/10 border border-purple-400/50 text-purple-400 flex items-center justify-center mb-6 rounded-full group-hover:scale-110 transition-transform">
-                            <Award className="w-6 h-6" />
-                        </div>
-                        <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Rewards</h4>
-                        <p className="text-sm text-zinc-400 font-mono leading-relaxed mb-4">Voyager Points.</p>
-                        <div className="w-8 h-1 bg-purple-400/20 rounded-full group-hover:w-16 group-hover:bg-purple-400 transition-all"></div>
-                    </button>
+                    <ScrollReveal className="h-full" width="100%" delay={0.4}>
+                        <button onClick={() => setView(AppView.REWARDS)} className="w-full group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 hover:border-purple-400/50 transition-all flex flex-col items-center justify-center text-center h-full min-h-[220px]">
+                            <div className="w-12 h-12 bg-purple-400/10 border border-purple-400/50 text-purple-400 flex items-center justify-center mb-6 rounded-full group-hover:scale-110 transition-transform">
+                                <Award className="w-6 h-6" />
+                            </div>
+                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Rewards</h4>
+                            <p className="text-sm text-zinc-400 font-mono leading-relaxed mb-4">Voyager Points.</p>
+                            <div className="w-8 h-1 bg-purple-400/20 rounded-full group-hover:w-16 group-hover:bg-purple-400 transition-all"></div>
+                        </button>
+                    </ScrollReveal>
                 </div>
             </div>
         </div>
@@ -423,8 +445,8 @@ const SpotlightCard: React.FC<{ children: React.ReactNode; className?: string; o
             if (!divRef.current) return;
             const x = clientX - rect.left;
             const y = clientY - rect.top;
-            divRef.current.style.setProperty('--mouse-x', `${x}px`);
-            divRef.current.style.setProperty('--mouse-y', `${y}px`);
+            divRef.current.style.setProperty('--mouse-x', `${x} px`);
+            divRef.current.style.setProperty('--mouse-y', `${y} px`);
         });
     };
 
@@ -433,7 +455,7 @@ const SpotlightCard: React.FC<{ children: React.ReactNode; className?: string; o
             ref={divRef}
             onMouseMove={handleMouseMove}
             onClick={onClick}
-            className={`spotlight-card border bg-black relative group cursor-pointer transition-all duration-300 ${className}`}
+            className={`spotlight - card border bg - black relative group cursor - pointer transition - all duration - 300 ${className} `}
         >
             <div className="relative z-10 h-full">
                 {children}
@@ -463,13 +485,13 @@ const FloatingParticles = React.memo(() => {
                     key={p.id}
                     className="absolute bg-white animate-float-slow will-change-transform"
                     style={{
-                        left: `${p.left}%`,
-                        top: `${p.top}%`,
-                        width: `${p.size}px`,
-                        height: `${p.size}px`,
+                        left: `${p.left}% `,
+                        top: `${p.top}% `,
+                        width: `${p.size} px`,
+                        height: `${p.size} px`,
                         opacity: p.opacity,
-                        animationDelay: `${p.delay}s`,
-                        animationDuration: `${p.duration}s`,
+                        animationDelay: `${p.delay} s`,
+                        animationDuration: `${p.duration} s`,
                     }}
                 />
             ))}
