@@ -214,14 +214,14 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
 
                     <div className="max-w-3xl w-full relative z-10 animate-fade-in-up py-10">
                         <div className="text-center mb-10">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 mb-6">
-                                <span className="w-1.5 h-1.5 bg-cyan-400 animate-pulse" />
-                                <span className="text-xs font-mono text-cyan-400">LOGISTICS ENGINE ONLINE</span>
+                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 mb-6 backdrop-blur-sm">
+                                <span className="w-1.5 h-1.5 bg-cyan-400 animate-pulse shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
+                                <span className="text-xs font-mono text-cyan-400 tracking-widest uppercase">Logistics Engine Online</span>
                             </div>
-                            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight uppercase">
+                            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight uppercase font-sans">
                                 Precision <span className="text-zinc-500">Logistics.</span>
                             </h2>
-                            <p className="text-lg text-zinc-400 font-mono">End-to-end planning. Flights, Transfers, Hotels.</p>
+                            <p className="text-lg text-zinc-400 font-sans max-w-lg mx-auto leading-relaxed">End-to-end planning. Flights, Transfers, Hotels. Handled by AI, verified by humans.</p>
                         </div>
 
                         <div className="bg-black border border-white/20 shadow-2xl overflow-hidden group hover:border-cyan-400/30 transition-colors">
@@ -239,7 +239,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                 onChange={(e) => setPrompt(e.target.value)}
                                 onFocus={handleInputFocus}
                                 placeholder="ENTER MISSION PARAMETERS..."
-                                className="w-full h-40 bg-black text-white text-lg p-6 focus:outline-none resize-none placeholder-zinc-700 font-mono"
+                                className="w-full h-40 bg-black text-white text-lg p-6 focus:outline-none resize-none placeholder-zinc-700 font-mono border-none"
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
                                         handlePlanTrip();
@@ -264,7 +264,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
             ) : (
                 // --- RESULTS STATE ---
                 <div
-                    className={`relative w-full pb-32 min-h-screen transition-all duration-700 ease-out will-change-[padding] ${isScrolled ? 'pt-24 md:pt-32' : 'pt-32 md:pt-48'}`}
+                    className={`relative w-full pb-32 min-h-screen transition-all duration-700 ease-out will-change-[padding] pt-32`}
                 >
 
                     {/* Background Image (Fixed, Grayscale) */}
@@ -284,7 +284,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                         Mission Generated
                                     </span>
                                 </div>
-                                <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight leading-tight break-words uppercase">
+                                <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight leading-tight break-words uppercase font-sans drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                                     {itinerary.destination}
                                 </h1>
                                 <div className="flex flex-wrap items-center gap-6 text-sm text-zinc-400 border-t border-white/10 pt-4 w-full md:w-fit font-mono">
@@ -327,8 +327,8 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                                 key={idx}
                                                 onClick={() => setSelectedTravelIndex(idx)}
                                                 className={`cursor-pointer border p-6 md:p-8 transition-all group relative overflow-hidden flex flex-col md:flex-row gap-8 items-start md:items-center ${selectedTravelIndex === idx
-                                                    ? 'bg-cyan-900/10 border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.1)]'
-                                                    : 'bg-black border-white/10 hover:border-cyan-400/50'
+                                                    ? 'bg-cyan-900/10 border-cyan-400 shadow-[0_0_30px_rgba(34,211,238,0.2)]'
+                                                    : 'bg-black/80 backdrop-blur-sm border-white/10 hover:border-cyan-400/50'
                                                     }`}
                                             >
                                                 <div className="flex flex-col items-center justify-center gap-3 min-w-[80px]">
@@ -395,8 +395,8 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                             <div
                                                 key={idx}
                                                 onClick={() => setSelectedHotelIndex(idx)}
-                                                className={`cursor-pointer group transition-all border relative bg-black ${selectedHotelIndex === idx
-                                                    ? 'border-orange-400 ring-1 ring-orange-400'
+                                                className={`cursor-pointer group transition-all border relative bg-black/90 backdrop-blur-sm ${selectedHotelIndex === idx
+                                                    ? 'border-orange-400 ring-1 ring-orange-400 shadow-[0_0_30px_rgba(251,146,60,0.2)]'
                                                     : 'border-white/10 hover:border-orange-400/40'
                                                     }`}
                                             >
@@ -435,15 +435,14 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                                 </div>
 
                                                 <div className="p-6 flex flex-col h-[calc(100%-16rem)]">
-                                                    <p className="text-zinc-400 text-sm mb-6 leading-relaxed line-clamp-3">
+                                                    <p className="text-zinc-400 text-sm mb-6 leading-relaxed line-clamp-3 font-sans">
                                                         {hotel.description}
                                                     </p>
-
                                                     <div className="mt-auto pt-4 border-t border-white/5 flex flex-wrap gap-2">
                                                         {hotel.amenities.slice(0, 3).map((amenity, i) => (
-                                                            <span key={i} className="text-[10px] bg-white/5 px-2.5 py-1 text-zinc-300 border border-white/10 uppercase tracking-wide">{amenity}</span>
+                                                            <span key={i} className="text-[10px] bg-white/5 px-2.5 py-1 text-zinc-300 border border-white/10 uppercase tracking-wide font-mono">{amenity}</span>
                                                         ))}
-                                                        {hotel.amenities.length > 3 && <span className="text-[10px] bg-white/5 px-2.5 py-1 text-zinc-300 border border-white/10 uppercase tracking-wide">+{hotel.amenities.length - 3}</span>}
+                                                        {hotel.amenities.length > 3 && <span className="text-[10px] bg-white/5 px-2.5 py-1 text-zinc-300 border border-white/10 uppercase tracking-wide font-mono">+{hotel.amenities.length - 3}</span>}
                                                     </div>
                                                 </div>
                                             </div>
@@ -473,8 +472,8 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                                         : 'bg-black text-zinc-500 hover:bg-white/5'
                                                         }`}
                                                 >
-                                                    <span className="text-[10px] font-bold uppercase tracking-wider mb-0.5">Day {idx + 1}</span>
-                                                    <span className="font-bold text-sm">{day.day.split(' ')[0]}</span>
+                                                    <span className="text-[10px] font-bold uppercase tracking-wider mb-0.5 font-mono">Day {idx + 1}</span>
+                                                    <span className="font-bold text-sm font-sans">{day.day.split(' ')[0]}</span>
                                                 </button>
                                             ))}
                                             <div className="w-8 flex-shrink-0" />
