@@ -241,7 +241,7 @@ const Auth: React.FC<AuthProps> = ({ setView, setUser, initialError }) => {
       <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
 
       <div className="w-full max-w-md relative z-10">
-        <div className="bg-black border border-white/20 p-8 shadow-2xl relative">
+        <div className="bg-black border border-white/20 p-6 md:p-8 shadow-2xl relative">
 
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-white mb-2 tracking-tight uppercase">
