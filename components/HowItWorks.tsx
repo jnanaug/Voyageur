@@ -45,23 +45,23 @@ const HowItWorks: React.FC = () => {
 
             <div className="relative">
                 {/* Vertical Line */}
-                <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/50 via-orange-500/50 to-transparent md:-translate-x-1/2" />
+                <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/50 via-orange-500/50 to-transparent" />
 
                 <div className="space-y-12 relative z-10">
                     {steps.map((step, idx) => (
                         <div key={idx} className={`relative flex flex-col md:flex-row items-start md:items-center gap-8 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
 
-                            {/* Text Content */}
-                            <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-left text-center' : 'md:text-right text-center'} md:pl-0 pt-16 md:pt-0`}>
-                                <h3 className="text-2xl font-bold text-white mb-2 font-sans tracking-tight">{step.title}</h3>
-                                <p className="text-zinc-400 font-sans leading-relaxed">{step.desc}</p>
-                            </div>
-
-                            {/* Icon Bubble */}
-                            <div className="absolute left-1/2 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 top-0 md:top-auto w-12 h-12 rounded-full border-4 border-black shadow-[0_0_20px_rgba(34,211,238,0.2)] flex items-center justify-center z-10 bg-black">
+                            {/* Icon Bubble (First in DOM for stacking, Absolute on Desktop) */}
+                            <div className="relative mx-auto mb-6 md:mb-0 md:absolute md:left-1/2 md:-translate-x-1/2 md:top-auto w-12 h-12 rounded-full border-4 border-black shadow-[0_0_20px_rgba(34,211,238,0.2)] flex items-center justify-center z-10 bg-black">
                                 <div className={`w-full h-full rounded-full flex items-center justify-center ${step.color} shadow-inner bg-opacity-20 backdrop-blur-sm border border-white/20`}>
                                     {step.icon}
                                 </div>
+                            </div>
+
+                            {/* Text Content */}
+                            <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-left text-center' : 'md:text-right text-center'} md:pl-0`}>
+                                <h3 className="text-2xl font-bold text-white mb-2 font-sans tracking-tight">{step.title}</h3>
+                                <p className="text-zinc-400 font-sans leading-relaxed">{step.desc}</p>
                             </div>
 
                             {/* Spacer for other side */}
