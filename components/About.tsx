@@ -34,7 +34,7 @@ const About: React.FC = () => {
           </ul>
         </div>
 
-        <div className="bg-slate-900/40 rounded-3xl p-8 border border-white/10 backdrop-blur-md relative overflow-hidden group hover:bg-slate-900/60 transition-all hover:shadow-[0_0_30px_rgba(249,115,22,0.1)]">
+        <div className="bg-slate-900/40 rounded-3xl p-8 border border-white/10 backdrop-blur-md relative overflow-hidden group hover:bg-slate-900/60 transition-all hover:shadow-[0_0_30px_rgba(249,115,22,0.1)] mx-auto max-w-lg md:max-w-none">
           <div className="absolute top-0 right-0 p-12 bg-orange-500/10 blur-3xl rounded-full group-hover:bg-orange-500/20 transition-colors" />
           <Users className="w-12 h-12 text-orange-400 mb-6 drop-shadow-[0_0_10px_rgba(249,115,22,0.5)]" />
           <h3 className="text-3xl font-bold text-white mb-4 font-sans">The Curators</h3>

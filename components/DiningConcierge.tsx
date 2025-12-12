@@ -51,7 +51,7 @@ const DiningConcierge: React.FC = () => {
             </div>
 
             <div className="flex justify-center mb-12">
-                <div className="flex bg-black p-1 border border-white/10">
+                <div className="flex flex-wrap justify-center bg-black p-1 border border-white/10 gap-2 md:gap-0">
                     <button onClick={() => setActiveTab('search')} className={`px-6 py-2 text-xs font-bold uppercase tracking-widest transition-colors ${activeTab === 'search' ? 'bg-white text-black' : 'text-zinc-500 hover:text-white'}`}>Search</button>
                     <button onClick={() => setActiveTab('saved')} className={`px-6 py-2 text-xs font-bold uppercase tracking-widest transition-colors ${activeTab === 'saved' ? 'bg-white text-black' : 'text-zinc-500 hover:text-white'}`}>Saved</button>
                     <button onClick={() => setActiveTab('preorder')} className={`px-6 py-2 text-xs font-bold uppercase tracking-widest transition-colors ${activeTab === 'preorder' ? 'bg-white text-black' : 'text-zinc-500 hover:text-white'}`}>Pre-Order</button>
@@ -61,7 +61,7 @@ const DiningConcierge: React.FC = () => {
             {activeTab === 'search' && (
                 <>
                     <div className="max-w-2xl mx-auto mb-16 relative w-full">
-                        <div className="relative flex gap-0">
+                        <div className="relative flex flex-col md:flex-row gap-4 md:gap-0">
                             <input
                                 type="text"
                                 value={craving}
@@ -82,7 +82,7 @@ const DiningConcierge: React.FC = () => {
 
                     <div className="grid md:grid-cols-3 gap-6">
                         {recommendations.map((rec, idx) => (
-                            <div key={idx} className="border border-white/10 bg-black/80 backdrop-blur-md hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.1)] transition-all group duration-300">
+                            <div key={idx} className="border border-white/10 bg-black/80 backdrop-blur-md hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.1)] transition-all group duration-300 mx-auto w-full max-w-sm md:max-w-none">
                                 <div className="h-48 bg-zinc-900 relative overflow-hidden transition-all duration-500 border-b border-white/5">
                                     {images[idx] ? (
                                         <img src={images[idx]} alt={rec.dishName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
