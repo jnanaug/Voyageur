@@ -4,11 +4,11 @@ import { Fingerprint, TrendingUp, Map } from 'lucide-react';
 
 const TravelDNA: React.FC = () => {
     return (
-        <div className="min-h-screen pt-64 pb-20 px-6 max-w-5xl mx-auto">
+        <div className="min-h-screen pt-40 pb-20 px-6 max-w-5xl mx-auto">
             <div className="flex items-center gap-4 mb-12 justify-center">
                 <Fingerprint className="w-12 h-12 text-cyan-400" />
                 <div className="text-center md:text-left">
-                    <h2 className="text-4xl font-bold text-white uppercase tracking-tight font-sans">Travel DNA™</h2>
+                    <h2 className="text-4xl md:text-5xl font-bold text-white uppercase tracking-tight font-sans">Travel DNA™</h2>
                     <p className="text-zinc-400 font-sans">Psychographic analysis of your travel behavior.</p>
                 </div>
             </div>

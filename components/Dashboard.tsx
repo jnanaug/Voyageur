@@ -145,11 +145,20 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
     const tabsRef = useRef<{ [key: string]: HTMLButtonElement | null }>({});
 
-    // STRICT INITIALIZATION: Start as NULL. 
-    // This forces the UI to render Skeletons immediately.
-    // It will ONLY render data once 'stats' is populated.
-    const [stats, setStats] = useState<any | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+    // PERSISTENT CACHE STRATEGY
+    // 1. Try to initialize immediately from LocalStorage to show data INSTANTLY.
+    // 2. Only show loading state if cache is strictly empty.
+    const [stats, setStats] = useState<any | null>(() => {
+        try {
+            const cached = localStorage.getItem('voyageur_stats_v1');
+            return cached ? JSON.parse(cached) : null;
+        } catch (e) {
+            return null;
+        }
+    });
+
+    const [isLoading, setIsLoading] = useState(() => !stats); // Only load if no stats
+
 
     const [prompts, setPrompts] = useState<any[]>([]);
 
@@ -179,17 +188,19 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
     useEffect(() => {
         if (user) {
             const loadData = async () => {
-                setIsLoading(true); // Start loading
+                // Only show skeleton if we have NO data
+                if (!stats) setIsLoading(true);
+
                 try {
-                    // Artificial delay to prevent near-instant flickering on fast networks
-                    // This keeps the premium "Skeleton" look for at least 800ms
+                    // Only delay if we are actually showing a skeleton (first load)
                     if (!stats) await new Promise(r => setTimeout(r, 800));
 
                     const s = await dbService.getStats(user.id);
                     if (s) {
                         setStats(s);
-                    } else {
-                        // Fallback if no data found (avoids infinite loading)
+                        localStorage.setItem('voyageur_stats_v1', JSON.stringify(s));
+                    } else if (!stats) {
+                        // Fallback only if we still have no data
                         setStats({ totalSpend: 0, tripCount: 0, citiesVisited: 0, recentTrips: [] });
                     }
 
@@ -198,7 +209,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                 } catch (e) {
                     console.error("Dashboard data load failed", e);
                 } finally {
-                    setIsLoading(false); // Stop loading
+                    setIsLoading(false);
                 }
             };
             loadData();

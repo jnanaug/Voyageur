@@ -6,14 +6,14 @@ const Sustainability: React.FC = () => {
     const [calcDistance, setCalcDistance] = useState(1000);
 
     return (
-        <div className="min-h-screen pt-64 pb-20 px-6 max-w-7xl mx-auto">
+        <div className="min-h-screen pt-40 pb-20 px-6 max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
                 <div className="text-center md:text-left">
                     <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
                         <Leaf className="w-6 h-6 text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]" />
                         <span className="text-emerald-400 font-mono text-sm uppercase tracking-wider">Eco-Initiative</span>
                     </div>
-                    <h2 className="text-5xl font-bold text-white mb-6 uppercase tracking-tight font-sans">Carbon Neutral <br />Travel.</h2>
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 uppercase tracking-tight font-sans">Carbon Neutral <br />Travel.</h2>
                     <p className="text-zinc-400 text-lg leading-relaxed mb-8 font-sans">
                         We automatically calculate the carbon footprint of your flights and stays, offering instant offset options through verified reforestation projects.
                     </p>

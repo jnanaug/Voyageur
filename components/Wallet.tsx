@@ -10,8 +10,8 @@ const Wallet: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen pt-64 pb-20 px-6 max-w-5xl mx-auto">
-            <h2 className="text-4xl font-bold text-white mb-8 uppercase tracking-tight font-sans text-center">Digital Wallet</h2>
+        <div className="min-h-screen pt-40 pb-20 px-6 max-w-5xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-12 uppercase tracking-tight font-sans text-center">Digital Wallet</h2>
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">
                 {/* Balance Card */}
