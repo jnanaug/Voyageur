@@ -115,9 +115,9 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                 >
                     <div
                         ref={dashboardRef}
-                        className="md:rotate-3d relative w-full h-full bg-[#050505] border border-white/10 shadow-[0_0_100px_rgba(34,211,238,0.05)] overflow-hidden transition-transform duration-100 ease-out will-change-transform"
+                        className="md:rotate-3d relative w-full h-full bg-[#050505] border border-white/10 shadow-[0_0_100px_rgba(34,211,238,0.05)] overflow-hidden transition-transform duration-100 ease-out will-change-transform animate-float-slow md:animate-none"
                         style={{
-                            transform: typeof window !== 'undefined' && window.innerWidth > 768 ? 'translate3d(0,0,0) rotateX(5deg) rotateY(-5deg)' : 'none',
+                            transform: typeof window !== 'undefined' && window.innerWidth > 768 ? 'translate3d(0,0,0) rotateX(5deg) rotateY(-5deg)' : undefined,
                         }}
                     >
                         {/* Header */}
@@ -256,21 +256,19 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                     System Capabilities
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-6 auto-rows-auto md:auto-rows-[340px]">
+                <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-6 items-stretch">
 
                     {/* ITEM 1: AI (Large) */}
-                    <SpotlightCard className="md:col-span-6 lg:col-span-8 h-80 md:h-auto border-white/10 hover:border-cyan-400/50">
-                        <div className="relative h-full flex flex-col justify-between z-10 p-8">
-                            <div>
-                                <div className="w-12 h-12 bg-cyan-400 text-black flex items-center justify-center mb-6">
-                                    <Sparkles className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-tight">Generative Core</h3>
-                                <p className="text-zinc-400 max-w-lg text-sm font-mono leading-relaxed">
-                                    Mathematical trip construction. Our engine processes millions of data points to build your perfect itinerary.
-                                </p>
+                    <SpotlightCard className="md:col-span-6 lg:col-span-8 min-h-[340px] border-white/10 hover:border-cyan-400/50">
+                        <div className="relative h-full flex flex-col p-8 bg-black">
+                            <div className="w-12 h-12 bg-cyan-400 text-black flex items-center justify-center mb-6 shrink-0">
+                                <Sparkles className="w-6 h-6" />
                             </div>
-                            <div className="flex gap-3 mt-auto">
+                            <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-tight shrink-0">Generative Core</h3>
+                            <p className="text-zinc-400 max-w-lg text-sm font-mono leading-relaxed mb-auto">
+                                Mathematical trip construction. Our engine processes millions of data points to build your perfect itinerary.
+                            </p>
+                            <div className="flex gap-3 mt-8 pt-4 border-t border-white/5 shrink-0">
                                 <span className="px-3 py-1 bg-cyan-900/20 border border-cyan-400/30 text-cyan-400 text-xs font-bold font-mono uppercase">Gemini 2.5</span>
                                 <span className="px-3 py-1 bg-cyan-900/20 border border-cyan-400/30 text-cyan-400 text-xs font-bold font-mono uppercase">Pro Vision</span>
                             </div>
@@ -278,18 +276,16 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                     </SpotlightCard>
 
                     {/* ITEM 2: Verified */}
-                    <SpotlightCard className="md:col-span-6 lg:col-span-4 h-80 md:h-auto border-white/10 hover:border-orange-400/50">
-                        <div className="relative h-full flex flex-col justify-between z-10 p-8">
-                            <div>
-                                <div className="w-12 h-12 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6">
-                                    <ShieldCheck className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-tight">Human Verified</h3>
-                                <p className="text-zinc-400 text-sm font-mono leading-relaxed">
-                                    Every booking link double-checked by experts. Zero hallucinations.
-                                </p>
+                    <SpotlightCard className="md:col-span-6 lg:col-span-4 min-h-[340px] border-white/10 hover:border-orange-400/50">
+                        <div className="relative h-full flex flex-col p-8 bg-black">
+                            <div className="w-12 h-12 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6 shrink-0">
+                                <ShieldCheck className="w-6 h-6" />
                             </div>
-                            <div className="mt-auto relative bg-black p-4 border border-white/10 flex items-center gap-4">
+                            <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-tight shrink-0">Human Verified</h3>
+                            <p className="text-zinc-400 text-sm font-mono leading-relaxed mb-auto">
+                                Every booking link double-checked by experts. Zero hallucinations.
+                            </p>
+                            <div className="mt-8 pt-4 border-t border-white/5 relative bg-black p-4 border border-white/10 flex items-center gap-4 shrink-0">
                                 <div className="flex -space-x-3 grayscale">
                                     <img src="https://i.pravatar.cc/100?img=33" alt="Agent" className="w-10 h-10 border-2 border-black" />
                                     <img src="https://i.pravatar.cc/100?img=47" alt="Agent" className="w-10 h-10 border-2 border-black" />
@@ -303,58 +299,52 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                     </SpotlightCard>
 
                     {/* ITEM 3: Dining */}
-                    <SpotlightCard className="md:col-span-6 lg:col-span-4 h-64 md:h-auto hover:border-white/50" onClick={() => setView(AppView.DINING)}>
-                        <div className="relative p-8 h-full flex flex-col justify-between overflow-hidden group">
+                    <SpotlightCard className="md:col-span-6 lg:col-span-4 min-h-[280px] hover:border-white/50" onClick={() => setView(AppView.DINING)}>
+                        <div className="relative p-8 h-full flex flex-col group bg-black overflow-hidden">
                             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-40 grayscale group-hover:scale-105 transition-transform duration-700" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
 
-                            <div className="relative z-10 h-full flex flex-col justify-between">
-                                <div className="w-12 h-12 bg-white text-black flex items-center justify-center mb-6">
+                            <div className="relative z-10 h-full flex flex-col">
+                                <div className="w-12 h-12 bg-white text-black flex items-center justify-center mb-6 shrink-0">
                                     <Coffee className="w-6 h-6" />
                                 </div>
-                                <div>
-                                    <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Dining Access</h4>
-                                    <p className="text-sm text-zinc-300 font-mono">Exclusive reservations.</p>
-                                </div>
+                                <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight shrink-0">Dining Access</h4>
+                                <p className="text-sm text-zinc-300 font-mono mb-auto">Exclusive reservations.</p>
                             </div>
                         </div>
                     </SpotlightCard>
 
                     {/* ITEM 4: Logistics */}
-                    <SpotlightCard className="md:col-span-6 lg:col-span-4 h-64 md:h-auto border-white/10 hover:border-emerald-400/50">
-                        <div className="relative p-8 h-full flex flex-col justify-between">
-                            <div className="relative z-10 h-full flex flex-col justify-between">
-                                <div className="w-12 h-12 bg-emerald-400/10 border border-emerald-400/50 text-emerald-400 flex items-center justify-center mb-6">
+                    <SpotlightCard className="md:col-span-6 lg:col-span-4 min-h-[280px] border-white/10 hover:border-emerald-400/50">
+                        <div className="relative p-8 h-full flex flex-col bg-black">
+                            <div className="relative z-10 h-full flex flex-col">
+                                <div className="w-12 h-12 bg-emerald-400/10 border border-emerald-400/50 text-emerald-400 flex items-center justify-center mb-6 shrink-0">
                                     <Plane className="w-6 h-6" />
                                 </div>
-                                <div>
-                                    <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Logistics Radar</h4>
-                                    <p className="text-sm text-zinc-400 font-mono">Seamless transfers & tickets.</p>
+                                <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight shrink-0">Logistics Radar</h4>
+                                <p className="text-sm text-zinc-400 font-mono mb-auto">Seamless transfers & tickets.</p>
+                                <div className="h-1 w-full bg-emerald-900/30 overflow-hidden mt-6 shrink-0">
+                                    <div className="h-full bg-emerald-400 w-2/3" />
                                 </div>
-                            </div>
-                            <div className="h-1 w-full bg-emerald-900/30 overflow-hidden">
-                                <div className="h-full bg-emerald-400 w-2/3" />
                             </div>
                         </div>
                     </SpotlightCard>
 
                     {/* ITEM 5: Real-time */}
-                    <SpotlightCard className="md:col-span-12 lg:col-span-4 h-64 md:h-auto border-white/10 hover:border-cyan-400/50">
-                        <div className="p-8 h-full flex flex-col relative justify-between">
-                            <div className="flex flex-col h-full justify-between relative z-10">
-                                <div className="w-12 h-12 bg-cyan-400/10 border border-cyan-400/50 text-cyan-400 flex items-center justify-center mb-6">
+                    <SpotlightCard className="md:col-span-12 lg:col-span-4 min-h-[280px] border-white/10 hover:border-cyan-400/50">
+                        <div className="p-8 h-full flex flex-col relative bg-black">
+                            <div className="flex flex-col h-full relative z-10">
+                                <div className="w-12 h-12 bg-cyan-400/10 border border-cyan-400/50 text-cyan-400 flex items-center justify-center mb-6 shrink-0">
                                     <Zap className="w-6 h-6" />
                                 </div>
-                                <div>
-                                    <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Real-time Sync</h4>
-                                    <p className="text-sm text-zinc-400 mb-4 font-mono">Flight delayed? We auto-adjust.</p>
-                                </div>
-                            </div>
+                                <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight shrink-0">Real-time Sync</h4>
+                                <p className="text-sm text-zinc-400 mb-auto font-mono">Flight delayed? We auto-adjust.</p>
 
-                            <div className="mt-auto relative h-12 w-full bg-black border border-white/10 overflow-hidden flex items-center">
-                                <div className="flex items-center gap-8 animate-[shimmer_10s_linear_infinite] whitespace-nowrap px-4">
-                                    <span className="text-[10px] font-mono text-zinc-500">BA249 <span className="text-orange-400">DELAYED</span></span>
-                                    <span className="text-[10px] font-mono text-zinc-500">UBER <span className="text-emerald-400">ARRIVED</span></span>
+                                <div className="mt-6 relative h-12 w-full bg-black border border-white/10 overflow-hidden flex items-center shrink-0">
+                                    <div className="flex items-center gap-8 animate-[shimmer_10s_linear_infinite] whitespace-nowrap px-4">
+                                        <span className="text-[10px] font-mono text-zinc-500">BA249 <span className="text-orange-400">DELAYED</span></span>
+                                        <span className="text-[10px] font-mono text-zinc-500">UBER <span className="text-emerald-400">ARRIVED</span></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
