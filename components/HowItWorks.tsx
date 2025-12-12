@@ -58,8 +58,8 @@ const HowItWorks: React.FC = () => {
                                 </div>
                             </div>
 
-                            {/* Text Content */}
-                            <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-left text-center' : 'md:text-right text-center'} md:pl-0`}>
+                            {/* Text Content - Added padding to prevent overlap with center icon */}
+                            <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-left text-center md:pr-16' : 'md:text-right text-center md:pl-16'} md:pl-0`}>
                                 <h3 className="text-2xl font-bold text-white mb-2 font-sans tracking-tight">{step.title}</h3>
                                 <p className="text-zinc-400 font-sans leading-relaxed">{step.desc}</p>
                             </div>
