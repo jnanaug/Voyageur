@@ -9,7 +9,7 @@ const About: React.FC = () => {
         <span className="inline-block py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-900/10 rounded-full px-3 border border-cyan-500/20 font-mono">
           Our Mission
         </span>
-        <h1 className="mb-6 font-sans text-4xl font-bold tracking-tight text-white md:text-6xl uppercase break-words">
+        <h1 className="mb-6 font-sans text-3xl font-bold tracking-tight text-white md:text-6xl uppercase">
           The Human <span className="text-cyan-400">&</span> Machine <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Collaboration.</span>
         </h1>
