@@ -102,7 +102,7 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
                     <div className="mt-12 md:mt-16 flex items-center gap-4 text-xs font-mono text-zinc-500 uppercase tracking-wider justify-center md:justify-start">
                         <div className="flex -space-x-4">
-                            {[1, 2, 3].map(i => <div key={i} className={`w-8 h-8 border border-black flex items-center justify-center bg-zinc-900 text-white font-bold text-[10px] rounded-full`} >{i}</div>)}
+                            {[1, 2, 3].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="User" className="w-8 h-8 rounded-full border border-black object-cover" />)}
                         </div>
                         <p className="text-cyan-500/80">10,000+ Operations Executed</p>
                     </div>
@@ -115,7 +115,7 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                 >
                     <div
                         ref={dashboardRef}
-                        className="md:rotate-3d relative w-full h-full bg-[#050505] border border-white/10 shadow-[0_0_50px_rgba(34,211,238,0.15)] overflow-hidden transition-transform duration-100 ease-out will-change-transform animate-float-slow md:animate-none"
+                        className="md:rotate-3d relative w-full h-full bg-[#050505] border border-white/10 shadow-[0_0_80px_rgba(34,211,238,0.3)] overflow-hidden transition-transform duration-100 ease-out will-change-transform animate-float-slow md:animate-none"
                         style={{
                             transform: typeof window !== 'undefined' && window.innerWidth > 768 ? 'translate3d(0,0,0) rotateX(5deg) rotateY(-5deg)' : undefined,
                         }}
