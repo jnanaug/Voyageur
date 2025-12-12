@@ -260,17 +260,17 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
                     {/* ITEM 1: AI (Large) */}
                     <SpotlightCard className="md:col-span-6 lg:col-span-8 h-80 md:h-auto border-white/10 hover:border-cyan-400/50">
-                        <div className="relative h-full flex flex-col justify-between z-10 p-8 md:p-10">
+                        <div className="relative h-full flex flex-col justify-between z-10 p-8">
                             <div>
-                                <div className="w-14 h-14 bg-cyan-400 text-black flex items-center justify-center mb-6">
-                                    <Sparkles className="w-7 h-7" />
+                                <div className="w-12 h-12 bg-cyan-400 text-black flex items-center justify-center mb-6">
+                                    <Sparkles className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 uppercase tracking-tighter">Generative Core</h3>
-                                <p className="text-zinc-400 max-w-lg text-base md:text-lg font-mono leading-relaxed">
+                                <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-tight">Generative Core</h3>
+                                <p className="text-zinc-400 max-w-lg text-sm font-mono leading-relaxed">
                                     Mathematical trip construction. Our engine processes millions of data points to build your perfect itinerary.
                                 </p>
                             </div>
-                            <div className="flex gap-3 mt-8">
+                            <div className="flex gap-3 mt-auto">
                                 <span className="px-3 py-1 bg-cyan-900/20 border border-cyan-400/30 text-cyan-400 text-xs font-bold font-mono uppercase">Gemini 2.5</span>
                                 <span className="px-3 py-1 bg-cyan-900/20 border border-cyan-400/30 text-cyan-400 text-xs font-bold font-mono uppercase">Pro Vision</span>
                             </div>
@@ -279,14 +279,16 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
                     {/* ITEM 2: Verified */}
                     <SpotlightCard className="md:col-span-6 lg:col-span-4 h-80 md:h-auto border-white/10 hover:border-orange-400/50">
-                        <div className="relative h-full flex flex-col z-10 p-8">
-                            <div className="w-12 h-12 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6">
-                                <ShieldCheck className="w-6 h-6" />
+                        <div className="relative h-full flex flex-col justify-between z-10 p-8">
+                            <div>
+                                <div className="w-12 h-12 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6">
+                                    <ShieldCheck className="w-6 h-6" />
+                                </div>
+                                <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-tight">Human Verified</h3>
+                                <p className="text-zinc-400 text-sm font-mono leading-relaxed">
+                                    Every booking link double-checked by experts. Zero hallucinations.
+                                </p>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-tight">Human Verified</h3>
-                            <p className="text-zinc-400 text-sm mb-6 font-mono leading-relaxed">
-                                Every booking link double-checked by experts. Zero hallucinations.
-                            </p>
                             <div className="mt-auto relative bg-black p-4 border border-white/10 flex items-center gap-4">
                                 <div className="flex -space-x-3 grayscale">
                                     <img src="https://i.pravatar.cc/100?img=33" alt="Agent" className="w-10 h-10 border-2 border-black" />
@@ -302,16 +304,18 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
                     {/* ITEM 3: Dining */}
                     <SpotlightCard className="md:col-span-6 lg:col-span-4 h-64 md:h-auto hover:border-white/50" onClick={() => setView(AppView.DINING)}>
-                        <div className="relative p-8 h-full flex flex-col overflow-hidden group">
+                        <div className="relative p-8 h-full flex flex-col justify-between overflow-hidden group">
                             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-40 grayscale group-hover:scale-105 transition-transform duration-700" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
 
-                            <div className="relative z-10 mt-auto">
-                                <div className="w-12 h-12 bg-white text-black flex items-center justify-center mb-4">
+                            <div className="relative z-10 h-full flex flex-col justify-between">
+                                <div className="w-12 h-12 bg-white text-black flex items-center justify-center mb-6">
                                     <Coffee className="w-6 h-6" />
                                 </div>
-                                <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Dining Access</h4>
-                                <p className="text-sm text-zinc-300 font-mono">Exclusive reservations.</p>
+                                <div>
+                                    <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Dining Access</h4>
+                                    <p className="text-sm text-zinc-300 font-mono">Exclusive reservations.</p>
+                                </div>
                             </div>
                         </div>
                     </SpotlightCard>
@@ -319,12 +323,14 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                     {/* ITEM 4: Logistics */}
                     <SpotlightCard className="md:col-span-6 lg:col-span-4 h-64 md:h-auto border-white/10 hover:border-emerald-400/50">
                         <div className="relative p-8 h-full flex flex-col justify-between">
-                            <div className="relative z-10">
+                            <div className="relative z-10 h-full flex flex-col justify-between">
                                 <div className="w-12 h-12 bg-emerald-400/10 border border-emerald-400/50 text-emerald-400 flex items-center justify-center mb-6">
                                     <Plane className="w-6 h-6" />
                                 </div>
-                                <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Logistics Radar</h4>
-                                <p className="text-sm text-zinc-400 font-mono">Seamless transfers & tickets.</p>
+                                <div>
+                                    <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Logistics Radar</h4>
+                                    <p className="text-sm text-zinc-400 font-mono">Seamless transfers & tickets.</p>
+                                </div>
                             </div>
                             <div className="h-1 w-full bg-emerald-900/30 overflow-hidden">
                                 <div className="h-full bg-emerald-400 w-2/3" />
@@ -335,15 +341,14 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                     {/* ITEM 5: Real-time */}
                     <SpotlightCard className="md:col-span-12 lg:col-span-4 h-64 md:h-auto border-white/10 hover:border-cyan-400/50">
                         <div className="p-8 h-full flex flex-col relative justify-between">
-                            <div className="flex items-center justify-between mb-4 relative z-10">
-                                <div className="w-12 h-12 bg-cyan-400/10 border border-cyan-400/50 text-cyan-400 flex items-center justify-center">
+                            <div className="flex flex-col h-full justify-between relative z-10">
+                                <div className="w-12 h-12 bg-cyan-400/10 border border-cyan-400/50 text-cyan-400 flex items-center justify-center mb-6">
                                     <Zap className="w-6 h-6" />
                                 </div>
-                            </div>
-
-                            <div className="relative z-10">
-                                <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Real-time Sync</h4>
-                                <p className="text-sm text-zinc-400 mb-4 font-mono">Flight delayed? We auto-adjust.</p>
+                                <div>
+                                    <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Real-time Sync</h4>
+                                    <p className="text-sm text-zinc-400 mb-4 font-mono">Flight delayed? We auto-adjust.</p>
+                                </div>
                             </div>
 
                             <div className="mt-auto relative h-12 w-full bg-black border border-white/10 overflow-hidden flex items-center">
@@ -364,60 +369,44 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                     Extended Ecosystem
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                    {/* Community */}
-                    <button onClick={() => setView(AppView.COMMUNITY)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-cyan-400/50 transition-all flex flex-col justify-between h-full min-h-[220px]">
-                        <div>
-                            <div className="w-12 h-12 bg-cyan-400/10 border border-cyan-400/50 text-cyan-400 flex items-center justify-center mb-6">
-                                <Users className="w-6 h-6" />
-                            </div>
-                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Community</h4>
-                            <p className="text-sm text-zinc-400 font-mono leading-relaxed">Global itinerary network.</p>
+                    {/* Community - CENTERED */}
+                    <button onClick={() => setView(AppView.COMMUNITY)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 hover:border-cyan-400/50 transition-all flex flex-col items-center justify-center text-center h-full min-h-[220px]">
+                        <div className="w-12 h-12 bg-cyan-400/10 border border-cyan-400/50 text-cyan-400 flex items-center justify-center mb-6 rounded-full group-hover:scale-110 transition-transform">
+                            <Users className="w-6 h-6" />
                         </div>
-                        <div className="flex items-center justify-end mt-4">
-                            <ArrowRight className="w-5 h-5 text-zinc-700 group-hover:text-cyan-400 transition-colors opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 duration-300" />
-                        </div>
+                        <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Community</h4>
+                        <p className="text-sm text-zinc-400 font-mono leading-relaxed mb-4">Global itinerary network.</p>
+                        <div className="w-8 h-1 bg-cyan-400/20 rounded-full group-hover:w-16 group-hover:bg-cyan-400 transition-all"></div>
                     </button>
 
-                    {/* Marketplace */}
-                    <button onClick={() => setView(AppView.MARKETPLACE)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-orange-400/50 transition-all flex flex-col justify-between h-full min-h-[220px]">
-                        <div>
-                            <div className="w-12 h-12 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6">
-                                <ShoppingBag className="w-6 h-6" />
-                            </div>
-                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Marketplace</h4>
-                            <p className="text-sm text-zinc-400 font-mono leading-relaxed">Gear & Essentials.</p>
+                    {/* Marketplace - CENTERED */}
+                    <button onClick={() => setView(AppView.MARKETPLACE)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 hover:border-orange-400/50 transition-all flex flex-col items-center justify-center text-center h-full min-h-[220px]">
+                        <div className="w-12 h-12 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6 rounded-full group-hover:scale-110 transition-transform">
+                            <ShoppingBag className="w-6 h-6" />
                         </div>
-                        <div className="flex items-center justify-end mt-4">
-                            <ArrowRight className="w-5 h-5 text-zinc-700 group-hover:text-orange-400 transition-colors opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 duration-300" />
-                        </div>
+                        <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Marketplace</h4>
+                        <p className="text-sm text-zinc-400 font-mono leading-relaxed mb-4">Gear & Essentials.</p>
+                        <div className="w-8 h-1 bg-orange-400/20 rounded-full group-hover:w-16 group-hover:bg-orange-400 transition-all"></div>
                     </button>
 
-                    {/* Eco-Track */}
-                    <button onClick={() => setView(AppView.SUSTAINABILITY)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-emerald-400/50 transition-all flex flex-col justify-between h-full min-h-[220px]">
-                        <div>
-                            <div className="w-12 h-12 bg-emerald-400/10 border border-emerald-400/50 text-emerald-400 flex items-center justify-center mb-6">
-                                <Leaf className="w-6 h-6" />
-                            </div>
-                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Eco-Track</h4>
-                            <p className="text-sm text-zinc-400 font-mono leading-relaxed">Carbon impact analytics.</p>
+                    {/* Eco-Track - CENTERED */}
+                    <button onClick={() => setView(AppView.SUSTAINABILITY)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 hover:border-emerald-400/50 transition-all flex flex-col items-center justify-center text-center h-full min-h-[220px]">
+                        <div className="w-12 h-12 bg-emerald-400/10 border border-emerald-400/50 text-emerald-400 flex items-center justify-center mb-6 rounded-full group-hover:scale-110 transition-transform">
+                            <Leaf className="w-6 h-6" />
                         </div>
-                        <div className="flex items-center justify-end mt-4">
-                            <ArrowRight className="w-5 h-5 text-zinc-700 group-hover:text-emerald-400 transition-colors opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 duration-300" />
-                        </div>
+                        <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Eco-Track</h4>
+                        <p className="text-sm text-zinc-400 font-mono leading-relaxed mb-4">Carbon impact analytics.</p>
+                        <div className="w-8 h-1 bg-emerald-400/20 rounded-full group-hover:w-16 group-hover:bg-emerald-400 transition-all"></div>
                     </button>
 
-                    {/* Rewards */}
-                    <button onClick={() => setView(AppView.REWARDS)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-purple-400/50 transition-all flex flex-col justify-between h-full min-h-[220px]">
-                        <div>
-                            <div className="w-12 h-12 bg-purple-400/10 border border-purple-400/50 text-purple-400 flex items-center justify-center mb-6">
-                                <Award className="w-6 h-6" />
-                            </div>
-                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Rewards</h4>
-                            <p className="text-sm text-zinc-400 font-mono leading-relaxed">Voyager Points.</p>
+                    {/* Rewards - CENTERED */}
+                    <button onClick={() => setView(AppView.REWARDS)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 hover:border-purple-400/50 transition-all flex flex-col items-center justify-center text-center h-full min-h-[220px]">
+                        <div className="w-12 h-12 bg-purple-400/10 border border-purple-400/50 text-purple-400 flex items-center justify-center mb-6 rounded-full group-hover:scale-110 transition-transform">
+                            <Award className="w-6 h-6" />
                         </div>
-                        <div className="flex items-center justify-end mt-4">
-                            <ArrowRight className="w-5 h-5 text-zinc-700 group-hover:text-purple-400 transition-colors opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 duration-300" />
-                        </div>
+                        <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Rewards</h4>
+                        <p className="text-sm text-zinc-400 font-mono leading-relaxed mb-4">Voyager Points.</p>
+                        <div className="w-8 h-1 bg-purple-400/20 rounded-full group-hover:w-16 group-hover:bg-purple-400 transition-all"></div>
                     </button>
                 </div>
             </div>
