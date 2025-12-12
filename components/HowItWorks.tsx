@@ -52,7 +52,7 @@ const HowItWorks: React.FC = () => {
                         <div key={idx} className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 items-center w-full">
 
                             {/* Left Content (Evens) */}
-                            <div className={`order-2 md:order-1 md:text-right md:pr-12 ${idx % 2 === 0 ? 'block text-center' : 'hidden md:block invisible'}`}>
+                            <div className={`order-2 md:order-1 md:text-right md:pr-4 ${idx % 2 === 0 ? 'block text-center' : 'hidden md:block invisible'}`}>
                                 {idx % 2 === 0 && (
                                     <>
                                         <h3 className="text-2xl font-bold text-white mb-2 font-sans tracking-tight">{step.title}</h3>
@@ -71,7 +71,7 @@ const HowItWorks: React.FC = () => {
                             </div>
 
                             {/* Right Content (Odds) */}
-                            <div className={`order-3 md:order-3 md:text-left md:pl-12 ${idx % 2 !== 0 ? 'block text-center' : 'hidden md:block invisible'}`}>
+                            <div className={`order-3 md:order-3 md:text-left md:pl-4 ${idx % 2 !== 0 ? 'block text-center' : 'hidden md:block invisible'}`}>
                                 {idx % 2 !== 0 && (
                                     <>
                                         <h3 className="text-2xl font-bold text-white mb-2 font-sans tracking-tight">{step.title}</h3>
