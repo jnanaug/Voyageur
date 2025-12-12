@@ -204,7 +204,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
     const visitedCityNames = Array.from(new Set((stats?.recentTrips || []).map((t: any) => t?.destination).filter(Boolean)));
 
     return (
-        <div className="min-h-screen pt-24 md:pt-32 pb-20 px-4 md:px-6 max-w-[1400px] mx-auto animate-fade-in-up bg-black">
+        <div className="min-h-screen pt-48 md:pt-64 pb-20 px-4 md:px-6 max-w-[1400px] mx-auto animate-fade-in-up bg-black">
 
             {/* HEADER SECTION */}
             <div className="flex flex-col md:flex-row items-end justify-between mb-8 md:mb-12 gap-8">
