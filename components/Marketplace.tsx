@@ -49,7 +49,7 @@ const Marketplace: React.FC = () => {
     const filteredItems = activeCategory === "All" ? items : items.filter(i => i.category === activeCategory);
 
     return (
-        <div className="min-h-screen pt-24 pb-20 px-6 max-w-7xl mx-auto">
+        <div className="min-h-screen pt-36 pb-20 px-6 max-w-7xl mx-auto">
             <div className="flex justify-between items-end mb-12 border-b border-white/10 pb-8">
                 <div>
                     <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 uppercase tracking-tight font-sans">Marketplace</h2>

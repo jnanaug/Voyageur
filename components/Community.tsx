@@ -37,7 +37,7 @@ const Community: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen pt-24 pb-20 px-6 max-w-7xl mx-auto">
+        <div className="min-h-screen pt-36 pb-20 px-6 max-w-7xl mx-auto">
             <div className="text-center mb-16">
                 <span className="text-cyan-400 font-mono text-xs uppercase tracking-widest mb-4 inline-block px-3 py-1 border border-cyan-500/30 rounded-full bg-cyan-950/20">Global Network</span>
                 <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 uppercase tracking-tight font-sans">Voyageur Community</h2>

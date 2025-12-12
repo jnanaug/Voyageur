@@ -170,13 +170,19 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
     useEffect(() => {
         if (user) {
             const loadData = async () => {
+                setIsLoading(true); // Start loading
                 try {
+                    // Artificial delay for smoother transition (optional, remove in prod if desired, keeps skeleton visible for 500ms)
+                    await new Promise(r => setTimeout(r, 600));
+
                     const s = await dbService.getStats(user.id);
                     if (s) setStats(s);
                     const p = await dbService.getPrompts(user.id);
                     if (p) setPrompts(p);
                 } catch (e) {
                     console.error("Dashboard data load failed", e);
+                } finally {
+                    setIsLoading(false); // Stop loading
                 }
             };
             loadData();
@@ -251,7 +257,9 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                             <div className="p-3 bg-white/5 border border-white/10 text-white"><CreditCard className="w-5 h-5" /></div>
                             <span className="text-xs font-mono text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2 py-1">+12%</span>
                         </div>
-                        <div className="text-4xl font-bold text-white mb-1 tracking-tight">${(stats?.totalSpend || 0).toLocaleString()}</div>
+                        <div className="text-4xl font-bold text-white mb-1 tracking-tight">
+                            {isLoading ? <Skeleton className="h-10 w-32" /> : `$${(stats?.totalSpend || 0).toLocaleString()}`}
+                        </div>
                         <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold">Lifetime Spend</div>
                         <div className="absolute bottom-0 left-0 w-full h-1 bg-zinc-900">
                             <div className="h-full bg-emerald-400 w-[5%]" />
@@ -267,7 +275,9 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                             <div className="p-3 bg-white/5 border border-white/10 text-white"><Crown className="w-5 h-5" /></div>
                             <span className="text-[10px] font-bold text-orange-400 bg-orange-400/10 border border-orange-400/20 px-2 py-1 uppercase tracking-wider">Member</span>
                         </div>
-                        <div className="text-4xl font-bold text-white mb-1 tracking-tight">{(stats?.tripCount || 0) * 150}</div>
+                        <div className="text-4xl font-bold text-white mb-1 tracking-tight">
+                            {isLoading ? <Skeleton className="h-10 w-16" /> : ((stats?.tripCount || 0) * 150)}
+                        </div>
                         <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold relative z-10">Voyager Points</div>
                     </div>
 
@@ -280,7 +290,9 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                             <div className="p-3 bg-white/5 border border-white/10 text-white"><Leaf className="w-5 h-5" /></div>
                             <span className="text-xs font-bold text-zinc-400 bg-white/5 px-2 py-1 border border-white/10">Neutral</span>
                         </div>
-                        <div className="text-4xl font-bold text-white mb-1 tracking-tight">{(stats?.tripCount || 0) * 0.5}t</div>
+                        <div className="text-4xl font-bold text-white mb-1 tracking-tight">
+                            {isLoading ? <Skeleton className="h-10 w-24" /> : `${(stats?.tripCount || 0) * 0.5}t`}
+                        </div>
                         <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold">Carbon Offset</div>
                     </div>
 
@@ -289,7 +301,9 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                         <div className="flex justify-between items-start mb-6">
                             <div className="p-3 bg-white/5 border border-white/10 text-white"><MapPin className="w-5 h-5" /></div>
                         </div>
-                        <div className="text-4xl font-bold text-white mb-1 tracking-tight">{stats?.citiesVisited || 0}</div>
+                        <div className="text-4xl font-bold text-white mb-1 tracking-tight">
+                            {isLoading ? <Skeleton className="h-10 w-12" /> : (stats?.citiesVisited || 0)}
+                        </div>
                         <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold">Cities Unlocked</div>
                     </div>
 

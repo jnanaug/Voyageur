@@ -4,6 +4,7 @@ import { Mail, Lock, User, ArrowRight, AlertCircle, CheckCircle2, RefreshCw, Inf
 import { AppView, UserProfile } from '../types';
 import { authService } from '../services/authService';
 import GoogleLoginBtn from './GoogleLoginBtn';
+import { checkPasswordCompromised } from '../utils/security';
 
 
 interface AuthProps {
@@ -147,6 +148,12 @@ const Auth: React.FC<AuthProps> = ({ setView, setUser, initialError }) => {
       } else {
         if (formData.password !== formData.confirmPassword) throw new Error("Passwords do not match.");
         if (passwordStrength < 3) throw new Error("Password is too weak.");
+
+        // SECURITY: Check against HIBP for leaked passwords
+        const isCompromised = await checkPasswordCompromised(formData.password);
+        if (isCompromised) {
+          throw new Error("Security Alert: This password has been exposed in a public data breach. Please choose a different, more secure password.");
+        }
 
         const newUser = await authService.signup(formData.fullName, formData.email, formData.password);
         if (newUser) {
