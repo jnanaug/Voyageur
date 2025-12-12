@@ -47,25 +47,38 @@ const HowItWorks: React.FC = () => {
                 {/* Vertical Line */}
                 <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/50 via-orange-500/50 to-transparent" />
 
-                <div className="space-y-12 relative z-10">
+                <div className="space-y-12 relative z-10 w-full">
                     {steps.map((step, idx) => (
-                        <div key={idx} className={`relative flex flex-col md:flex-row items-start md:items-center gap-8 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                        <div key={idx} className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 items-center w-full">
 
-                            {/* Icon Bubble (First in DOM for stacking, Absolute on Desktop) */}
-                            <div className="relative mx-auto mb-6 md:mb-0 md:absolute md:left-1/2 md:-translate-x-1/2 md:top-auto w-12 h-12 rounded-full border-4 border-black shadow-[0_0_20px_rgba(34,211,238,0.2)] flex items-center justify-center z-10 bg-black">
-                                <div className={`w-full h-full rounded-full flex items-center justify-center ${step.color} shadow-inner bg-opacity-20 backdrop-blur-sm border border-white/20`}>
-                                    {step.icon}
+                            {/* Left Content (Evens) */}
+                            <div className={`order-2 md:order-1 md:text-right md:pr-12 ${idx % 2 === 0 ? 'block text-center' : 'hidden md:block invisible'}`}>
+                                {idx % 2 === 0 && (
+                                    <>
+                                        <h3 className="text-2xl font-bold text-white mb-2 font-sans tracking-tight">{step.title}</h3>
+                                        <p className="text-zinc-400 font-sans leading-relaxed">{step.desc}</p>
+                                    </>
+                                )}
+                            </div>
+
+                            {/* Center Icon */}
+                            <div className="order-1 md:order-2 flex justify-center relative z-20 my-4 md:my-0">
+                                <div className="w-12 h-12 rounded-full border-4 border-black shadow-[0_0_20px_rgba(34,211,238,0.2)] flex items-center justify-center bg-black relative z-10">
+                                    <div className={`w-full h-full rounded-full flex items-center justify-center ${step.color} shadow-inner bg-opacity-20 backdrop-blur-sm border border-white/20`}>
+                                        {step.icon}
+                                    </div>
                                 </div>
                             </div>
 
-                            {/* Text Content - Added padding to prevent overlap with center icon */}
-                            <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-left text-center md:pr-16' : 'md:text-right text-center md:pl-16'} md:pl-0`}>
-                                <h3 className="text-2xl font-bold text-white mb-2 font-sans tracking-tight">{step.title}</h3>
-                                <p className="text-zinc-400 font-sans leading-relaxed">{step.desc}</p>
+                            {/* Right Content (Odds) */}
+                            <div className={`order-3 md:order-3 md:text-left md:pl-12 ${idx % 2 !== 0 ? 'block text-center' : 'hidden md:block invisible'}`}>
+                                {idx % 2 !== 0 && (
+                                    <>
+                                        <h3 className="text-2xl font-bold text-white mb-2 font-sans tracking-tight">{step.title}</h3>
+                                        <p className="text-zinc-400 font-sans leading-relaxed">{step.desc}</p>
+                                    </>
+                                )}
                             </div>
-
-                            {/* Spacer for other side */}
-                            <div className="flex-1 hidden md:block" />
                         </div>
                     ))}
                 </div>
