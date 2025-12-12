@@ -131,8 +131,29 @@ const GoogleLoginBtn: React.FC<GoogleLoginBtnProps> = ({ onSuccess, onError, set
         }
     };
 
+    const containerRef = React.useRef<HTMLDivElement>(null);
+    const [btnWidth, setBtnWidth] = useState<string>("300");
+
+    React.useEffect(() => {
+        const updateWidth = () => {
+            if (containerRef.current) {
+                // Get the computed width of the container
+                // Subtract padding if necessary, but offsetWidth usually works well for this widget
+                const width = containerRef.current.offsetWidth;
+                setBtnWidth(width.toString());
+            }
+        };
+
+        // Initial measurement
+        updateWidth();
+
+        // Listen for window resize
+        window.addEventListener('resize', updateWidth);
+        return () => window.removeEventListener('resize', updateWidth);
+    }, []);
+
     return (
-        <div className="w-full relative">
+        <div ref={containerRef} className="w-full relative">
             {isLoading && (
                 <div className="absolute inset-0 z-10 bg-black/50 flex items-center justify-center rounded">
                     <Loader2 className="w-5 h-5 text-cyan-400 animate-spin" />
@@ -147,9 +168,8 @@ const GoogleLoginBtn: React.FC<GoogleLoginBtnProps> = ({ onSuccess, onError, set
                         theme="filled_black"
                         shape="rectangular"
                         size="large"
-                        size="large"
                         logo_alignment="left"
-                        width="340"
+                        width={btnWidth}
                         text={isSignup ? "signup_with" : "signin_with"}
                     />
                 </GoogleOAuthProvider>
