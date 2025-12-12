@@ -55,14 +55,14 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
             {/* Background Grid */}
             <div className="absolute inset-0 pointer-events-none z-0">
-                <div className={`absolute inset - 0 bg - grid - pattern opacity - [0.2] grid - bg transition - transform duration - [3s] ease - out ${loaded ? 'scale-100' : 'scale-110'} `} />
+                <div className={`absolute inset-0 bg-grid-pattern opacity-[0.2] grid-bg transition-transform duration-[3s] ease-out ${loaded ? 'scale-100' : 'scale-110'}`} />
             </div>
 
             {/* Main Grid Content */}
             <div className="relative z-10 w-full max-w-[1400px] mx-auto pt-32 lg:pt-48 pb-20 px-6 grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
                 {/* LEFT COLUMN: Text Content */}
-                <div className={`flex flex - col items - center md: items - start text - center md: text - left z - 20 transition - all duration - 1000 delay - 500 ease - out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} `}>
+                <div className={`flex flex-col items-center md:items-start text-center md:text-left z-20 transition-all duration-1000 delay-500 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
 
                     <div className="inline-flex items-center gap-3 px-4 py-1.5 border border-cyan-500/30 bg-cyan-950/10 mb-8 backdrop-blur-md rounded-full">
                         <span className="relative flex h-2 w-2">
@@ -102,7 +102,7 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
                     <div className="mt-12 md:mt-16 flex items-center gap-4 text-xs font-mono text-zinc-500 uppercase tracking-wider justify-center md:justify-start">
                         <div className="flex -space-x-4">
-                            {[1, 2, 3].map(i => <div key={i} className={`w - 8 h - 8 border border - black flex items - center justify - center bg - zinc - 900 text - white font - bold text - [10px] rounded - full`} >{i}</div>)}
+                            {[1, 2, 3].map(i => <div key={i} className={`w-8 h-8 border border-black flex items-center justify-center bg-zinc-900 text-white font-bold text-[10px] rounded-full`} >{i}</div>)}
                         </div>
                         <p className="text-cyan-500/80">10,000+ Operations Executed</p>
                     </div>
@@ -110,12 +110,12 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
                 {/* RIGHT COLUMN: Sharp Dashboard */}
                 <div
-                    className={`w - full lg: h - [650px] h - auto perspective - container transition - all duration - [1.5s] ease - [cubic - bezier(0.25, 1, 0.5, 1)] ${loaded ? 'scale-100 opacity-100 blur-0' : 'scale-125 opacity-0 blur-lg'} `}
+                    className={`w-full lg:h-[650px] h-auto perspective-container transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] ${loaded ? 'scale-100 opacity-100 blur-0' : 'scale-125 opacity-0 blur-lg'}`}
                     ref={containerRef}
                 >
                     <div
                         ref={dashboardRef}
-                        className="md:rotate-3d relative w-full h-full bg-[#050505] border border-white/10 shadow-[0_0_100px_rgba(34,211,238,0.05)] overflow-hidden transition-transform duration-100 ease-out will-change-transform animate-rotate-3d-continuous md:animate-none"
+                        className="md:rotate-3d relative w-full h-full bg-[#050505] border border-white/10 shadow-[0_0_100px_rgba(34,211,238,0.05)] overflow-hidden transition-transform duration-100 ease-out will-change-transform animate-float-slow md:animate-none"
                         style={{
                             transform: typeof window !== 'undefined' && window.innerWidth > 768 ? 'translate3d(0,0,0) rotateX(5deg) rotateY(-5deg)' : undefined,
                         }}
@@ -445,8 +445,8 @@ const SpotlightCard: React.FC<{ children: React.ReactNode; className?: string; o
             if (!divRef.current) return;
             const x = clientX - rect.left;
             const y = clientY - rect.top;
-            divRef.current.style.setProperty('--mouse-x', `${x} px`);
-            divRef.current.style.setProperty('--mouse-y', `${y} px`);
+            divRef.current.style.setProperty('--mouse-x', `${x}px`);
+            divRef.current.style.setProperty('--mouse-y', `${y}px`);
         });
     };
 
@@ -455,7 +455,7 @@ const SpotlightCard: React.FC<{ children: React.ReactNode; className?: string; o
             ref={divRef}
             onMouseMove={handleMouseMove}
             onClick={onClick}
-            className={`spotlight - card border bg - black relative group cursor - pointer transition - all duration - 300 ${className} `}
+            className={`spotlight-card border bg-black relative group cursor-pointer transition-all duration-300 ${className}`}
         >
             <div className="relative z-10 h-full">
                 {children}
@@ -485,13 +485,13 @@ const FloatingParticles = React.memo(() => {
                     key={p.id}
                     className="absolute bg-white animate-float-slow will-change-transform"
                     style={{
-                        left: `${p.left}% `,
-                        top: `${p.top}% `,
-                        width: `${p.size} px`,
-                        height: `${p.size} px`,
+                        left: `${p.left}%`,
+                        top: `${p.top}%`,
+                        width: `${p.size}px`,
+                        height: `${p.size}px`,
                         opacity: p.opacity,
-                        animationDelay: `${p.delay} s`,
-                        animationDuration: `${p.duration} s`,
+                        animationDelay: `${p.delay}s`,
+                        animationDuration: `${p.duration}s`,
                     }}
                 />
             ))}
