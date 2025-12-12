@@ -6,10 +6,10 @@ const Sustainability: React.FC = () => {
     const [calcDistance, setCalcDistance] = useState(1000);
 
     return (
-        <div className="min-h-screen pt-40 pb-20 px-6 max-w-7xl mx-auto">
+        <div className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-                <div className="text-center md:text-left">
-                    <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
+                <div className="text-left">
+                    <div className="flex items-center gap-2 mb-4 justify-start">
                         <Leaf className="w-6 h-6 text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]" />
                         <span className="text-emerald-400 font-mono text-sm uppercase tracking-wider">Eco-Initiative</span>
                     </div>

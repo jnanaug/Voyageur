@@ -49,11 +49,11 @@ const Marketplace: React.FC = () => {
     const filteredItems = activeCategory === "All" ? items : items.filter(i => i.category === activeCategory);
 
     return (
-        <div className="min-h-screen pt-64 pb-20 px-6 max-w-7xl mx-auto">
-            <div className="flex justify-between items-end mb-12 border-b border-white/10 pb-8">
-                <div>
+        <div className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-white/10 pb-8">
+                <div className="w-full text-left">
                     <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 uppercase tracking-tight font-sans">Marketplace</h2>
-                    <p className="text-zinc-400 font-sans">Curated essentials for the modern traveler.</p>
+                    <p className="text-zinc-400">Exclusive gear and experiences for members.</p>
                 </div>
                 <button className="flex items-center gap-2 px-6 py-3 border border-white/20 text-white font-bold uppercase text-xs hover:bg-white hover:text-black transition-colors font-sans tracking-wider">
                     <ShoppingBag className="w-4 h-4" /> View Cart

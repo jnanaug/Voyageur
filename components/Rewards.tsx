@@ -1,18 +1,16 @@
-
+```
 import React from 'react';
 import { Award, Lock, Star, Trophy, Zap, Globe, Sun, Crown } from 'lucide-react';
 
 const Rewards: React.FC = () => {
     return (
-        <div className="min-h-screen pt-64 pb-20 px-6 max-w-7xl mx-auto">
-            <div className="pt-24 pb-12 px-6 mx-auto max-w-7xl text-center">
+        <div className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto">
+            <div className="mb-12 text-left">
                 <span className="inline-block py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-900/10 rounded-full px-3 border border-cyan-500/20 font-mono">
                     Loyalty
                 </span>
-                <h1 className="mb-6 font-sans text-4xl font-bold tracking-tight text-white md:text-6xl uppercase">
-                    Global Status
-                </h1>
-                <p className="max-w-2xl mx-auto font-sans text-lg text-zinc-400 leading-relaxed">
+                <h2 className="text-4xl md:text-5xl font-bold text-white uppercase tracking-tight font-sans">Voyager Rewards</h2>
+                <p className="max-w-2xl font-sans text-lg text-zinc-400 leading-relaxed">
                     Your achievements, rewards, and tier progress.
                 </p>
             </div>
@@ -85,19 +83,19 @@ const Rewards: React.FC = () => {
 };
 
 const Badge = ({ name, icon: Icon, achieved, color }: any) => (
-    <div className={`border p-6 flex flex-col items-center justify-center gap-4 text-center group transition-all duration-300 ${achieved ? 'bg-white/5 border-white/20 hover:border-white/40 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]' : 'bg-black border-white/5 opacity-50 grayscale'}`}>
-        <Icon className={`w-8 h-8 ${color} ${achieved ? 'group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]' : ''}`} />
-        <span className={`text-xs font-bold uppercase tracking-wide font-mono ${achieved ? 'text-white' : 'text-zinc-600'}`}>{name}</span>
+    <div className={`border p - 6 flex flex - col items - center justify - center gap - 4 text - center group transition - all duration - 300 ${ achieved ? 'bg-white/5 border-white/20 hover:border-white/40 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]' : 'bg-black border-white/5 opacity-50 grayscale' } `}>
+        <Icon className={`w - 8 h - 8 ${ color } ${ achieved ? 'group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]' : '' } `} />
+        <span className={`text - xs font - bold uppercase tracking - wide font - mono ${ achieved ? 'text-white' : 'text-zinc-600' } `}>{name}</span>
         {!achieved && <Lock className="w-3 h-3 text-zinc-700 absolute top-2 right-2" />}
     </div>
 );
 
 const TierRow = ({ name, points, benefits, active }: any) => (
-    <div className={`border p-6 flex flex-col md:flex-row items-center justify-between gap-6 transition-all ${active ? 'bg-white/5 border-orange-500 shadow-[0_0_30px_rgba(249,115,22,0.1)]' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+    <div className={`border p - 6 flex flex - col md: flex - row items - center justify - between gap - 6 transition - all ${ active ? 'bg-white/5 border-orange-500 shadow-[0_0_30px_rgba(249,115,22,0.1)]' : 'bg-black/50 border-white/10 hover:bg-white/5' } `}>
         <div className="flex items-center gap-4">
-            <div className={`w-3 h-3 rounded-full ${active ? 'bg-orange-500 animate-pulse shadow-[0_0_10px_rgba(249,115,22,0.8)]' : 'bg-zinc-800'}`} />
+            <div className={`w - 3 h - 3 rounded - full ${ active ? 'bg-orange-500 animate-pulse shadow-[0_0_10px_rgba(249,115,22,0.8)]' : 'bg-zinc-800' } `} />
             <div>
-                <h4 className={`text-lg font-bold uppercase font-sans ${active ? 'text-white' : 'text-zinc-500'}`}>{name}</h4>
+                <h4 className={`text - lg font - bold uppercase font - sans ${ active ? 'text-white' : 'text-zinc-500' } `}>{name}</h4>
                 <div className="text-xs text-zinc-600 font-mono">{points}+ Points</div>
             </div>
         </div>
