@@ -38,10 +38,14 @@ const DiningConcierge: React.FC = () => {
 
     return (
         <div className="min-h-screen pt-32 pb-12 px-6 max-w-7xl mx-auto bg-black">
-            <div className="text-center mb-16">
-                <span className="inline-block px-3 py-1 bg-white/5 border border-white/10 text-cyan-400 text-xs font-mono font-bold uppercase tracking-widest mb-6 backdrop-blur-sm">Beta Feature</span>
-                <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 uppercase font-sans tracking-tight">Elite Dining</h2>
-                <p className="text-zinc-400 max-w-2xl mx-auto font-sans text-lg leading-relaxed">
+            <div className="pt-32 pb-12 px-6 mx-auto max-w-7xl text-center">
+                <span className="inline-block py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-900/10 rounded-full px-3 border border-cyan-500/20 font-mono">
+                    Beta Feature
+                </span>
+                <h1 className="mb-6 font-sans text-4xl font-bold tracking-tight text-white md:text-6xl uppercase">
+                    Elite Dining
+                </h1>
+                <p className="max-w-2xl mx-auto font-sans text-lg text-zinc-400 leading-relaxed">
                     Describe your craving. Define the vibe. We secure the table.
                 </p>
             </div>

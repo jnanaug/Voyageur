@@ -209,19 +209,20 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
 
             {!itinerary ? (
                 // --- INPUT STATE ---
-                <div className="min-h-screen flex flex-col items-center justify-center px-6 relative">
+                <div className="min-h-screen flex flex-col items-center justify-start px-6 relative">
                     <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
 
                     <div className="max-w-3xl w-full relative z-10 animate-fade-in-up py-10">
-                        <div className="text-center mb-10">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 mb-6 backdrop-blur-sm">
-                                <span className="w-1.5 h-1.5 bg-cyan-400 animate-pulse shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
-                                <span className="text-xs font-mono text-cyan-400 tracking-widest uppercase">Logistics Engine Online</span>
-                            </div>
-                            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight uppercase font-sans">
+                        <div className="pt-32 pb-12 px-6 mx-auto max-w-7xl text-center">
+                            <span className="inline-block py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-900/10 rounded-full px-3 border border-cyan-500/20 font-mono">
+                                Logistics Engine Online
+                            </span>
+                            <h1 className="mb-6 font-sans text-4xl font-bold tracking-tight text-white md:text-6xl uppercase">
                                 Precision <span className="text-zinc-500">Logistics.</span>
-                            </h2>
-                            <p className="text-lg text-zinc-400 font-sans max-w-lg mx-auto leading-relaxed">End-to-end planning. Flights, Transfers, Hotels. Handled by AI, verified by humans.</p>
+                            </h1>
+                            <p className="max-w-2xl mx-auto font-sans text-lg text-zinc-400 leading-relaxed">
+                                End-to-end planning. Flights, Transfers, Hotels. Handled by AI, verified by humans.
+                            </p>
                         </div>
 
                         <div className="bg-black border border-white/20 shadow-2xl overflow-hidden group hover:border-cyan-400/30 transition-colors">

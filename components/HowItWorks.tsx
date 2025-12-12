@@ -31,9 +31,16 @@ const HowItWorks: React.FC = () => {
 
     return (
         <div className="min-h-screen pt-32 pb-20 px-6 max-w-5xl mx-auto">
-            <div className="text-center mb-16">
-                <span className="text-cyan-400 font-mono text-xs uppercase tracking-widest mb-4 block bg-cyan-950/30 inline-block px-3 py-1 border border-cyan-500/30 rounded-full">Workflow</span>
-                <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-sans tracking-tight">From thought to tarmac.</h2>
+            <div className="pt-32 pb-12 px-6 mx-auto max-w-7xl text-center">
+                <span className="inline-block py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-900/10 rounded-full px-3 border border-cyan-500/20 font-mono">
+                    Workflow
+                </span>
+                <h1 className="mb-6 font-sans text-4xl font-bold tracking-tight text-white md:text-6xl uppercase">
+                    From thought to tarmac.
+                </h1>
+                <p className="max-w-2xl mx-auto font-sans text-lg text-zinc-400 leading-relaxed">
+                    A seamless journey from your first idea to your final destination.
+                </p>
             </div>
 
             <div className="relative">
@@ -42,7 +49,7 @@ const HowItWorks: React.FC = () => {
 
                 <div className="space-y-12 relative z-10">
                     {steps.map((step, idx) => (
-                        <div key={idx} className={`flex flex-col md:flex-row items-start md:items-center gap-8 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                        <div key={idx} className={`relative flex flex-col md:flex-row items-start md:items-center gap-8 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
 
                             {/* Text Content */}
                             <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-left' : 'md:text-right'} pl-16 md:pl-0`}>

@@ -5,8 +5,13 @@ import { MessageSquare, Mail, Search, ChevronDown, Phone } from 'lucide-react';
 const Support: React.FC = () => {
     return (
         <div className="min-h-screen pt-32 pb-20 px-6 max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold text-white mb-6 uppercase tracking-tight font-sans">Mission Control</h2>
+            <div className="pt-32 pb-12 px-6 mx-auto max-w-7xl text-center">
+                <span className="inline-block py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-900/10 rounded-full px-3 border border-cyan-500/20 font-mono">
+                    Contact
+                </span>
+                <h1 className="mb-6 font-sans text-4xl font-bold tracking-tight text-white md:text-6xl uppercase">
+                    Mission Control
+                </h1>
                 <div className="relative max-w-lg mx-auto">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
                     <input type="text" placeholder="Search knowledge base..." className="w-full bg-black/50 backdrop-blur-md border border-white/20 pl-12 pr-4 py-4 text-white focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all font-sans text-sm rounded-lg" />
