@@ -5,7 +5,7 @@ import { Fingerprint, TrendingUp, Map } from 'lucide-react';
 const TravelDNA: React.FC = () => {
     return (
         <div className="min-h-screen pt-24 pb-20 px-6 max-w-5xl mx-auto">
-            <div className="flex items-center gap-4 mb-12">
+            <div className="flex items-center gap-4 mb-12 justify-center md:justify-start">
                 <Fingerprint className="w-12 h-12 text-cyan-400" />
                 <div>
                     <h2 className="text-4xl font-bold text-white uppercase tracking-tight font-sans">Travel DNA™</h2>
@@ -15,7 +15,7 @@ const TravelDNA: React.FC = () => {
 
             <div className="grid md:grid-cols-12 gap-8">
                 {/* Main Profile Card */}
-                <div className="md:col-span-4 bg-black/50 backdrop-blur-md border border-cyan-500/50 p-8 relative overflow-hidden shadow-[0_0_50px_rgba(6,182,212,0.15)] group hover:shadow-[0_0_80px_rgba(6,182,212,0.25)] transition-all duration-500">
+                <div className="md:col-span-4 bg-black/50 backdrop-blur-md border border-cyan-500/50 p-8 relative overflow-hidden shadow-[0_0_50px_rgba(6,182,212,0.15)] group hover:shadow-[0_0_80px_rgba(6,182,212,0.25)] transition-all duration-500 mx-auto w-full max-w-sm md:max-w-none">
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-purple-500 shadow-[0_0_20px_rgba(34,211,238,0.8)]" />
                     <div className="text-xs font-bold text-cyan-400 uppercase tracking-widest mb-4 font-mono">Dominant Archetype</div>
                     <h3 className="text-5xl font-bold text-white mb-6 uppercase font-sans tracking-tight">The Explorer</h3>

@@ -19,17 +19,17 @@ const Support: React.FC = () => {
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 mb-16">
-                <div className="bg-black/50 backdrop-blur-md border border-white/10 p-6 hover:border-cyan-400/50 transition-all text-center group cursor-pointer hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] rounded-xl">
+                <div className="bg-black/50 backdrop-blur-md border border-white/10 p-6 hover:border-cyan-400/50 transition-all text-center group cursor-pointer hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] rounded-xl mx-auto w-full max-w-sm md:max-w-none">
                     <MessageSquare className="w-8 h-8 text-cyan-400 mx-auto mb-4 group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
                     <h3 className="text-lg font-bold text-white uppercase mb-2 font-sans">Live Chat</h3>
                     <p className="text-zinc-500 text-sm font-sans">24/7 Agent Support</p>
                 </div>
-                <div className="bg-black/50 backdrop-blur-md border border-white/10 p-6 hover:border-cyan-400/50 transition-all text-center group cursor-pointer hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] rounded-xl">
+                <div className="bg-black/50 backdrop-blur-md border border-white/10 p-6 hover:border-cyan-400/50 transition-all text-center group cursor-pointer hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] rounded-xl mx-auto w-full max-w-sm md:max-w-none">
                     <Mail className="w-8 h-8 text-cyan-400 mx-auto mb-4 group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
                     <h3 className="text-lg font-bold text-white uppercase mb-2 font-sans">Email Ticket</h3>
                     <p className="text-zinc-500 text-sm font-sans">Response in 2h</p>
                 </div>
-                <div className="bg-black/50 backdrop-blur-md border border-white/10 p-6 hover:border-cyan-400/50 transition-all text-center group cursor-pointer hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] rounded-xl">
+                <div className="bg-black/50 backdrop-blur-md border border-white/10 p-6 hover:border-cyan-400/50 transition-all text-center group cursor-pointer hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] rounded-xl mx-auto w-full max-w-sm md:max-w-none">
                     <Phone className="w-8 h-8 text-cyan-400 mx-auto mb-4 group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
                     <h3 className="text-lg font-bold text-white uppercase mb-2 font-sans">Emergency</h3>
                     <p className="text-zinc-500 text-sm font-sans">Priority Line</p>

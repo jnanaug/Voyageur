@@ -60,7 +60,7 @@ const DiningConcierge: React.FC = () => {
 
             {activeTab === 'search' && (
                 <>
-                    <div className="max-w-2xl mx-auto mb-16 relative">
+                    <div className="max-w-2xl mx-auto mb-16 relative w-full">
                         <div className="relative flex gap-0">
                             <input
                                 type="text"

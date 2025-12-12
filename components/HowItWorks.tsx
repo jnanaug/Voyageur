@@ -45,7 +45,7 @@ const HowItWorks: React.FC = () => {
 
             <div className="relative">
                 {/* Vertical Line */}
-                <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/50 via-orange-500/50 to-transparent" />
+                <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/50 via-orange-500/50 to-transparent hidden md:block" />
 
                 <div className="space-y-12 relative z-10 w-full">
                     {steps.map((step, idx) => (

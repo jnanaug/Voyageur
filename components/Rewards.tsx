@@ -17,8 +17,7 @@ const Rewards: React.FC = () => {
                 </p>
             </div>
             <div className="grid md:grid-cols-12 gap-12">
-                {/* LEFT: Status */}
-                <div className="md:col-span-4 space-y-8">
+                <div className="md:col-span-4 space-y-8 flex flex-col items-center md:block">
                     <div className="bg-black/50 backdrop-blur-md border border-white/10 p-8 relative overflow-hidden shadow-[0_0_50px_rgba(249,115,22,0.1)]">
                         <div className="absolute top-0 right-0 p-12 bg-orange-500/10 blur-3xl rounded-full" />
                         <div className="relative z-10">

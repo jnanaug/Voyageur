@@ -48,9 +48,9 @@ const Blog: React.FC = () => {
                 </p>
             </div>
 
-            <div className="mb-16 border-b border-white/10 pb-8 flex flex-col md:flex-row justify-between items-end gap-6">
+            <div className="mb-16 border-b border-white/10 pb-8 flex flex-col md:flex-row justify-between items-center md:items-end gap-6 text-center md:text-left">
                 <div></div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 justify-center md:justify-start flex-wrap">
                     {['All', 'Itineraries', 'Tech', 'Dining'].map(cat => (
                         <button key={cat} className="px-4 py-2 border border-white/10 text-xs font-bold uppercase tracking-wider text-zinc-400 hover:text-white hover:border-white transition-colors">
                             {cat}

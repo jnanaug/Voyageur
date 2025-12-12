@@ -19,7 +19,7 @@ const Pricing: React.FC = () => {
 
             <div className="grid md:grid-cols-3 gap-8">
                 {/* FREE */}
-                <div className="bg-black/50 backdrop-blur-md border border-white/10 p-8 flex flex-col hover:border-white/30 transition-all group hover:shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+                <div className="bg-black/50 backdrop-blur-md border border-white/10 p-8 flex flex-col hover:border-white/30 transition-all group hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] mx-auto w-full max-w-sm md:max-w-none">
                     <div className="mb-8">
                         <div className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 font-mono">Basic</div>
                         <h3 className="text-4xl font-bold text-white mb-4 font-sans">Free</h3>

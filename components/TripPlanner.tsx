@@ -225,7 +225,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                             </p>
                         </div>
 
-                        <div className="bg-black border border-white/20 shadow-2xl overflow-hidden group hover:border-cyan-400/30 transition-colors">
+                        <div className="bg-black border border-white/20 shadow-2xl overflow-hidden group hover:border-cyan-400/30 transition-colors mx-auto max-w-3xl w-full">
                             <div className="h-10 bg-white/5 border-b border-white/10 flex items-center px-4 gap-2">
                                 <div className="flex gap-1.5">
                                     <div className="w-2.5 h-2.5 bg-zinc-700" />
