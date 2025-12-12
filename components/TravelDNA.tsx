@@ -4,7 +4,7 @@ import { Fingerprint, TrendingUp, Map } from 'lucide-react';
 
 const TravelDNA: React.FC = () => {
     return (
-        <div className="min-h-screen pt-32 pb-20 px-6 max-w-6xl mx-auto">
+        <div className="min-h-screen pt-24 pb-20 px-6 max-w-5xl mx-auto">
             <div className="flex items-center gap-4 mb-12">
                 <Fingerprint className="w-12 h-12 text-cyan-400" />
                 <div>

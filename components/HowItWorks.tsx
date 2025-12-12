@@ -30,8 +30,8 @@ const HowItWorks: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen pt-32 pb-20 px-6 max-w-5xl mx-auto">
-            <div className="pt-32 pb-12 px-6 mx-auto max-w-7xl text-center">
+        <div className="min-h-screen pt-24 pb-20 px-6 max-w-5xl mx-auto">
+            <div className="pt-24 pb-12 px-6 mx-auto max-w-7xl text-center">
                 <span className="inline-block py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-900/10 rounded-full px-3 border border-cyan-500/20 font-mono">
                     Workflow
                 </span>
@@ -52,13 +52,13 @@ const HowItWorks: React.FC = () => {
                         <div key={idx} className={`relative flex flex-col md:flex-row items-start md:items-center gap-8 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
 
                             {/* Text Content */}
-                            <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-left' : 'md:text-right'} pl-16 md:pl-0`}>
+                            <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-left text-center' : 'md:text-right text-center'} md:pl-0 pt-16 md:pt-0`}>
                                 <h3 className="text-2xl font-bold text-white mb-2 font-sans tracking-tight">{step.title}</h3>
                                 <p className="text-zinc-400 font-sans leading-relaxed">{step.desc}</p>
                             </div>
 
                             {/* Icon Bubble */}
-                            <div className="absolute left-0 md:left-1/2 -translate-x-0 md:-translate-x-1/2 w-12 h-12 rounded-full border-4 border-black shadow-[0_0_20px_rgba(34,211,238,0.2)] flex items-center justify-center z-10 bg-black">
+                            <div className="absolute left-1/2 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 top-0 md:top-auto w-12 h-12 rounded-full border-4 border-black shadow-[0_0_20px_rgba(34,211,238,0.2)] flex items-center justify-center z-10 bg-black">
                                 <div className={`w-full h-full rounded-full flex items-center justify-center ${step.color} shadow-inner bg-opacity-20 backdrop-blur-sm border border-white/20`}>
                                     {step.icon}
                                 </div>

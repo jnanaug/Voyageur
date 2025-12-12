@@ -13,7 +13,7 @@ const Achievements: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen pt-32 pb-20 px-6 max-w-5xl mx-auto">
+        <div className="min-h-screen pt-24 pb-20 px-6 max-w-6xl mx-auto">
             <div className="text-center mb-16">
                 <h2 className="text-4xl font-bold text-white mb-4 uppercase tracking-tight font-sans">Mission Log</h2>
                 <p className="text-zinc-500 font-sans">Track your progress and unlock elite status.</p>

@@ -35,8 +35,8 @@ const Blog: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto">
-            <div className="pt-32 pb-12 px-6 mx-auto max-w-7xl text-center">
+        <div className="min-h-screen pt-24 pb-20 px-6 max-w-7xl mx-auto">
+            <div className="pt-24 pb-12 px-6 mx-auto max-w-7xl text-center">
                 <span className="inline-block py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-900/10 rounded-full px-3 border border-cyan-500/20 font-mono">
                     Journal
                 </span>
