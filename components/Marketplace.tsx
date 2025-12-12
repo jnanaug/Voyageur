@@ -38,7 +38,7 @@ const Marketplace: React.FC = () => {
             category: "Accessories",
             image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80"
         },
-         {
+        {
             title: "Private Airport Transfer",
             price: "$60.00",
             category: "Transport",
@@ -52,40 +52,39 @@ const Marketplace: React.FC = () => {
         <div className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto">
             <div className="flex justify-between items-end mb-12 border-b border-white/10 pb-8">
                 <div>
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 uppercase tracking-tighter">Marketplace</h2>
-                    <p className="text-zinc-500 font-mono">Curated essentials for the modern traveler.</p>
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 uppercase tracking-tight font-sans">Marketplace</h2>
+                    <p className="text-zinc-400 font-sans">Curated essentials for the modern traveler.</p>
                 </div>
-                <button className="flex items-center gap-2 px-6 py-3 border border-white/20 text-white font-bold uppercase text-xs hover:bg-white hover:text-black transition-colors">
+                <button className="flex items-center gap-2 px-6 py-3 border border-white/20 text-white font-bold uppercase text-xs hover:bg-white hover:text-black transition-colors font-sans tracking-wider">
                     <ShoppingBag className="w-4 h-4" /> View Cart
                 </button>
             </div>
 
             {/* Featured Banner */}
-            <div className="bg-gradient-to-r from-orange-500 to-red-500 p-8 mb-12 relative overflow-hidden">
+            <div className="bg-gradient-to-r from-orange-500 to-red-600 p-8 mb-12 relative overflow-hidden rounded-2xl shadow-[0_0_50px_rgba(249,115,22,0.3)]">
                 <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                     <div>
-                        <div className="bg-black text-white text-xs font-bold px-3 py-1 uppercase tracking-widest w-fit mb-3">Limited Time Deal</div>
-                        <h3 className="text-3xl font-bold text-white uppercase leading-none">Voyageur Elite Kit</h3>
-                        <p className="text-black/70 font-bold mt-2">Get 50% off when you book a trip today.</p>
+                        <div className="bg-black/80 backdrop-blur text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest w-fit mb-3 border border-white/20 rounded-full">Limited Time Deal</div>
+                        <h3 className="text-3xl font-bold text-white uppercase leading-none font-sans tracking-tight">Voyageur Elite Kit</h3>
+                        <p className="text-white/90 font-bold mt-2 font-sans">Get 50% off when you book a trip today.</p>
                     </div>
-                    <button className="px-8 py-3 bg-white text-black font-bold uppercase text-xs tracking-wider hover:bg-black hover:text-white transition-colors">
+                    <button className="px-8 py-3 bg-white text-black font-bold uppercase text-xs tracking-wider hover:bg-black hover:text-white transition-colors shadow-lg">
                         Claim Offer
                     </button>
                 </div>
-                <div className="absolute top-0 right-0 p-32 bg-white/10 blur-[50px] mix-blend-overlay" />
+                <div className="absolute top-0 right-0 p-32 bg-white/20 blur-[50px] mix-blend-overlay" />
             </div>
 
             {/* Filters */}
             <div className="flex flex-wrap gap-4 mb-12">
                 {categories.map(cat => (
-                    <button 
+                    <button
                         key={cat}
                         onClick={() => setActiveCategory(cat)}
-                        className={`px-6 py-2 border text-xs font-bold uppercase tracking-wider transition-all ${
-                            activeCategory === cat 
-                            ? 'bg-white text-black border-white' 
-                            : 'bg-black text-zinc-500 border-white/10 hover:border-white/50 hover:text-white'
-                        }`}
+                        className={`px-6 py-2 border text-xs font-bold uppercase tracking-wider transition-all ${activeCategory === cat
+                                ? 'bg-white text-black border-white'
+                                : 'bg-black text-zinc-500 border-white/10 hover:border-white/50 hover:text-white'
+                            }`}
                     >
                         {cat}
                     </button>
@@ -94,20 +93,20 @@ const Marketplace: React.FC = () => {
 
             <div className="grid md:grid-cols-4 gap-8">
                 {filteredItems.map((item, idx) => (
-                    <div key={idx} className="bg-black border border-white/10 group hover:border-white/30 transition-all cursor-pointer">
+                    <div key={idx} className="bg-black/50 backdrop-blur-md border border-white/10 group hover:border-cyan-400/50 transition-all cursor-pointer hover:shadow-[0_0_30px_rgba(34,211,238,0.1)]">
                         <div className="h-64 overflow-hidden relative">
                             <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                            <div className="absolute top-0 right-0 bg-cyan-400 text-black px-3 py-1 text-xs font-bold uppercase tracking-wider">
+                            <div className="absolute top-0 right-0 bg-cyan-400 text-black px-3 py-1 text-[10px] font-bold uppercase tracking-wider shadow-lg">
                                 {item.category}
                             </div>
                         </div>
                         <div className="p-6">
                             <div className="flex justify-between items-start mb-2">
-                                <h3 className="text-lg font-bold text-white uppercase leading-tight">{item.title}</h3>
+                                <h3 className="text-lg font-bold text-white uppercase leading-tight font-sans tracking-tight">{item.title}</h3>
                             </div>
                             <div className="flex justify-between items-center mt-4">
-                                <span className="text-xl font-bold text-white">{item.price}</span>
-                                <button className="p-2 border border-white/20 hover:bg-white hover:text-black transition-colors">
+                                <span className="text-xl font-bold text-white font-mono">{item.price}</span>
+                                <button className="p-2 border border-white/20 hover:bg-white hover:text-black transition-colors group-hover:border-cyan-400/50">
                                     <ArrowRight className="w-4 h-4" />
                                 </button>
                             </div>
