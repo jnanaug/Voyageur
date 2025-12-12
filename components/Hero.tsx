@@ -252,7 +252,7 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
             {/* FEATURE BENTO GRID */}
             <div className="relative z-20 w-full max-w-[1400px] mx-auto px-6 pb-12 mt-24">
-                <h3 className="text-2xl font-bold text-white mb-8 md:pl-4 md:border-l-4 md:border-cyan-400 flex items-center justify-center md:justify-start gap-4 uppercase tracking-wider text-center md:text-left">
+                <h3 className="text-2xl font-bold text-white mb-8 flex items-center justify-center gap-4 uppercase tracking-wider text-center">
                     System Capabilities
                 </h3>
 
@@ -355,7 +355,7 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
 
             {/* NEW: Ecosystem Access Section */}
             <div className="relative z-20 w-full max-w-[1400px] mx-auto px-6 pb-20">
-                <h3 className="text-2xl font-bold text-white mb-8 md:pl-4 md:border-l-4 md:border-emerald-400 flex items-center justify-center md:justify-start gap-4 uppercase tracking-wider text-center md:text-left">
+                <h3 className="text-2xl font-bold text-white mb-8 flex items-center justify-center gap-4 uppercase tracking-wider text-center">
                     Extended Ecosystem
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
