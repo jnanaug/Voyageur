@@ -265,8 +265,8 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                                 <div className="w-14 h-14 bg-cyan-400 text-black flex items-center justify-center mb-6">
                                     <Sparkles className="w-7 h-7" />
                                 </div>
-                                <h3 className="text-4xl font-bold text-white mb-4 uppercase tracking-tighter">Generative Core</h3>
-                                <p className="text-zinc-400 max-w-lg text-lg font-mono leading-relaxed">
+                                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 uppercase tracking-tighter">Generative Core</h3>
+                                <p className="text-zinc-400 max-w-lg text-base md:text-lg font-mono leading-relaxed">
                                     Mathematical trip construction. Our engine processes millions of data points to build your perfect itinerary.
                                 </p>
                             </div>
@@ -280,10 +280,10 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                     {/* ITEM 2: Verified */}
                     <SpotlightCard className="md:col-span-6 lg:col-span-4 h-80 md:h-auto border-white/10 hover:border-orange-400/50">
                         <div className="relative h-full flex flex-col z-10 p-8">
-                            <div className="w-14 h-14 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6">
-                                <ShieldCheck className="w-7 h-7" />
+                            <div className="w-12 h-12 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6">
+                                <ShieldCheck className="w-6 h-6" />
                             </div>
-                            <h3 className="text-2xl font-bold text-white mb-3 uppercase tracking-tight">Human Verified</h3>
+                            <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-tight">Human Verified</h3>
                             <p className="text-zinc-400 text-sm mb-6 font-mono leading-relaxed">
                                 Every booking link double-checked by experts. Zero hallucinations.
                             </p>
@@ -310,7 +310,7 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                                 <div className="w-12 h-12 bg-white text-black flex items-center justify-center mb-4">
                                     <Coffee className="w-6 h-6" />
                                 </div>
-                                <h4 className="text-2xl font-bold text-white mb-2 uppercase tracking-tight">Dining Access</h4>
+                                <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Dining Access</h4>
                                 <p className="text-sm text-zinc-300 font-mono">Exclusive reservations.</p>
                             </div>
                         </div>
@@ -364,27 +364,61 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                     Extended Ecosystem
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                    {[
-                        { label: 'Community', view: AppView.COMMUNITY, icon: Users, desc: 'Global itinerary network.', color: 'cyan' },
-                        { label: 'Marketplace', view: AppView.MARKETPLACE, icon: ShoppingBag, desc: 'Gear & Essentials.', color: 'orange' },
-                        { label: 'Eco-Track', view: AppView.SUSTAINABILITY, icon: Leaf, desc: 'Carbon impact analytics.', color: 'emerald' },
-                        { label: 'Rewards', view: AppView.REWARDS, icon: Award, desc: 'Voyager Points.', color: 'purple' },
-                    ].map((item) => (
-                        <button
-                            key={item.label}
-                            onClick={() => setView(item.view)}
-                            className={`group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-${item.color}-400/50 transition-all flex flex-col justify-between h-full min-h-[180px]`}
-                        >
-                            <div className="flex items-center justify-between mb-8">
-                                <item.icon className={`w-8 h-8 text-zinc-500 group-hover:text-${item.color}-400 transition-colors`} />
-                                <ArrowRight className={`w-5 h-5 text-zinc-700 group-hover:text-${item.color}-400 transition-colors`} />
+                    {/* Community */}
+                    <button onClick={() => setView(AppView.COMMUNITY)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-cyan-400/50 transition-all flex flex-col justify-between h-full min-h-[220px]">
+                        <div>
+                            <div className="w-12 h-12 bg-cyan-400/10 border border-cyan-400/50 text-cyan-400 flex items-center justify-center mb-6">
+                                <Users className="w-6 h-6" />
                             </div>
-                            <div>
-                                <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">{item.label}</h4>
-                                <p className="text-sm text-zinc-400 font-mono leading-relaxed">{item.desc}</p>
+                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Community</h4>
+                            <p className="text-sm text-zinc-400 font-mono leading-relaxed">Global itinerary network.</p>
+                        </div>
+                        <div className="flex items-center justify-end mt-4">
+                            <ArrowRight className="w-5 h-5 text-zinc-700 group-hover:text-cyan-400 transition-colors opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 duration-300" />
+                        </div>
+                    </button>
+
+                    {/* Marketplace */}
+                    <button onClick={() => setView(AppView.MARKETPLACE)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-orange-400/50 transition-all flex flex-col justify-between h-full min-h-[220px]">
+                        <div>
+                            <div className="w-12 h-12 bg-orange-400/10 border border-orange-400/50 text-orange-400 flex items-center justify-center mb-6">
+                                <ShoppingBag className="w-6 h-6" />
                             </div>
-                        </button>
-                    ))}
+                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Marketplace</h4>
+                            <p className="text-sm text-zinc-400 font-mono leading-relaxed">Gear & Essentials.</p>
+                        </div>
+                        <div className="flex items-center justify-end mt-4">
+                            <ArrowRight className="w-5 h-5 text-zinc-700 group-hover:text-orange-400 transition-colors opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 duration-300" />
+                        </div>
+                    </button>
+
+                    {/* Eco-Track */}
+                    <button onClick={() => setView(AppView.SUSTAINABILITY)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-emerald-400/50 transition-all flex flex-col justify-between h-full min-h-[220px]">
+                        <div>
+                            <div className="w-12 h-12 bg-emerald-400/10 border border-emerald-400/50 text-emerald-400 flex items-center justify-center mb-6">
+                                <Leaf className="w-6 h-6" />
+                            </div>
+                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Eco-Track</h4>
+                            <p className="text-sm text-zinc-400 font-mono leading-relaxed">Carbon impact analytics.</p>
+                        </div>
+                        <div className="flex items-center justify-end mt-4">
+                            <ArrowRight className="w-5 h-5 text-zinc-700 group-hover:text-emerald-400 transition-colors opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 duration-300" />
+                        </div>
+                    </button>
+
+                    {/* Rewards */}
+                    <button onClick={() => setView(AppView.REWARDS)} className="group bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8 text-left hover:border-purple-400/50 transition-all flex flex-col justify-between h-full min-h-[220px]">
+                        <div>
+                            <div className="w-12 h-12 bg-purple-400/10 border border-purple-400/50 text-purple-400 flex items-center justify-center mb-6">
+                                <Award className="w-6 h-6" />
+                            </div>
+                            <h4 className="text-xl font-bold text-white uppercase tracking-tight mb-2">Rewards</h4>
+                            <p className="text-sm text-zinc-400 font-mono leading-relaxed">Voyager Points.</p>
+                        </div>
+                        <div className="flex items-center justify-end mt-4">
+                            <ArrowRight className="w-5 h-5 text-zinc-700 group-hover:text-purple-400 transition-colors opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 duration-300" />
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>
