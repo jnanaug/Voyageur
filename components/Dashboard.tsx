@@ -191,8 +191,6 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                     const p = await dbService.getPrompts(user.id);
                     if (p) setPrompts(p);
                 } catch (e) {
-                    if (p) setPrompts(p);
-                } catch (e) {
                     console.error("Dashboard data load failed", e);
                 } finally {
                     setIsLoading(false); // Stop loading
