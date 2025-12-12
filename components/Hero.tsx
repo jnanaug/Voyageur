@@ -115,7 +115,7 @@ const Hero: React.FC<HeroProps> = ({ setView }) => {
                 >
                     <div
                         ref={dashboardRef}
-                        className="md:rotate-3d relative w-full h-full bg-[#050505] border border-white/10 shadow-[0_0_100px_rgba(34,211,238,0.05)] overflow-hidden transition-transform duration-100 ease-out will-change-transform animate-float-slow md:animate-none"
+                        className="md:rotate-3d relative w-full h-full bg-[#050505] border border-white/10 shadow-[0_0_50px_rgba(34,211,238,0.15)] overflow-hidden transition-transform duration-100 ease-out will-change-transform animate-float-slow md:animate-none"
                         style={{
                             transform: typeof window !== 'undefined' && window.innerWidth > 768 ? 'translate3d(0,0,0) rotateX(5deg) rotateY(-5deg)' : undefined,
                         }}

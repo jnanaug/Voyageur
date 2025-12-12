@@ -115,7 +115,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentView, setView, isLoggedI
             ${mounted && !isHidden ? 'translate-y-0' : '-translate-y-[150%]'}`}
             >
                 <div
-                    className={`relative w-[95%] max-w-[1200px] bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.05)] pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]
+                    className={`relative w-[95%] max-w-[1200px] bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(34,211,238,0.15)] pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]
             ${mobileMenuOpen ? 'max-h-[800px] overflow-hidden' : 'max-h-[64px] md:overflow-visible overflow-hidden'}
             `}
                 >
