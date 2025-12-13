@@ -223,6 +223,40 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
     // Extract unique cities from recent trips for the map
     const visitedCityNames = Array.from(new Set((stats?.recentTrips || []).map((t: any) => t?.destination).filter(Boolean)));
 
+    // --- SETTINGS STATE ---
+    const [settings, setSettings] = useState(() => {
+        try {
+            const cached = localStorage.getItem('voyageur_settings_v1');
+            return cached ? JSON.parse(cached) : {
+                dietary: 'None',
+                seat: 'Window',
+                luxury: 3,
+                darkMode: true,
+                realTime: true,
+                calendarSync: false
+            };
+        } catch {
+            return {
+                dietary: 'None',
+                seat: 'Window',
+                luxury: 3,
+                darkMode: true,
+                realTime: true,
+                calendarSync: false
+            };
+        }
+    });
+
+    const updateSetting = (key: string, value: any) => {
+        const newSettings = { ...settings, [key]: value };
+        setSettings(newSettings);
+        localStorage.setItem('voyageur_settings_v1', JSON.stringify(newSettings));
+    };
+
+    const toggleSetting = (key: string) => {
+        updateSetting(key, !settings[key]);
+    }
+
     return (
         <div className="min-h-screen pt-32 pb-20 px-4 md:px-6 max-w-[1400px] mx-auto animate-fade-in-up bg-black">
 
@@ -507,27 +541,44 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
 
                         <div className="space-y-2">
                             <SettingRow label="Dietary Restrictions" desc="Filter dining options">
-                                <select className="bg-black border border-white/20 text-white text-sm font-medium px-4 py-2 outline-none focus:border-white transition-colors cursor-pointer min-w-[140px] appearance-none uppercase tracking-wider">
-                                    <option>None</option>
-                                    <option>Vegetarian</option>
-                                    <option>Vegan</option>
+                                <select
+                                    value={settings.dietary}
+                                    onChange={(e) => updateSetting('dietary', e.target.value)}
+                                    className="bg-black border border-white/20 text-white text-sm font-medium px-4 py-2 outline-none focus:border-white transition-colors cursor-pointer min-w-[140px] appearance-none uppercase tracking-wider"
+                                >
+                                    <option value="None">None</option>
+                                    <option value="Vegetarian">Vegetarian</option>
+                                    <option value="Vegan">Vegan</option>
+                                    <option value="Gluten-Free">Gluten-Free</option>
                                 </select>
                             </SettingRow>
 
                             <SettingRow label="Seat Preference" desc="Flight bookings">
                                 <div className="flex bg-black p-1 border border-white/10">
-                                    <button className="px-4 py-1 text-xs font-bold bg-white text-black uppercase">Window</button>
-                                    <button className="px-4 py-1 text-xs font-bold text-zinc-500 hover:text-white uppercase">Aisle</button>
+                                    <button
+                                        onClick={() => updateSetting('seat', 'Window')}
+                                        className={`px-4 py-1 text-xs font-bold uppercase transition-colors ${settings.seat === 'Window' ? 'bg-white text-black' : 'text-zinc-500 hover:text-white'}`}
+                                    >
+                                        Window
+                                    </button>
+                                    <button
+                                        onClick={() => updateSetting('seat', 'Aisle')}
+                                        className={`px-4 py-1 text-xs font-bold uppercase transition-colors ${settings.seat === 'Aisle' ? 'bg-white text-black' : 'text-zinc-500 hover:text-white'}`}
+                                    >
+                                        Aisle
+                                    </button>
                                 </div>
                             </SettingRow>
 
                             <SettingRow label="Luxury Tier" desc="Hotel rating">
-                                <div className="flex items-center gap-1 text-white">
-                                    <Star className="w-4 h-4 fill-orange-400 text-orange-400" />
-                                    <Star className="w-4 h-4 fill-orange-400 text-orange-400" />
-                                    <Star className="w-4 h-4 fill-orange-400 text-orange-400" />
-                                    <Star className="w-4 h-4 fill-orange-400 text-orange-400" />
-                                    <Star className="w-4 h-4 text-zinc-800" />
+                                <div className="flex items-center gap-1 text-white cursor-pointer">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <Star
+                                            key={star}
+                                            onClick={() => updateSetting('luxury', star)}
+                                            className={`w-4 h-4 transition-colors ${star <= settings.luxury ? 'fill-orange-400 text-orange-400' : 'text-zinc-800 hover:text-orange-400'}`}
+                                        />
+                                    ))}
                                 </div>
                             </SettingRow>
 
@@ -535,15 +586,36 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
                                 <h3 className="text-lg font-bold text-white mb-4 uppercase">Application</h3>
 
                                 <SettingRow label="Dark Mode" desc="Always on">
-                                    <ToggleSwitch />
+                                    <label className="relative inline-flex items-center cursor-pointer group">
+                                        <input
+                                            type="checkbox"
+                                            className="sr-only peer"
+                                            checked={settings.darkMode}
+                                            onChange={() => toggleSetting('darkMode')}
+                                        />
+                                        <div className="w-10 h-5 bg-zinc-800 peer-focus:outline-none peer peer-checked:after:translate-x-full peer-checked:after:border-black after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-black after:border-zinc-300 after:border after:h-4 after:w-4 after:transition-all peer-checked:bg-cyan-400 border border-white/10 group-hover:border-cyan-400/50 transition-colors"></div>
+                                    </label>
                                 </SettingRow>
 
                                 <SettingRow label="Real-time Updates" desc="SMS alerts">
-                                    <ToggleSwitch />
+                                    <label className="relative inline-flex items-center cursor-pointer group">
+                                        <input
+                                            type="checkbox"
+                                            className="sr-only peer"
+                                            checked={settings.realTime}
+                                            onChange={() => toggleSetting('realTime')}
+                                        />
+                                        <div className="w-10 h-5 bg-zinc-800 peer-focus:outline-none peer peer-checked:after:translate-x-full peer-checked:after:border-black after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-black after:border-zinc-300 after:border after:h-4 after:w-4 after:transition-all peer-checked:bg-cyan-400 border border-white/10 group-hover:border-cyan-400/50 transition-colors"></div>
+                                    </label>
                                 </SettingRow>
 
                                 <SettingRow label="Calendar Sync" desc="Google Calendar">
-                                    <button className="text-xs text-black font-bold bg-white border border-white px-4 py-2 hover:bg-zinc-200 transition-colors uppercase tracking-wider">Connect</button>
+                                    <button
+                                        onClick={() => toggleSetting('calendarSync')}
+                                        className={`text-xs font-bold border px-4 py-2 transition-colors uppercase tracking-wider ${settings.calendarSync ? 'bg-emerald-500 border-emerald-500 text-black' : 'bg-white border-white text-black hover:bg-zinc-200'}`}
+                                    >
+                                        {settings.calendarSync ? 'Connected' : 'Connect'}
+                                    </button>
                                 </SettingRow>
                             </div>
 
