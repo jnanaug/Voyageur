@@ -237,10 +237,10 @@ const App: React.FC = () => {
         {currentView === AppView.SUSTAINABILITY && <Sustainability />}
         {currentView === AppView.INTEGRATIONS && <Integrations />}
         {currentView === AppView.REFERRALS && <Referral />}
+        {currentView === AppView.PRIVACY && <Privacy />}
+        {currentView === AppView.TERMS && <Terms />}
         {currentView === AppView.AUTH && (
           <ErrorBoundary>
-            {currentView === AppView.PRIVACY && <Privacy />}
-            {currentView === AppView.TERMS && <Terms />}
             <Auth setView={handleSetView} setUser={setUser} initialError={authError} />
           </ErrorBoundary>
         )}
