@@ -30,12 +30,13 @@ const HowItWorks: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen pt-24 pb-20 px-6 max-w-5xl mx-auto">
-            <div className="pt-24 pb-12 px-6 mx-auto max-w-7xl text-center">
+    return (
+        <div className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto">
+            <div className="pt-0 pb-12 px-6 mx-auto max-w-7xl text-center">
                 <span className="inline-block py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-900/10 rounded-full px-3 border border-cyan-500/20 font-mono">
                     Workflow
                 </span>
-                <h1 className="mb-6 font-sans text-4xl font-bold tracking-tight text-white md:text-6xl uppercase">
+                <h1 className="mb-6 font-sans text-4xl font-bold tracking-tight text-white md:text-5xl uppercase">
                     From thought to tarmac.
                 </h1>
                 <p className="max-w-2xl mx-auto font-sans text-lg text-zinc-400 leading-relaxed">
