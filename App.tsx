@@ -21,6 +21,8 @@ import Achievements from './components/Achievements';
 import Sustainability from './components/Sustainability';
 import Integrations from './components/Integrations';
 import Referral from './components/Referral';
+import Privacy from './components/Privacy';
+import Terms from './components/Terms';
 import { AppView, UserProfile } from './types';
 import { supabase } from './services/supabaseClient'; // Import supabase client
 import ErrorBoundary from './components/ErrorBoundary';
@@ -237,6 +239,8 @@ const App: React.FC = () => {
         {currentView === AppView.REFERRALS && <Referral />}
         {currentView === AppView.AUTH && (
           <ErrorBoundary>
+            {currentView === AppView.PRIVACY && <Privacy />}
+            {currentView === AppView.TERMS && <Terms />}
             <Auth setView={handleSetView} setUser={setUser} initialError={authError} />
           </ErrorBoundary>
         )}
@@ -275,8 +279,8 @@ const App: React.FC = () => {
           <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-600 text-xs uppercase tracking-wider">
             <span>© 2024 Voyageur AI Inc.</span>
             <div className="flex gap-6">
-              <span className="hover:text-white cursor-pointer transition-colors">Privacy</span>
-              <span className="hover:text-white cursor-pointer transition-colors">Terms</span>
+              <span onClick={() => handleSetView(AppView.PRIVACY)} className="hover:text-white cursor-pointer transition-colors">Privacy</span>
+              <span onClick={() => handleSetView(AppView.TERMS)} className="hover:text-white cursor-pointer transition-colors">Terms</span>
             </div>
           </div>
         </footer>

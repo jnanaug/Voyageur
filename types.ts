@@ -73,11 +73,13 @@ export enum AppView {
   SUPPORT = 'SUPPORT',
   TRAVEL_DNA = 'TRAVEL_DNA',
   COMMUNITY = 'COMMUNITY',
-  MARKETPLACE = 'MARKETPLACE',
-  ACHIEVEMENTS = 'ACHIEVEMENTS',
-  SUSTAINABILITY = 'SUSTAINABILITY',
-  INTEGRATIONS = 'INTEGRATIONS',
-  REFERRALS = 'REFERRALS'
+  MARKETPLACE = 'marketplace',
+  ACHIEVEMENTS = 'achievements',
+  SUSTAINABILITY = 'sustainability',
+  REFERRAL = 'referral',
+  INTEGRATIONS = 'integrations',
+  PRIVACY = 'privacy',
+  TERMS = 'terms'
 }
 
 export interface DiningRecommendation {
