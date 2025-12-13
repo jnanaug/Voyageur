@@ -311,7 +311,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
             </div>
 
             {activeTab === 'overview' && (
-                <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-6 animate-fade-in-up">
+                <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-6">
 
                     {/* Spend Card */}
                     <div
@@ -484,7 +484,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
             )}
 
             {activeTab === 'prompts' && (
-                <div className="max-w-4xl mx-auto animate-fade-in-up">
+                <div className="max-w-4xl mx-auto">
                     <div className="bg-black border border-white/10 overflow-hidden">
                         <div className="p-8 border-b border-white/10 flex justify-between items-center bg-white/[0.02]">
                             <h2 className="text-2xl font-bold text-white flex items-center gap-3 uppercase">
@@ -519,7 +519,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
             )}
 
             {activeTab === 'settings' && (
-                <div className="max-w-5xl mx-auto grid md:grid-cols-12 gap-8 animate-fade-in-up">
+                <div className="max-w-5xl mx-auto grid md:grid-cols-12 gap-8">
                     {/* Sidebar */}
                     <div className="md:col-span-4 space-y-3">
                         <div className="bg-white text-black p-4 border border-white font-bold flex items-center justify-between uppercase tracking-wide text-sm">
