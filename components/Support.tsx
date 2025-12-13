@@ -5,7 +5,7 @@ import { MessageSquare, Mail, Search, ChevronDown, Phone } from 'lucide-react';
 const Support: React.FC = () => {
     return (
         <div className="min-h-screen pt-32 pb-20 px-6 max-w-4xl mx-auto">
-            <div className="pt-0 pb-12 px-6 mx-auto max-w-7xl text-left">
+            <div className="pt-0 pb-12 px-6 mx-auto max-w-7xl text-center">
                 <span className="inline-block py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-900/10 rounded-full px-3 border border-cyan-500/20 font-mono">
                     Contact
                 </span>

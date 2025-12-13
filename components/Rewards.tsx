@@ -5,12 +5,12 @@ import { Award, Lock, Star, Trophy, Zap, Globe, Sun, Crown } from 'lucide-react'
 const Rewards: React.FC = () => {
     return (
         <div className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto">
-            <div className="mb-12 text-left">
+            <div className="mb-12 text-center">
                 <span className="inline-block py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-900/10 rounded-full px-3 border border-cyan-500/20 font-mono">
                     Loyalty
                 </span>
                 <h2 className="text-4xl md:text-5xl font-bold text-white uppercase tracking-tight font-sans">Voyager Rewards</h2>
-                <p className="max-w-2xl font-sans text-lg text-zinc-400 leading-relaxed">
+                <p className="max-w-2xl mx-auto font-sans text-lg text-zinc-400 leading-relaxed">
                     Your achievements, rewards, and tier progress.
                 </p>
             </div>
