@@ -209,11 +209,11 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
 
             {!itinerary ? (
                 // --- INPUT STATE ---
-                <div className="min-h-screen flex flex-col items-center justify-start px-6 relative">
+                <div className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center justify-start relative">
                     <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
 
-                    <div className="max-w-3xl w-full relative z-10 animate-fade-in-up py-10">
-                        <div className="pt-32 pb-12 px-6 mx-auto max-w-7xl text-center">
+                    <div className="max-w-3xl w-full relative z-10 animate-fade-in-up">
+                        <div className="text-center mb-12">
                             <span className="inline-block py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-900/10 rounded-full px-3 border border-cyan-500/20 font-mono">
                                 Logistics Engine Online
                             </span>
