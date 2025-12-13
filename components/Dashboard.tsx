@@ -258,7 +258,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setView, user }) => {
     }
 
     return (
-        <div className="min-h-screen pt-32 pb-20 px-4 md:px-6 max-w-[1400px] mx-auto bg-black">
+        <div className="min-h-[101vh] pt-32 pb-20 px-4 md:px-6 max-w-[1400px] mx-auto bg-black">
 
             {/* HEADER SECTION */}
             <div className="flex flex-col md:flex-row items-end justify-between mb-8 md:mb-12 gap-8">
