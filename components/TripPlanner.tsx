@@ -9,7 +9,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { DayMap, getPlaceLink, getDirectionsLink } from './DayMap';
 import LoadingScreen from './LoadingScreen';
-import { ScrambleText } from './ui/ScrambleText';
+import { ScrambleText } from './ui/ScrambleText.tsx';
 
 // Helper for place names
 const cleanDestination = (dest: string | undefined | null) => {
