@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Send, Loader2, Calendar, MapPin, DollarSign, Clock, CheckCircle, ArrowRight, Plane, Train, Bus, Car, Hotel, Bed, Star, Map as MapIcon, Navigation, ChevronDown, ChevronRight, Bookmark, Sparkles, ShieldCheck, Ticket, Users, CornerDownRight, Footprints, Camera, Utensils, Music, Info, X, History, Edit2, Save, Menu, ChevronLeft, Terminal, ExternalLink, RefreshCw, Zap } from 'lucide-react';
-import { generateItinerary, generateImage, regenerateItineraryDays, analyzeTripRequest, TripAnalysis } from '../services/geminiService';
+import { createPortal } from 'react-dom';
+import { Send, Loader2, Calendar, MapPin, DollarSign, Clock, CheckCircle, ArrowRight, Plane, Train, Bus, Car, Hotel, Bed, Star, Map as MapIcon, Navigation, ChevronDown, ChevronRight, Bookmark, Sparkles, ShieldCheck, Ticket, Users, CornerDownRight, Footprints, Camera, Utensils, Music, Info, X, History, Edit2, Save, Menu, ChevronLeft, Terminal, ExternalLink, RefreshCw, Zap, Wallet } from 'lucide-react';
+import { generateItinerary, regenerateItineraryDays, analyzeTripRequest, TripAnalysis } from '../services/geminiService';
 import { dbService } from '../services/dbService';
 import { googleCalendarService } from '../services/googleCalendarService';
 import { TripItinerary, AppView, UserProfile } from '../types';
@@ -8,6 +9,30 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { DayMap, getPlaceLink, getDirectionsLink } from './DayMap';
 import LoadingScreen from './LoadingScreen';
+import { ScrambleText } from './ui/ScrambleText';
+
+// Helper for place names
+const cleanDestination = (dest: string | undefined | null) => {
+    if (!dest) return '';
+
+    // 1. Initial Split
+    let cleaned = dest.split(':')[0];
+    cleaned = cleaned.split(' - ')[0];
+
+    // 2. Remove Common Duration Patterns
+    cleaned = cleaned.replace(/,\s*\d+\s+Days?$/i, '');
+
+    // 3. Remove Special Characters/Typos
+    cleaned = cleaned.replace(/[()*{}^%$#@!]/g, '');
+
+    // 4. Title Case
+    cleaned = cleaned.toLowerCase().split(' ').map(word =>
+        word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
+
+    return cleaned.trim();
+};
+
 
 interface TripPlannerProps {
     prompt: string;
@@ -35,16 +60,16 @@ const TacticalBackground = () => (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         {/* Ambient Glow */}
         <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[1000px] h-[1000px] bg-cyan-900/20 blur-[120px] rounded-full mix-blend-screen" />
-        
+
         {/* 3D Grid Floor */}
-        <div 
-            className="absolute inset-0 opacity-30" 
+        <div
+            className="absolute inset-0 opacity-30"
             style={{
                 backgroundImage: 'linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px)',
                 backgroundSize: '60px 60px',
                 transform: 'perspective(1000px) rotateX(60deg) translateY(200px) scale(2)',
                 maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 80%)'
-            }} 
+            }}
         />
 
         {/* HUD Circles */}
@@ -58,7 +83,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
     const [wizardState, setWizardState] = useState<WizardState>(initialTrip ? 'RESULTS' : 'INPUT');
     const [analysis, setAnalysis] = useState<TripAnalysis | null>(null);
     const [selections, setSelections] = useState<Record<string, string>>({});
-    
+
     // Sequential Question State
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [customAnswer, setCustomAnswer] = useState('');
@@ -299,6 +324,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                 itineraryData = JSON.parse(itineraryData);
             } catch (e) {
                 console.error("❌ [TripPlanner] Failed to parse trip.data string", e);
+                return; // Early return on parse failure to prevent state corruption
             }
         }
 
@@ -309,23 +335,19 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
 
         console.log("✅ [TripPlanner] Setting itinerary state:", itineraryData);
         console.log("🔍 [TripPlanner] Original Prompt Field:", itineraryData.originalPrompt);
-        console.log("🔍 [TripPlanner] Destination Field:", trip.destination);
+        console.log("🔍 [TripPlanner] Destination Field:", cleanDestination(trip.destination));
 
         setItinerary(itineraryData);
         setCurrentTripId(trip.id);
         // Use originalPrompt if available (new trips), otherwise fallback to destination (old trips)
-        const promptToSet = itineraryData.originalPrompt || trip.destination || "";
+        const promptToSet = itineraryData.originalPrompt || cleanDestination(trip.destination) || "";
         console.log("🎯 [TripPlanner] Setting Prompt to:", promptToSet);
         setPrompt(promptToSet);
         setWizardState('RESULTS');
         setActiveTab('ITINERARY');
         setIsEditing(false);
 
-        setBgImage(null); // Reset or try to fetch again
-        generateImage(`Cinematic wide angle travel shot of ${trip.destination}, black and white high contrast photography, 8k`)
-            .then(setBgImage)
-            .catch(console.error);
-
+        setBgImage(null); // Reset background image
     };
 
     const handleSaveChanges = async () => {
@@ -360,6 +382,14 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
     const handlePlanTrip = async () => {
         if (!prompt.trim()) return;
 
+        // SECURITY CHECK: Prevent API Key submission
+        // Checks for Google AIza keys and OpenAI sk- keys
+        const apiKeyPattern = /(AIza[0-9A-Za-z-_]{35}|sk-[a-zA-Z0-9]{20,})/;
+        if (apiKeyPattern.test(prompt)) {
+            alert("Security Alert: It looks like you pasted an API Key. Please do not submit API keys in the prompt field. Use the .env file for configuration.");
+            return;
+        }
+
         if (!isLoggedIn) {
             setView(AppView.AUTH);
             return;
@@ -378,10 +408,14 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
         try {
             // STEP 1: ANALYZE PROMPT
             const analysisResult = await analyzeTripRequest(prompt);
-            
+
             if (analysisResult.isComplete) {
                 // Prompt is good, proceed to generation directly
-                await executeGeneration(prompt);
+                // Use extracted clean data if available
+                const finalPrompt = analysisResult.extractedLocation
+                    ? `Trip to ${analysisResult.extractedLocation}. ${analysisResult.extractedDuration ? `Duration: ${analysisResult.extractedDuration}.` : ''} ${prompt}`
+                    : prompt;
+                await executeGeneration(finalPrompt, analysisResult.extractedLocation);
             } else {
                 // Missing info, go to clarification step
                 setAnalysis(analysisResult);
@@ -398,11 +432,11 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
 
     const handleNextQuestion = (answer: string) => {
         if (!analysis) return;
-        
+
         const fieldName = analysis.missingFields[currentQuestionIndex];
         // Capitalize first letter for display key (e.g. 'duration' -> 'Duration')
         const displayKey = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
-        
+
         const updatedSelections = { ...selections, [displayKey]: answer };
         setSelections(updatedSelections);
         setCustomAnswer('');
@@ -420,22 +454,29 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
         setLoading(true);
 
         // Construct enriched prompt
-        let enrichedPrompt = prompt;
+        let enrichedPrompt = analysis?.extractedLocation
+            ? `Trip to ${analysis.extractedLocation}. ${analysis.extractedDuration ? `Duration: ${analysis.extractedDuration}.` : ''} ${prompt}`
+            : prompt;
+
         Object.entries(finalSelections).forEach(([key, value]) => {
             enrichedPrompt += `, ${key}: ${value}`;
         });
 
-        await executeGeneration(enrichedPrompt);
+        await executeGeneration(enrichedPrompt, analysis?.extractedLocation);
     };
 
-    const executeGeneration = async (finalPrompt: string) => {
+    const executeGeneration = async (finalPrompt: string, extractedDestination?: string) => {
         // 1. Extract destination hint from prompt (for toast display)
-        const destMatch = finalPrompt.match(/to\s+([A-Za-z\s,]+?)(?:\s+for|\s+in|\s*$)/i);
-        const destHint = destMatch ? destMatch[1].trim() : finalPrompt.slice(0, 30);
+        // prioritize extracted destination if available
+        let destHint = extractedDestination;
+        if (!destHint) {
+            const destMatch = finalPrompt.match(/to\s+([A-Za-z\s,]+?)(?:\s+for|\s+in|\s*$)/i);
+            destHint = destMatch ? destMatch[1].trim() : finalPrompt.slice(0, 30);
+        }
 
         // 2. Save prompt immediately with 'generating' status
         if (user) {
-            const promptId = dbService.savePromptWithStatus({
+            const promptId = await dbService.savePromptWithStatus({
                 user_id: user.id,
                 prompt: finalPrompt,
                 destination: destHint,
@@ -528,7 +569,11 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                     });
 
                     await dbService.deductCreditsRPC(user.id, 1);
-                    if (typeof window !== 'undefined') window.dispatchEvent(new Event('voyageur:user-update'));
+                    if (typeof window !== 'undefined') {
+                        window.dispatchEvent(new CustomEvent('voyageur:user-update', {
+                            detail: { id: user.id, fullName: user.fullName ?? null }
+                        }));
+                    }
 
                     localStorage.setItem('voyageur_pending_toast', JSON.stringify({
                         type: 'success',
@@ -542,7 +587,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                     console.error('❌ Background generation failed:', err);
                     let userFriendlyError = 'Generation failed. Please try again.';
                     if (err?.message?.includes('429')) userFriendlyError = 'API limit reached. Please wait a moment.';
-                    
+
                     dbService.updatePrompt(promptId, {
                         status: 'failed',
                         error: userFriendlyError
@@ -753,12 +798,38 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                 const updatedItinerary = {
                     ...itinerary,
                     startDate: formattedDate,
-                    totalEstimatedCost: formattedCost
+                    status: 'confirmed' as const,
+                    totalEstimatedCost: formattedCost,
+                    promptId: initialTrip?.promptId // Persist promptId to link back to prompt log
                 };
 
-                // Always create NEW ID for re-books or new trips
-                const newId = await dbService.saveTrip(user.id, updatedItinerary, 'confirmed');
+                // Reuse existing trip ID if available to prevent duplicates (Single Log)
+                // If it was completed/draft, this effectively "restarts" or "confirms" the same trip entry.
+                const tripIdToUse = initialTrip?.id;
+                // Pass 'true' for allowRegression to force status update even if previously 'completed'
+                const newId = await dbService.saveTrip(user.id, updatedItinerary, 'confirmed', tripIdToUse, true);
                 setCurrentTripId(newId);
+            }
+
+            // Update Prompt Log Status (Latch Logic in dbService prevents reversion from 'completed')
+            if (initialTrip?.promptId) {
+                // If we know the specific Prompt ID, update it directly (prevents duplicates)
+                dbService.savePromptWithStatus({
+                    id: initialTrip.promptId, // Pass ID to force update
+                    user_id: user.id,
+                    prompt: prompt,
+                    status: 'confirmed',
+                    destination: itinerary.destination,
+                    allowRegression: true // Allow reverting from 'completed' to 'confirmed'
+                });
+            } else if (prompt) {
+                dbService.savePromptWithStatus({
+                    user_id: user.id,
+                    prompt: prompt,
+                    status: 'confirmed',
+                    destination: itinerary.destination,
+                    allowRegression: true
+                });
             }
 
             // NOTE: Google Calendar sync is now MANUAL only (via Dashboard button)
@@ -777,7 +848,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
     };
 
     const handleManualSync = async () => {
-        if (!itinerary || isSyncing) return;
+        if (!itinerary || isSyncing || !user) return;
 
         setIsSyncing(true);
         try {
@@ -787,7 +858,16 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                 eventDetails.startDate = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, '0')}-${String(startDate.getDate()).padStart(2, '0')}`;
             }
 
-            const result = await googleCalendarService.createEvent(eventDetails);
+            // Wrap in StoredTrip structure expected by service
+            const mockTrip: any = {
+                id: 'manual_sync_temp',
+                user_id: user.id,
+                destination: eventDetails.destination,
+                data: eventDetails,
+                status: 'confirmed'
+            };
+
+            const result = await googleCalendarService.createEvent(mockTrip);
 
             if (result.success) {
                 alert("Trip added to Google Calendar!");
@@ -876,7 +956,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
             {/* WIZARD STATE: INPUT */}
             {wizardState === 'INPUT' && !itinerary && (
                 <div className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center justify-center relative z-10">
-                    
+
                     <div className="max-w-4xl w-full animate-fade-in-up">
                         {/* Energized Header */}
                         <div className="text-center mb-16 relative">
@@ -896,7 +976,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                         <div className="relative group max-w-3xl mx-auto">
                             {/* HUD Glow */}
                             <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/50 to-emerald-500/50 opacity-20 blur-lg group-hover:opacity-40 transition duration-500" />
-                            
+
                             <div className="relative bg-black/80 backdrop-blur-xl border border-white/10 p-1">
                                 {/* Corner Decorations */}
                                 <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-500" />
@@ -943,7 +1023,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                         <span className="text-[9px] text-zinc-500 font-mono uppercase tracking-widest">System Status</span>
                                         <span className="text-[10px] text-emerald-400 font-mono font-bold uppercase tracking-widest">Optimal</span>
                                     </div>
-                                    
+
                                     <button
                                         onClick={handlePlanTrip}
                                         disabled={loading || !prompt.trim()}
@@ -965,7 +1045,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
             {/* WIZARD STATE: CLARIFYING (Sequential) */}
             {wizardState === 'CLARIFYING' && analysis && analysis.missingFields.length > 0 && (
                 <div className="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center justify-center relative z-10">
-                    
+
                     <div className="max-w-3xl w-full relative z-10 animate-fade-in-up">
                         {(() => {
                             const field = analysis.missingFields[currentQuestionIndex];
@@ -990,7 +1070,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
 
                                         {/* Progress Bar */}
                                         <div className="absolute top-0 left-0 w-full h-1 bg-zinc-900/50">
-                                            <div 
+                                            <div
                                                 className="h-full bg-gradient-to-r from-cyan-500 to-emerald-400 transition-all duration-500 ease-out shadow-[0_0_10px_rgba(34,211,238,0.8)]"
                                                 style={{ width: `${((currentQuestionIndex + 1) / analysis.missingFields.length) * 100}%` }}
                                             />
@@ -1074,7 +1154,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
             {(wizardState === 'RESULTS' || wizardState === 'GENERATING') && itinerary && (
                 // --- RESULTS STATE (Existing UI mostly, but wrapped) ---
                 <div
-                    className={`relative w-full pb-32 min-h-screen transition-all duration-700 ease-out will-change-[padding] pt-48`}
+                    className={`relative w-full pb-32 min-h-screen transition-all duration-700 ease-out will-change-[padding] pt-20`}
                 >
 
                     {/* Background Image (Fixed, Grayscale) */}
@@ -1088,73 +1168,149 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                     <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 animate-fade-in-up">
                         {/* HEADER */}
                         {/* HEADER */}
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 items-end">
-                            <div className="lg:col-span-8">
-                                <span className="text-xs font-mono text-cyan-400 bg-cyan-400/10 px-2 py-0.5 border border-cyan-400/20 uppercase tracking-widest inline-block mb-3">
-                                    Mission Generated
-                                </span>
-                                <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight leading-tight break-words uppercase font-sans drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                                    {itinerary.destination}
-                                </h1>
-                                <div className="flex flex-wrap items-center gap-6 text-sm text-zinc-400 border-t border-white/10 pt-4 w-fit font-mono">
-                                    <span className="flex items-center gap-2"><Calendar className="w-4 h-4 text-orange-400" /> {itinerary.duration}</span>
-                                    <span className="flex items-center gap-2"><span className="text-emerald-400 font-sans font-bold text-base">₹</span> {formattedCost.replace(/[₹$]/g, '')} Est.</span>
-                                    <span className="flex items-center gap-2"><Users className="w-4 h-4 text-cyan-400" /> 2 Travelers</span>
+                        {/* --- CINEMATIC HERO SECTION --- */}
+                        {/* --- THE GLASS PORTAL HERO SECTION --- */}
+                        <div className="relative mb-32 mt-0 px-4">
+                            {/* Ambient Backlights - Central Focus */}
+                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 blur-[120px] rounded-full mix-blend-screen -z-10 pointer-events-none" />
+                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-500/10 blur-[100px] rounded-full mix-blend-screen -z-10 pointer-events-none animate-pulse" />
+
+                            <div className="max-w-5xl mx-auto relative z-10">
+                                {/* The Monolith Container */}
+                                <div className="relative bg-black/40 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-8 md:p-16 shadow-[0_0_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden group">
+
+                                    {/* Inner Glow */}
+                                    <div className="absolute inset-0 rounded-[3rem] border border-white/5 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px rgba(255,255,255,0.02)' }} />
+
+                                    {/* Content Stack */}
+                                    <div className="flex flex-col items-center justify-center gap-10 text-center relative z-10">
+
+                                        {/* 1. System Badge (Dining Concierge 'Tactical Box' Style) */}
+                                        <div className="relative inline-flex items-center gap-3 py-1 px-6 bg-black border border-cyan-500/50 shadow-[0_0_15px_rgba(34,211,238,0.4)]">
+                                            <span className="relative flex h-2 w-2">
+                                                <span className="absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75 animate-ping"></span>
+                                                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                                            </span>
+                                            <span className="text-xs font-bold tracking-[0.4em] uppercase text-cyan-400 font-mono">
+                                                MISSION ACTIVE <span className="text-zinc-600 mx-2">/</span> {itinerary.id || 'SECURE-ID'}
+                                            </span>
+                                        </div>
+
+                                        {/* 2. Central Title - Robust Wrapping */}
+                                        <div className="max-w-4xl relative">
+                                            <ScrambleText
+                                                text={cleanDestination(itinerary.destination)}
+                                                className="block text-5xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-zinc-500 tracking-tighter leading-[0.9] uppercase drop-shadow-2xl"
+                                                speed={40}
+                                            />
+                                            {/* Subtle reflection overlay */}
+                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10 mix-blend-overlay pointer-events-none" />
+                                        </div>
+
+                                        {/* Divider */}
+                                        <div className="w-24 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+                                        {/* 3. Integrated Stats Row */}
+                                        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+                                            {/* Budget */}
+                                            <div className="flex flex-col items-center gap-2 group/stat">
+                                                <div className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-emerald-400 mb-1 group-hover/stat:bg-emerald-500/10 transition-colors border border-white/5">
+                                                    <Wallet className="w-4 h-4" />
+                                                </div>
+                                                <div className="flex flex-col items-center">
+                                                    <span className="text-[10px] uppercase tracking-widest text-zinc-500 mb-0.5">Budget</span>
+                                                    <span className="text-xl md:text-2xl font-bold text-white tracking-tight tabular-nums">{formattedCost}</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Duration */}
+                                            <div className="flex flex-col items-center gap-2 group/stat">
+                                                <div className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-orange-400 mb-1 group-hover/stat:bg-orange-500/10 transition-colors border border-white/5">
+                                                    <Calendar className="w-4 h-4" />
+                                                </div>
+                                                <div className="flex flex-col items-center">
+                                                    <span className="text-[10px] uppercase tracking-widest text-zinc-500 mb-0.5">Time</span>
+                                                    <span className="text-xl md:text-2xl font-bold text-white tracking-tight tabular-nums">{itinerary.duration}</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Squad */}
+                                            <div className="flex flex-col items-center gap-2 group/stat">
+                                                <div className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-cyan-400 mb-1 group-hover/stat:bg-cyan-500/10 transition-colors border border-white/5">
+                                                    <Users className="w-4 h-4" />
+                                                </div>
+                                                <div className="flex flex-col items-center">
+                                                    <span className="text-[10px] uppercase tracking-widest text-zinc-500 mb-0.5">Squad</span>
+                                                    <span className="text-xl md:text-2xl font-bold text-white tracking-tight tabular-nums">{(itinerary as any).travelers || '2 Pax'}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div className="lg:col-span-4 flex flex-col gap-4 items-start lg:items-end">
-                                {/* ACTIONS BUTTONS */}
-                                <div className="flex gap-4">
-                                    <button
-                                        onClick={() => {
-                                            setItinerary(null);
-                                            setWizardState('INPUT'); // Reset to input
-                                        }}
-                                        className="flex items-center gap-2 px-3 py-1 text-xs font-bold uppercase tracking-wider border border-white/20 text-zinc-400 hover:text-white hover:border-white transition-all"
-                                    >
-                                        <ChevronLeft className="w-3 h-3" /> Edit Prompt
-                                    </button>
-
-                                    {onBackToLogs && (
-                                        <button
-                                            onClick={onBackToLogs}
-                                            className="flex items-center gap-2 px-3 py-1 text-xs font-bold uppercase tracking-wider border border-white/20 text-zinc-400 hover:text-white hover:border-white transition-all"
-                                        >
-                                            <Terminal className="w-3 h-3" /> Logs
-                                        </button>
-                                    )}
-
-                                    <button
-                                        onClick={handleNewTrip}
-                                        className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-cyan-900/40 to-cyan-500/10 hover:from-cyan-400 hover:to-cyan-300 text-cyan-400 hover:text-black border border-cyan-500/30 hover:border-cyan-400 transition-all shadow-[0_0_15px_rgba(34,211,238,0.1)] hover:shadow-[0_0_25px_rgba(34,211,238,0.4)] uppercase font-bold text-xs tracking-widest group"
-                                    >
-                                        <Sparkles className="w-4 h-4 group-hover:animate-pulse" /> New Trip
-                                    </button>
-                                </div>
-
-                                <div className="flex bg-black p-1 border border-white/10 w-full lg:w-auto overflow-x-auto hide-scrollbar">
-                                    {[
-                                        { id: 'TRAVEL', icon: Plane, label: 'Travel', color: 'text-cyan-400' },
-                                        { id: 'STAY', icon: Hotel, label: 'Stay', color: 'text-orange-400' },
-                                        { id: 'ITINERARY', icon: MapIcon, label: 'Itinerary', color: 'text-emerald-400' }
-                                    ].map((tab) => (
-                                        <button
-                                            key={tab.id}
-                                            onClick={() => setActiveTab(tab.id as Tab)}
-                                            className={`flex-1 lg:flex-none flex items-center justify-center gap-2 px-6 md:px-6 py-2 text-sm font-bold uppercase transition-all whitespace-nowrap tracking-wider ${activeTab === tab.id
-                                                ? 'bg-white text-black'
-                                                : 'text-zinc-500 hover:text-white hover:bg-white/5'
-                                                }`}
-                                        >
-                                            <tab.icon className={`w-4 h-4 ${activeTab === tab.id ? 'text-black' : tab.color}`} />
-                                            {tab.label}
-                                        </button>
-                                    ))}
+                                <div className="text-center mt-6">
+                                    <p className="text-zinc-500 text-xs uppercase tracking-[0.2em] font-medium opacity-60">Ready for Execution</p>
                                 </div>
                             </div>
                         </div>
 
+                        {/* --- FLOATING COMMAND BAR --- */}
+
+
+
+                        {/* --- FLOATING COMMAND BAR (PORTAL) --- */}
+                        {/* --- FLOATING COMMAND BAR (PORTAL) --- */}
+                        {typeof document !== 'undefined' && createPortal(
+                            <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-[9999] animate-[slideUp_0.5s_ease-out] w-auto max-w-[95vw]">
+                                <nav className="relative flex items-center justify-center gap-1 p-1.5 rounded-full bg-white/10 backdrop-blur-3xl border border-white/20 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)]">
+
+                                    {/* --- TABS --- */}
+                                    {[
+                                        { id: 'TRAVEL', icon: Plane, label: 'Travel' },
+                                        { id: 'STAY', icon: Hotel, label: 'Stay' },
+                                        { id: 'ITINERARY', icon: MapIcon, label: 'Itinerary' }
+                                    ].map((tab) => (
+                                        <button
+                                            key={tab.id}
+                                            onClick={() => setActiveTab(tab.id as Tab)}
+                                            className={`flex items-center gap-2 px-4 py-2.5 rounded-full transition-all duration-300 border ${activeTab === tab.id
+                                                ? 'bg-white text-black border-white shadow-lg shadow-white/10 font-bold'
+                                                : 'bg-transparent text-white/70 border-transparent hover:text-white hover:bg-white/10 font-medium'
+                                                }`}
+                                        >
+                                            <tab.icon className={`w-4 h-4 ${activeTab === tab.id ? 'text-black' : 'text-current'}`} />
+                                            <span className="text-xs uppercase tracking-wide hidden md:inline-block">{tab.label}</span>
+                                        </button>
+                                    ))}
+
+                                    {/* --- DIVIDER --- */}
+                                    <div className="w-[1px] h-6 bg-white/20 mx-2" />
+
+                                    {/* --- ACTIONS --- */}
+                                    <button
+                                        onClick={() => {
+                                            setItinerary(null);
+                                            setWizardState('INPUT');
+                                        }}
+                                        className="group p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                                        title="Edit Prompt"
+                                    >
+                                        <Edit2 className="w-4 h-4" />
+                                    </button>
+
+                                    <button
+                                        onClick={handleNewTrip}
+                                        className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-tr from-cyan-400 to-white text-black font-bold shadow-lg shadow-cyan-400/20 hover:shadow-cyan-400/40 hover:scale-105 transition-all"
+                                        title="New Mission"
+                                    >
+                                        <Sparkles className="w-4 h-4" strokeWidth={2.5} />
+                                        <span className="text-xs uppercase tracking-wide hidden md:inline-block">New Mission</span>
+                                    </button>
+
+                                </nav>
+                            </div>,
+                            document.body
+                        )}
                         {/* CONTENT AREA */}
                         <div>
 
@@ -1230,7 +1386,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
 
                                                 {/* View Route Button - Shows route from current location to departure station */}
                                                 <a
-                                                    href={`https://www.google.com/maps/dir/?api=1&origin=current+location&destination=${encodeURIComponent(option.departureLocation)}&travelmode=driving`}
+                                                    href={`https://www.google.com/maps/dir/?api=1&origin=current+location&destination=${encodeURIComponent(cleanDestination(option.departureLocation))}&travelmode=driving`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     onClick={(e) => e.stopPropagation()}
@@ -1319,7 +1475,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                                     </div>
                                                     {/* View on Map Button */}
                                                     <a
-                                                        href={getPlaceLink(hotel.name, itinerary.destination)}
+                                                        href={getPlaceLink(hotel.name, cleanDestination(itinerary.destination))}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         onClick={(e) => e.stopPropagation()}
@@ -1340,8 +1496,10 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                             {activeTab === 'ITINERARY' && (
                                 <div>
                                     {/* DAY TABS */}
+                                    {/* DAY TABS (Refactored to Time Stream) */}
+                                    {/* DAY TABS (Restored Box Layout) */}
                                     <div
-                                        className="sticky top-0 bg-black/95 backdrop-blur-xl z-[60] border-b border-white/10 mb-12 -mx-4 md:-mx-8 shadow-2xl transition-all relative group/tabs"
+                                        className="sticky top-0 bg-black/95 backdrop-blur-xl z-[60] border border-white/10 mb-12 shadow-2xl transition-all relative group/tabs rounded-xl mx-auto"
                                     >
                                         <div className="absolute top-0 bottom-0 left-0 w-8 md:w-16 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
                                         <div className="absolute top-0 bottom-0 right-0 w-8 md:w-16 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
@@ -1377,7 +1535,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                                 if (!isDragging.current) return;
                                                 e.preventDefault();
                                                 const x = e.pageX - (dayScrollRef.current?.offsetLeft || 0);
-                                                const walk = (x - startX.current) * 2; // Scroll-fast
+                                                const walk = (x - startX.current) * 2;
                                                 if (dayScrollRef.current) {
                                                     dayScrollRef.current.scrollLeft = scrollLeft.current - walk;
                                                 }
@@ -1744,7 +1902,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ prompt, setPrompt, isLoggedIn
                                 <h3 className="text-2xl font-bold text-white uppercase tracking-widest mb-1">Confirm Trip</h3>
                                 <div className="text-[10px] text-cyan-400 font-mono tracking-[0.2em] mb-4">LOGISTICS PREPARATION</div>
                                 <p className="text-zinc-400 text-sm font-mono max-w-xs">
-                                    Confirming itinerary for <span className="text-white font-bold">{itinerary?.destination}</span>.
+                                    Confirming itinerary for <span className="text-white font-bold">{cleanDestination(itinerary?.destination)}</span>.
                                 </p>
                             </div>
 
