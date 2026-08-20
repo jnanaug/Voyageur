@@ -38,10 +38,22 @@ function useMap() {
   return context;
 }
 
-// === Default Loader ===
+// === Default Loader & Notices ===
 const DefaultLoader = () => (
   <div className="absolute inset-0 flex items-center justify-center bg-black/50">
     <Loader2 className="w-8 h-8 text-cyan-400 animate-spin" />
+  </div>
+);
+
+const MissingKeyNotice = () => (
+  <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 p-4 text-center z-10 backdrop-blur-sm">
+    <div className="w-10 h-10 bg-cyan-500/10 border border-cyan-500/30 rounded-full flex items-center justify-center mb-2">
+      <Locate className="w-5 h-5 text-cyan-400" />
+    </div>
+    <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest mb-1">Interactive Map View</span>
+    <p className="text-xs text-zinc-400 max-w-xs leading-relaxed">
+      Provide a TomTom API key in your environment variables (<code className="text-white font-mono bg-white/10 px-1 rounded">VITE_TOMTOM_API_KEY</code>) to enable live vector map tiles.
+    </p>
   </div>
 );
 
@@ -64,45 +76,62 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
   const containerRef = useRef<HTMLDivElement>(null);
   const [mapInstance, setMapInstance] = useState<tt.Map | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  const isApiKeyValid = Boolean(TOMTOM_API_KEY && !TOMTOM_API_KEY.includes("INSERT"));
 
   useImperativeHandle(ref, () => mapInstance as tt.Map, [mapInstance]);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || !isApiKeyValid) return;
 
-    const map = tt.map({
-      key: TOMTOM_API_KEY,
-      container: containerRef.current,
-      center: center,
-      zoom: zoom,
-      stylesVisibility: {
-        trafficFlow: false,
-        trafficIncidents: false,
-      },
-      // @ts-ignore
-      attributionControl: attributionControl,
-      ...props,
-    });
+    try {
+      const map = tt.map({
+        key: TOMTOM_API_KEY,
+        container: containerRef.current,
+        center: center,
+        zoom: zoom,
+        stylesVisibility: {
+          trafficFlow: false,
+          trafficIncidents: false,
+        },
+        // @ts-ignore
+        attributionControl: attributionControl,
+        ...props,
+      });
 
-    map.on("load", () => {
-      setIsLoaded(true);
-    });
+      map.on("load", () => {
+        setIsLoaded(true);
+      });
 
-    setMapInstance(map);
+      map.on("error", (e) => {
+        console.warn("TomTom Map Error:", e);
+        setHasError(true);
+      });
 
-    return () => {
-      map.remove();
-      setIsLoaded(false);
-      setMapInstance(null);
-    };
+      setMapInstance(map);
+
+      return () => {
+        try {
+          map.remove();
+        } catch (e) {}
+        setIsLoaded(false);
+        setMapInstance(null);
+      };
+    } catch (err) {
+      console.warn("TomTom Map initialization prevented error:", err);
+      setHasError(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isApiKeyValid]);
 
   // Update center/zoom if props change
   useEffect(() => {
     if (mapInstance && isLoaded) {
-      mapInstance.setCenter(center);
-      mapInstance.setZoom(zoom);
+      try {
+        mapInstance.setCenter(center);
+        mapInstance.setZoom(zoom);
+      } catch (e) {}
     }
   }, [mapInstance, isLoaded, center, zoom]);
 
@@ -118,13 +147,19 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
     <MapContext.Provider value={contextValue}>
       <div
         ref={containerRef}
-        className="relative w-full h-full"
-        style={theme === "dark" ? {
+        className="relative w-full h-full min-h-[300px]"
+        style={theme === "dark" && isLoaded ? {
           filter: "invert(1) hue-rotate(180deg) brightness(0.9) contrast(1.1)",
         } : undefined}
       >
-        {!isLoaded && <DefaultLoader />}
-        {mapInstance && isLoaded && children}
+        {!isApiKeyValid || hasError ? (
+          <MissingKeyNotice />
+        ) : (
+          <>
+            {!isLoaded && <DefaultLoader />}
+            {mapInstance && isLoaded && children}
+          </>
+        )}
       </div>
     </MapContext.Provider>
   );
