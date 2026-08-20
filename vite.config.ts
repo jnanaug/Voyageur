@@ -23,7 +23,8 @@ export default defineConfig(({ mode }) => {
         }
       },
       headers: {
-        'Cross-Origin-Opener-Policy': 'same-origin-allow-popups'
+        'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://api.tomtom.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://generativelanguage.googleapis.com https://api.tomtom.com https://*.tile.openstreetmap.org https://api.pwnedpasswords.com https://apis.google.com; frame-src 'self' https://accounts.google.com/ https://content.googleapis.com; object-src 'none'; base-uri 'self';"
       }
     },
     plugins: [react()],
