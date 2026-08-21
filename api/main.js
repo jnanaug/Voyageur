@@ -7,6 +7,7 @@ import unsplashHandler from './unsplash.js';
 dotenv.config();
 
 const app = express();
+app.set('trust proxy', 1);
 const port = process.env.PORT || 3001;
 
 const allowedOrigins = process.env.ALLOWED_ORIGINS 
